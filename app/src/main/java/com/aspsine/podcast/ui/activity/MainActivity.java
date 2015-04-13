@@ -1,11 +1,13 @@
 package com.aspsine.podcast.ui.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,8 +20,11 @@ import com.aspsine.podcast.R;
 import com.aspsine.podcast.model.Album;
 import com.aspsine.podcast.model.Page;
 import com.aspsine.podcast.model.Station;
+import com.aspsine.podcast.network.OkHttp;
 import com.aspsine.podcast.ui.adapter.MainAdapter;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -61,14 +66,26 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private void connect() {
         progressDialog.show();
-        new Thread(new MyRunnable()).start();
+        new Thread(new MyRunnable(this)).start();
     }
 
+
+
     private class MyRunnable implements Runnable {
+        Context context;
+        public MyRunnable(Context context){
+            this.context = context;
+        }
         @Override
         public void run() {
             try {
-                Document document = Jsoup.connect("http://www.bbc.co.uk" + "/podcasts/radio4").get();
+
+                Request request = new Request.Builder().url("http://www.bbc.co.uk" + "/podcasts/radio4").build();
+                Response response = OkHttp.createHttpClient().newCall(request).execute();
+                String html = response.body().string();
+                Log.i("html" , html);
+                Document document = Jsoup.parse(html);
+//                Document document = Jsoup.connect("http://www.bbc.co.uk" + "/podcasts/radio4").get();
 //                Element divPcFilter = document.getElementById("pc-filter");
 //
 //                List<Station> stations = getStations("pc-filter-networks", divPcFilter);
