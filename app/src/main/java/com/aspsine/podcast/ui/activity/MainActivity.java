@@ -1,4 +1,4 @@
-package com.aspsine.podcast.ui;
+package com.aspsine.podcast.ui.activity;
 
 import android.app.ProgressDialog;
 import android.os.Handler;
@@ -9,7 +9,6 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
