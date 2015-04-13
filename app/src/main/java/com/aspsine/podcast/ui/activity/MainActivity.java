@@ -18,6 +18,8 @@ import com.aspsine.podcast.R;
 import com.aspsine.podcast.model.Album;
 import com.aspsine.podcast.model.Page;
 import com.aspsine.podcast.model.Station;
+import com.aspsine.podcast.ui.adapter.MainAdapter;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -33,16 +35,21 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     Button btnConnect;
     ProgressDialog progressDialog;
     ListView listView;
+    MainAdapter mainAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
         setContentView(R.layout.activity_main);
         tvLog = (TextView) findViewById(R.id.log);
         btnConnect = (Button) findViewById(R.id.connect);
         listView = (ListView) findViewById(R.id.listview);
         btnConnect.setOnClickListener(this);
         progressDialog = new ProgressDialog(this);
+
+        mainAdapter = new MainAdapter();
+        listView.setAdapter(mainAdapter);
 
         tvLog.setMovementMethod(new ScrollingMovementMethod());
     }
@@ -69,16 +76,16 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 //
 //                Sections sections = new Sections(stations, genres);
 
-//                List<Album> albums = getAlbums(document);
+                List<Album> albums = getAlbums(document);
 
 
-                Element liPage = document.select(".nav-pages-showing").first();
-                Elements spans = liPage.getElementsByTag("span");
-                Page page = new Page();
-                page.setPageIndex(Integer.valueOf(spans.get(0).text()));
-                page.setPageSize(Integer.valueOf(spans.get(1).text()));
+//                Element liPage = document.select(".nav-pages-showing").first();
+//                Elements spans = liPage.getElementsByTag("span");
+//                Page page = new Page();
+//                page.setPageIndex(Integer.valueOf(spans.get(0).text()));
+//                page.setPageSize(Integer.valueOf(spans.get(1).text()));
 
-                handler.obtainMessage(0, page).sendToTarget();
+                handler.obtainMessage(0, albums).sendToTarget();
             } catch (Exception e) {
                 handler.obtainMessage(-1).sendToTarget();
                 e.printStackTrace();
@@ -110,7 +117,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             Album album = new Album();
             Element aArtWork = divAlbum.getElementsByClass("pc-results-artwork").get(0).getElementsByTag("a").get(0);
             album.setHref(aArtWork.attr("href"));
-            album.setArtwork(aArtWork.getElementsByTag("img").get(0).text());
+            album.setArtwork(aArtWork.getElementsByTag("img").get(0).attr("src"));
             String name = divAlbum.getElementsByClass("pc-result-heading").get(0).getElementsByTag("a").get(0).text();
             album.setName(name);
             String lastUpdate = divAlbum.getElementsByClass("pc-result-episode-date").get(0).text();
@@ -131,11 +138,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             super.handleMessage(msg);
             progressDialog.dismiss();
             if (msg.what == 0) {
-                Page page = (Page) msg.obj;
-                tvLog.setText(page.getPageIndex() + " " + page.getPageSize());
+//                Page page = (Page) msg.obj;
+//                tvLog.setText(page.getPageIndex() + " " + page.getPageSize());
 //                Sections sections = (Sections) msg.obj;
-//                List<Album> albums = (List<Album>) msg.obj;
-//                listView.setAdapter(new ArrayAdapter<Album>(MainActivity.this, android.R.layout.test_list_item, albums));
+                mainAdapter.setAlbums((List<Album>) msg.obj);
             } else {
                 Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
             }
