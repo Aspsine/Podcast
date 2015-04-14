@@ -1,18 +1,15 @@
 package com.aspsine.podcast.ui.fragment;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.res.Configuration;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
-import android.app.Activity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,17 +21,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aspsine.podcast.R;
-import com.aspsine.podcast.model.Album;
 import com.aspsine.podcast.model.Sections;
 import com.aspsine.podcast.model.Station;
 import com.aspsine.podcast.network.OkHttp;
 import com.aspsine.podcast.ui.adapter.NavigationAdapter;
+import com.aspsine.podcast.util.SharedPrefUtils;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
@@ -51,7 +45,7 @@ import java.util.List;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment implements NavigationAdapter.OnItemClickListener {
 
     /**
      * Remember the position of the selected item.
@@ -102,8 +96,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
+        mUserLearnedDrawer = SharedPrefUtils.isUserLearnedDrawer(getActivity());
 
         if (savedInstanceState != null) {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
@@ -111,6 +104,7 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         mAdapter = new NavigationAdapter();
+        mAdapter.setOnItemClickListener(this);
         // Select either the default item (0) or the last selected item.
 //        selectItem(mCurrentSelectedPosition);
     }
@@ -180,6 +174,32 @@ public class NavigationDrawerFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onItemClick(View v, int position) {
+        selectItem(position);
+    }
+
+    private void selectItem(int position) {
+        mCurrentSelectedPosition = position;
+        if (mAdapter != null) {
+            mAdapter.setItemChecked(position, true);
+        }
+        if (mDrawerLayout != null) {
+            mDrawerLayout.closeDrawer(mFragmentContainerView);
+        }
+        if (mCallbacks != null) {
+            mCallbacks.onNavigationDrawerItemSelected(position);
+        }
+    }
+
+    public int getCurrentPosition() {
+        return mCurrentSelectedPosition;
+    }
+
+    public CharSequence getCurrentTitle(){
+        return mAdapter.getItem(mCurrentSelectedPosition).getName();
+    }
+
     private final class GetStations implements Runnable {
         @Override
         public void run() {
@@ -229,7 +249,7 @@ public class NavigationDrawerFragment extends Fragment {
             if (msg.what == 0) {
                 Sections sections = (Sections) msg.obj;
                 mAdapter.setStations(sections.getStataions());
-            }else {
+            } else {
                 Toast.makeText(getActivity(), "error", Toast.LENGTH_LONG).show();
             }
         }
@@ -284,9 +304,7 @@ public class NavigationDrawerFragment extends Fragment {
                     // The user manually opened the drawer; store this flag to prevent auto-showing
                     // the navigation drawer automatically in the future.
                     mUserLearnedDrawer = true;
-                    SharedPreferences sp = PreferenceManager
-                            .getDefaultSharedPreferences(getActivity());
-                    sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
+                    SharedPrefUtils.markUserLearnedDrawer(getActivity());
                 }
 
                 getActivity().supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()
@@ -310,18 +328,6 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-//    private void selectItem(int position) {
-//        mCurrentSelectedPosition = position;
-//        if (mDrawerListView != null) {
-//            mDrawerListView.setItemChecked(position, true);
-//        }
-//        if (mDrawerLayout != null) {
-//            mDrawerLayout.closeDrawer(mFragmentContainerView);
-//        }
-//        if (mCallbacks != null) {
-//            mCallbacks.onNavigationDrawerItemSelected(position);
-//        }
-//    }
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
