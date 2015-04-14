@@ -49,7 +49,6 @@ public class MainTabsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // BEGIN_INCLUDE (populate_tabs)
         /**
          * Populate our tab list with tabs. Each item contains a title, indicator color and divider
          * color, which are used by {@link SlidingTabLayout}.
@@ -71,12 +70,6 @@ public class MainTabsFragment extends Fragment {
                 getResources().getColor(R.color.style_color_accent), // Indicator color
                 Color.GRAY // Divider color
         ));
-//        mTabs.add(new PagerTabItem(
-//                getString(R.string.tab_rss), // Title
-//                Color.GREEN, // Indicator color
-//                Color.GRAY // Divider color
-//        ));
-        // END_INCLUDE (populate_tabs)
     }
 
     @Override
@@ -86,7 +79,6 @@ public class MainTabsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_main_tab, container, false);
     }
 
-    // BEGIN_INCLUDE (fragment_onviewcreated)
 
     /**
      * This is called after the {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} has finished.
@@ -100,7 +92,6 @@ public class MainTabsFragment extends Fragment {
      */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        // BEGIN_INCLUDE (setup_viewpager)
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
         mViewPager.setAdapter(new TabStatePagerAdapter(mTabs, getChildFragmentManager()));
