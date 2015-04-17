@@ -27,8 +27,10 @@ public class BaseTabFragment extends Fragment {
             case 0:
                 return new PodcastsFragment();
             case 1:
-                return new StationsFragment();
+                return new SubscriptionsFragment();
             case 2:
+                return new StationsFragment();
+            case 3:
                 return new FeaturedFragment();
         }
         return null;

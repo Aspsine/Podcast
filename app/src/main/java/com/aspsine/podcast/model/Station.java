@@ -7,6 +7,7 @@ public class Station {
     private String id;
     private String name;
     private String href;
+    private int color;
 
     public String getId() {
         return id;
@@ -30,5 +31,13 @@ public class Station {
 
     public void setHref(String href) {
         this.href = href;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }

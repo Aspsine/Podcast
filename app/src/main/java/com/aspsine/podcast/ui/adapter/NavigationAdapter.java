@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.model.Station;
-import com.aspsine.podcast.ui.fragment.NavigationDrawerFragment;
 
 import java.util.ArrayList;
 import java.util.List;

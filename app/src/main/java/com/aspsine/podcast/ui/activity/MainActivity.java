@@ -19,9 +19,11 @@ import android.widget.Toast;
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.model.Album;
 import com.aspsine.podcast.model.Page;
+import com.aspsine.podcast.model.Section;
 import com.aspsine.podcast.model.Station;
 import com.aspsine.podcast.network.OkHttp;
 import com.aspsine.podcast.ui.adapter.MainAdapter;
+import com.aspsine.podcast.util.L;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -86,14 +88,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 Log.i("html" , html);
                 Document document = Jsoup.parse(html);
 //                Document document = Jsoup.connect("http://www.bbc.co.uk" + "/podcasts/radio4").get();
-//                Element divPcFilter = document.getElementById("pc-filter");
-//
-//                List<Station> stations = getStations("pc-filter-networks", divPcFilter);
-//                List<Station> genres = getStations("pc-filter-genres", divPcFilter);
-//
-//                Sections sections = new Sections(stations, genres);
+                Element divPcFilter = document.getElementById("pc-filter");
+                L.i("html", divPcFilter.html());
+                List<Station> stations = getStations("pc-filter-networks", divPcFilter);
+                List<Station> genres = getStations("pc-filter-genres", divPcFilter);
 
-                List<Album> albums = getAlbums(document);
+                Section section = new Section(stations, genres);
+
+//                List<Album> albums = getAlbums(document);
 
 
 //                Element liPage = document.select(".nav-pages-showing").first();
@@ -102,7 +104,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 //                page.setPageIndex(Integer.valueOf(spans.get(0).text()));
 //                page.setPageSize(Integer.valueOf(spans.get(1).text()));
 
-                handler.obtainMessage(0, albums).sendToTarget();
+                handler.obtainMessage(0, section).sendToTarget();
             } catch (Exception e) {
                 handler.obtainMessage(-1).sendToTarget();
                 e.printStackTrace();
@@ -155,10 +157,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             super.handleMessage(msg);
             progressDialog.dismiss();
             if (msg.what == 0) {
-//                Page page = (Page) msg.obj;
+                Page page = (Page) msg.obj;
 //                tvLog.setText(page.getPageIndex() + " " + page.getPageSize());
-//                Sections sections = (Sections) msg.obj;
-                mainAdapter.setAlbums((List<Album>) msg.obj);
+                Section sections = (Section) msg.obj;
+                ;
+//                mainAdapter.setAlbums((List<Album>) msg.obj);
             } else {
                 Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
             }
@@ -187,4 +190,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

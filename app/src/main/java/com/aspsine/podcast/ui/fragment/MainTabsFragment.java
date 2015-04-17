@@ -60,6 +60,12 @@ public class MainTabsFragment extends Fragment {
         ));
 
         mTabs.add(new PagerTabItem(
+                getString(R.string.tab_subscriptions), // Title
+                getResources().getColor(R.color.style_color_accent), // Indicator color
+                Color.GRAY // Divider color
+        ));
+
+        mTabs.add(new PagerTabItem(
                 getString(R.string.tab_stations), // Title
                 getResources().getColor(R.color.style_color_accent), // Indicator color
                 Color.GRAY // Divider color

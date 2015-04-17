@@ -5,11 +5,11 @@ import java.util.List;
 /**
  * Created by littlexi on 2015/4/12.
  */
-public class Sections {
+public class Section {
     List<Station> stataions;
     List<Station> genres;
 
-    public Sections(List<Station> stataions, List<Station> genres){
+    public Section(List<Station> stataions, List<Station> genres){
         this.stataions = stataions;
         this.genres = genres;
     }
