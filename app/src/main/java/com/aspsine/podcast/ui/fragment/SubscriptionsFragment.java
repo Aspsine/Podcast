@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aspsine.podcast.R;
+import com.aspsine.podcast.ui.widget.PagerTabItem;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +18,11 @@ public class SubscriptionsFragment extends BaseTabFragment {
 
     public SubscriptionsFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public PagerTabItem.Type getType() {
+        return null;
     }
 
 

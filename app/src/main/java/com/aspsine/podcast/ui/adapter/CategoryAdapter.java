@@ -5,7 +5,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,15 +15,12 @@ import com.aspsine.podcast.util.DensityUtil;
 import com.aspsine.podcast.util.ListUtils;
 import com.aspsine.podcast.util.UIUtils;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Aspsine on 2015/4/15.
  */
-public class StationsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private OnItemClickListener onItemClickListener;
     private Section mSection;
 
@@ -37,7 +33,7 @@ public class StationsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public static final int TYPE_STATIONS = 0;
     }
 
-    public StationsAdapter() {
+    public CategoryAdapter() {
         mSection = new Section(new ArrayList<Station>(), new ArrayList<Station>());
     }
 
@@ -73,7 +69,7 @@ public class StationsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ItemHolder(UIUtils.inflate(R.layout.item_station, parent), mSection);
+        return new ItemHolder(UIUtils.inflate(R.layout.item_category, parent), mSection);
     }
 
     @Override
@@ -88,12 +84,13 @@ public class StationsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Section mmSection;
         int dp = DensityUtil.dip2px(itemView.getContext(), 8);
         int screenWidth = DensityUtil.getScreenWidth(itemView.getContext());
+
         public ItemHolder(View itemView, Section section) {
             super(itemView);
             GridLayoutManager.LayoutParams lp = (GridLayoutManager.LayoutParams) itemView.getLayoutParams();
-            lp.height = (screenWidth - 4*dp)/3;
-            lp.width = (screenWidth - 4*dp)/3;
-            lp.setMargins(dp/2, dp/2, dp/2, dp/2);
+            lp.height = (screenWidth - 3 * dp) / 6;
+            lp.width = (screenWidth - 3 * dp) / 2;
+            lp.setMargins(dp / 2, dp / 2, dp / 2, dp / 2);
             itemView.setLayoutParams(lp);
 
             mmSection = section;
@@ -107,7 +104,7 @@ public class StationsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             });
         }
 
-        public void bindData(int position){
+        public void bindData(int position) {
             if (position < mmSection.getGenres().size()) {
                 tvStation.setText(mmSection.getGenres().get(position).getName());
                 tvStation.setTextColor(Color.WHITE);

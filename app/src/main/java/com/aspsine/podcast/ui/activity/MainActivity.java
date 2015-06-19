@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextView tvLog;
     Button btnConnect;
     ProgressDialog progressDialog;
@@ -88,14 +89,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 Log.i("html" , html);
                 Document document = Jsoup.parse(html);
 //                Document document = Jsoup.connect("http://www.bbc.co.uk" + "/podcasts/radio4").get();
-                Element divPcFilter = document.getElementById("pc-filter");
-                L.i("html", divPcFilter.html());
-                List<Station> stations = getStations("pc-filter-networks", divPcFilter);
-                List<Station> genres = getStations("pc-filter-genres", divPcFilter);
 
-                Section section = new Section(stations, genres);
+//                Element divPcFilter = document.getElementById("pc-filter");
+//                L.i("html", divPcFilter.html());
+//                List<Station> stations = getStations("pc-filter-networks", divPcFilter);
+//                List<Station> genres = getStations("pc-filter-genres", divPcFilter);
+//
+//                Section section = new Section(stations, genres);
 
-//                List<Album> albums = getAlbums(document);
+                List<Album> albums = getAlbums(document);
 
 
 //                Element liPage = document.select(".nav-pages-showing").first();
@@ -104,7 +106,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 //                page.setPageIndex(Integer.valueOf(spans.get(0).text()));
 //                page.setPageSize(Integer.valueOf(spans.get(1).text()));
 
-                handler.obtainMessage(0, section).sendToTarget();
+                handler.obtainMessage(0, albums).sendToTarget();
             } catch (Exception e) {
                 handler.obtainMessage(-1).sendToTarget();
                 e.printStackTrace();
@@ -157,11 +159,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             super.handleMessage(msg);
             progressDialog.dismiss();
             if (msg.what == 0) {
-                Page page = (Page) msg.obj;
+//                Page page = (Page) msg.obj;
 //                tvLog.setText(page.getPageIndex() + " " + page.getPageSize());
-                Section sections = (Section) msg.obj;
-                ;
-//                mainAdapter.setAlbums((List<Album>) msg.obj);
+//                Section sections = (Section) msg.obj;
+                mainAdapter.setAlbums((List<Album>) msg.obj);
             } else {
                 Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
             }

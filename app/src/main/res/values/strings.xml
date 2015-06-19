@@ -17,9 +17,7 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="tab_podcast">Podcasts</string>
     <string name="tab_subscriptions">Subscriptions</string>
-    <string name="tab_stations">Stations</string>
-    <string name="tab_featured">Featured</string>
-    <string name="tab_rss">Rss</string>
+    <string name="tab_trending">Trending</string>
+    <string name="tab_categories">Categories</string>
 </resources>

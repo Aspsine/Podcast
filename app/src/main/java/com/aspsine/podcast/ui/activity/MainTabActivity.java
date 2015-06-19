@@ -1,12 +1,10 @@
 package com.aspsine.podcast.ui.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.ui.fragment.MainTabsFragment;
@@ -14,7 +12,7 @@ import com.aspsine.podcast.ui.fragment.MainTabsFragment;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainTabActivity extends ActionBarActivity {
+public class MainTabActivity extends AppCompatActivity {
     @InjectView(R.id.action_bar)
     Toolbar actionBarToolbar;
     @Override

@@ -14,7 +14,8 @@ import java.util.List;
  */
 public class TabStatePagerAdapter extends FragmentStatePagerAdapter {
     private List<PagerTabItem> mTabs;
-    public TabStatePagerAdapter(List<PagerTabItem> tabs, FragmentManager fm){
+
+    public TabStatePagerAdapter(List<PagerTabItem> tabs, FragmentManager fm) {
         super(fm);
         mTabs = tabs;
     }
@@ -25,7 +26,7 @@ public class TabStatePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        return mTabs.get(i).createFragment(i);
+        return mTabs.get(i).getFragment();
     }
 
     @Override

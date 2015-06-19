@@ -54,25 +54,22 @@ public class MainTabsFragment extends Fragment {
          * color, which are used by {@link SlidingTabLayout}.
          */
         mTabs.add(new PagerTabItem(
-                getString(R.string.tab_podcast), // Title
-                getResources().getColor(R.color.style_color_accent), // Indicator color
-                Color.GRAY // Divider color
-        ));
-
-        mTabs.add(new PagerTabItem(
+                PagerTabItem.Type.SUBSCRIPTIONS,
                 getString(R.string.tab_subscriptions), // Title
                 getResources().getColor(R.color.style_color_accent), // Indicator color
                 Color.GRAY // Divider color
         ));
 
         mTabs.add(new PagerTabItem(
-                getString(R.string.tab_stations), // Title
+                PagerTabItem.Type.TRENDING,
+                getString(R.string.tab_trending), // Title
                 getResources().getColor(R.color.style_color_accent), // Indicator color
                 Color.GRAY // Divider color
         ));
 
         mTabs.add(new PagerTabItem(
-                getString(R.string.tab_featured), // Title
+                PagerTabItem.Type.CATEGORIES,
+                getString(R.string.tab_categories), // Title
                 getResources().getColor(R.color.style_color_accent), // Indicator color
                 Color.GRAY // Divider color
         ));

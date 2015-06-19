@@ -8,15 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aspsine.podcast.R;
+import com.aspsine.podcast.ui.widget.PagerTabItem;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PodcastsFragment extends BaseTabFragment {
+public class TrendingFragment extends BaseTabFragment {
 
 
-    public PodcastsFragment() {
+    public TrendingFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public PagerTabItem.Type getType() {
+        return null;
     }
 
 
@@ -24,7 +30,7 @@ public class PodcastsFragment extends BaseTabFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_podcasts, container, false);
+        return inflater.inflate(R.layout.fragment_trending, container, false);
     }
 
 

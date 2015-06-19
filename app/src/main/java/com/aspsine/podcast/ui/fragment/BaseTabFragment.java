@@ -9,11 +9,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aspsine.podcast.R;
+import com.aspsine.podcast.ui.widget.PagerTabItem;
+import com.aspsine.podcast.ui.widget.PagerTabItem.Type;
+
+import static com.aspsine.podcast.ui.widget.PagerTabItem.Type.*;
+import static com.aspsine.podcast.ui.widget.PagerTabItem.Type.CATEGORIES;
+import static com.aspsine.podcast.ui.widget.PagerTabItem.Type.SUBSCRIPTIONS;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BaseTabFragment extends Fragment {
+public abstract class BaseTabFragment extends Fragment {
 
     private static final String KEY_TITLE = "title";
 
@@ -21,17 +27,15 @@ public class BaseTabFragment extends Fragment {
      * @return a new instance of {@link BaseTabFragment}, adding the parameters into a bundle and
      * setting them as arguments.
      */
-    public static BaseTabFragment newInstance(int position) {
+    public static BaseTabFragment newInstance(Type type) {
         Bundle bundle = new Bundle();
-        switch (position) {
-            case 0:
-                return new PodcastsFragment();
-            case 1:
+        switch (type) {
+            case CATEGORIES:
+                return new CategoriesFragment();
+            case SUBSCRIPTIONS:
                 return new SubscriptionsFragment();
-            case 2:
-                return new StationsFragment();
-            case 3:
-                return new FeaturedFragment();
+            case TRENDING:
+                return new TrendingFragment();
         }
         return null;
     }
@@ -40,11 +44,7 @@ public class BaseTabFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tab, container, false);
-    }
+    public abstract Type getType();
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -53,10 +53,11 @@ public class BaseTabFragment extends Fragment {
         Bundle args = getArguments();
 
         if (args != null) {
-            TextView title = (TextView) view.findViewById(R.id.item_title);
-            title.setText("Title: " + args.getCharSequence(KEY_TITLE));
+//            TextView title = (TextView) view.findViewById(R.id.item_title);
+//            title.setText("Title: " + args.getCharSequence(KEY_TITLE));
         }
     }
+
 
 
 }
