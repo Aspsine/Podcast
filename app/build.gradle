@@ -31,6 +31,4 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.5.2+'
     compile 'com.squareup.okhttp:okhttp:2.3.0'
     compile 'com.jakewharton:butterknife:6.0.0'
-
-    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
 }

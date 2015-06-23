@@ -1,5 +1,7 @@
 package com.aspsine.podcast.model;
 
+import java.util.List;
+
 /**
  * Created by littlexi on 2015/4/12.
  */
@@ -11,6 +13,7 @@ public class Album {
     private String description;
     private String artwork;
     private String href;
+    private List<Podcast> podcasts;
 
     public String getId() {
         return id;
@@ -66,5 +69,13 @@ public class Album {
 
     public void setHref(String href) {
         this.href = href;
+    }
+
+    public List<Podcast> getPodcasts() {
+        return podcasts;
+    }
+
+    public void setPodcasts(List<Podcast> podcasts) {
+        this.podcasts = podcasts;
     }
 }
