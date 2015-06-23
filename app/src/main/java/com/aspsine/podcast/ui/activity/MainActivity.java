@@ -2,10 +2,9 @@ package com.aspsine.podcast.ui.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -19,12 +18,9 @@ import android.widget.Toast;
 
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.model.Album;
-import com.aspsine.podcast.model.Page;
-import com.aspsine.podcast.model.Section;
 import com.aspsine.podcast.model.Station;
 import com.aspsine.podcast.network.OkHttp;
 import com.aspsine.podcast.ui.adapter.MainAdapter;
-import com.aspsine.podcast.util.L;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -73,12 +69,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     private class MyRunnable implements Runnable {
         Context context;
-        public MyRunnable(Context context){
+
+        public MyRunnable(Context context) {
             this.context = context;
         }
+
         @Override
         public void run() {
             try {
@@ -86,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Request request = new Request.Builder().url("http://www.bbc.co.uk" + "/podcasts/radio4").build();
                 Response response = OkHttp.createHttpClient().newCall(request).execute();
                 String html = response.body().string();
-                Log.i("html" , html);
+                Log.i("html", html);
                 Document document = Jsoup.parse(html);
 //                Document document = Jsoup.connect("http://www.bbc.co.uk" + "/podcasts/radio4").get();
 
@@ -130,11 +127,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return list;
     }
 
-    private List<Album> getAlbums(Document document){
+    private List<Album> getAlbums(Document document) {
         List<Album> list = new ArrayList<Album>();
         Element ulAlbums = document.getElementById("results-list");
         Elements divsAlbums = ulAlbums.getElementsByClass("pc-results-box");
-        for (Element divAlbum : divsAlbums){
+        for (Element divAlbum : divsAlbums) {
             Album album = new Album();
             Element aArtWork = divAlbum.getElementsByClass("pc-results-artwork").get(0).getElementsByTag("a").get(0);
             album.setHref(aArtWork.attr("href"));

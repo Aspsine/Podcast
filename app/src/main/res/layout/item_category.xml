@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvStation"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:foreground="?android:selectableItemBackground">
-
-    <TextView
-        android:id="@+id/tvStation"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:textColor="@color/tab_text_color"
-        android:clickable="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </TextView>
-</FrameLayout>
+    android:layout_height="match_parent"
+    android:gravity="center_vertical|left"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:textSize="18sp"
+    android:textColor="@color/style_color_accent"/>

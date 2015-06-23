@@ -1,7 +1,10 @@
 package com.aspsine.podcast.ui.adapter;
 
 import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -125,23 +128,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         List<Station> genres = mSection.getGenres();
         int percentNum = genres.size() % 2;
         int columnNum = genres.size() / 2 + percentNum;
-
-        try {
-            if (columnNum - 1 == position && percentNum == 1) {
-                holder.setVisibility(View.VISIBLE, View.GONE);
-                holder.tvOne.setText(genres.get(position * 2).getName());
-            } else {
-                holder.setVisibility(View.VISIBLE, View.VISIBLE);
-                holder.tvOne.setText(genres.get(position * 2).getName());
-                holder.tvTwo.setText(genres.get(position * 2 + 1).getName());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        holder.tvOne.setText(genres.get(position * 2).getName());
+        holder.tvOne.setBackgroundColor(genres.get(position * 2).getColor());
+        if (columnNum - 1 == position && percentNum == 1) {
+            holder.setVisibility(View.VISIBLE, View.GONE);
+        } else {
+            holder.setVisibility(View.VISIBLE, View.VISIBLE);
+            holder.tvTwo.setText(genres.get(position * 2 + 1).getName());
+            holder.tvTwo.setBackgroundColor(genres.get(position * 2 + 1).getColor());
         }
     }
 
     void bindSubTitleView(SubTitleHolder holder, int position) {
-        holder.tvSubTitle.setText("Category");
+        holder.tvSubTitle.setText("Categories");
     }
 
     void bindCategoryView(CategoryHolder holder, int position) {
@@ -168,17 +167,26 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             RecyclerView.LayoutParams lpItem = (RecyclerView.LayoutParams) itemView.getLayoutParams();
             lpItem.height = (screenWidth - dp) / 8;
-            lpItem.width = (screenWidth - dp);
-            lpItem.setMargins(dp / 2, dp / 2, dp / 2, dp / 2);
+            lpItem.width = (screenWidth - 2 * dp);
+            lpItem.setMargins(dp, dp / 2, dp, dp / 2);
+
             itemView.setLayoutParams(lpItem);
 
-            LinearLayout.LayoutParams lpTvOne = new LinearLayout.LayoutParams(lpItem.width/2 - dp, lpItem.height);
+            LinearLayout.LayoutParams lpTvOne = (LinearLayout.LayoutParams) tvOne.getLayoutParams();
+            lpTvOne.width = (screenWidth - 3 * dp) / 2;
+            lpTvOne.height = lpItem.height;
             lpTvOne.setMargins(0, 0, dp / 2, 0);
             tvOne.setLayoutParams(lpTvOne);
+            tvOne.setPadding(dp, 0, dp, 0);
+            tvOne.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
 
-            LinearLayout.LayoutParams lpTvTwo = new LinearLayout.LayoutParams(lpItem.width/2 - dp, lpItem.height);
+            LinearLayout.LayoutParams lpTvTwo = (LinearLayout.LayoutParams) tvTwo.getLayoutParams();
+            lpTvTwo.width = (screenWidth - 3 * dp) / 2;
+            lpTvTwo.height = lpItem.height;
             lpTvTwo.setMargins(dp / 2, 0, 0, 0);
             tvTwo.setLayoutParams(lpTvTwo);
+            tvTwo.setPadding(dp, 0, dp, 0);
+            tvTwo.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
         }
 
         public void setVisibility(int visibilityOne, int visibilityTwo) {
@@ -189,27 +197,35 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public static class SubTitleHolder extends RecyclerView.ViewHolder {
         TextView tvSubTitle;
+        int dp = DensityUtil.dip2px(itemView.getContext(), 8);
+        RecyclerView.LayoutParams lpItem = (RecyclerView.LayoutParams) itemView.getLayoutParams();
 
         public SubTitleHolder(View itemView) {
             super(itemView);
             tvSubTitle = (TextView) itemView.findViewById(R.id.tvSubTitle);
+            lpItem.setMargins(0, 2 * dp, 0, dp);
         }
     }
 
     public static class CategoryHolder extends RecyclerView.ViewHolder {
         TextView tvStation;
 
+        int oneDp = DensityUtil.dip2px(itemView.getContext(), 1);
         int dp = DensityUtil.dip2px(itemView.getContext(), 8);
         int screenWidth = DensityUtil.getScreenWidth(itemView.getContext());
 
         public CategoryHolder(View itemView) {
             super(itemView);
             tvStation = (TextView) itemView.findViewById(R.id.tvStation);
+            Drawable drawable = itemView.getResources().getDrawable(R.color.style_divider);
+            drawable.setBounds(0, 0, screenWidth, oneDp);
+            tvStation.setCompoundDrawables(null, null, null, drawable);
+
 
             RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) itemView.getLayoutParams();
-            lp.height = (screenWidth - dp) / 8;
-            lp.width = (screenWidth - dp);
-            lp.setMargins(dp / 2, dp / 2, dp / 2, dp / 2);
+            lp.height = screenWidth / 6;
+            lp.width = screenWidth;
+            lp.setMargins(0, 0, 0, 0);
             itemView.setLayoutParams(lp);
         }
     }

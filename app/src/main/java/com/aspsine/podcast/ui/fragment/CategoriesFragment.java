@@ -1,9 +1,8 @@
 package com.aspsine.podcast.ui.fragment;
 
 
-import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,7 +20,7 @@ import com.google.gson.Gson;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CategoriesFragment extends BaseTabFragment implements CategoryAdapter.OnItemClickListener{
+public class CategoriesFragment extends BaseTabFragment implements CategoryAdapter.OnItemClickListener {
 
 
     private static final String TAG = CategoriesFragment.class.getSimpleName();
