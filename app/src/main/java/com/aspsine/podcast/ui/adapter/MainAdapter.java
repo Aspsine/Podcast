@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.aspsine.podcast.R;
-import com.aspsine.podcast.model.Album;
+import com.aspsine.podcast.model.PodCast;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -18,25 +18,25 @@ import java.util.List;
  * Created by Aspsine on 2015/4/13.
  */
 public class MainAdapter extends BaseAdapter{
-    List<Album> albums;
+    List<PodCast> podCasts;
     public MainAdapter(){
-        this.albums = new ArrayList<Album>();
+        this.podCasts = new ArrayList<PodCast>();
     }
 
-    public void setAlbums(List<Album> albums){
-        this.albums.clear();
-        this.albums.addAll(albums);
+    public void setPodCasts(List<PodCast> podCasts){
+        this.podCasts.clear();
+        this.podCasts.addAll(podCasts);
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return albums.size();
+        return podCasts.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return albums.get(position);
+        return podCasts.get(position);
     }
 
     @Override
@@ -51,23 +51,18 @@ public class MainAdapter extends BaseAdapter{
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main, parent, false);
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.lastUpdate = (TextView) convertView.findViewById(R.id.lastUpdate);
-            holder.averageDuration = (TextView) convertView.findViewById(R.id.averageDuration);
-            holder.description = (TextView) convertView.findViewById(R.id.description);
-            holder.artwork = (SimpleDraweeView) convertView.findViewById(R.id.artwork);
-            holder.href = (TextView) convertView.findViewById(R.id.href);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Album album = albums.get(position);
-        holder.name.setText(album.getName());
-        holder.href.setText(album.getHref());
-        holder.lastUpdate.setText(album.getLastUpdate());
+        PodCast podCast = podCasts.get(position);
+        holder.name.setText(podCast.getName());
+        holder.href.setText(podCast.getHref());
+        holder.lastUpdate.setText(podCast.getLastUpdate());
 
-        holder.artwork.setImageURI(Uri.parse(album.getArtwork()));
-        holder.averageDuration.setText(album.getAverageDuration());
-        holder.description.setText(album.getDescription());
+        holder.artwork.setImageURI(Uri.parse(podCast.getArtwork()));
+        holder.averageDuration.setText(podCast.getAverageDuration());
+        holder.description.setText(podCast.getDescription());
         return convertView;
     }
 

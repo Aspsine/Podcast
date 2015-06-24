@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aspsine.podcast.R;
-import com.aspsine.podcast.model.Album;
+import com.aspsine.podcast.model.PodCast;
 import com.aspsine.podcast.util.UIUtils;
 
 import java.util.ArrayList;
@@ -15,15 +15,15 @@ import java.util.List;
  * Created by Aspsine on 2015/6/23.
  */
 public class SubscriptionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<Album> mAlbums;
+    private List<PodCast> mPodCasts;
 
     public SubscriptionAdapter() {
-        mAlbums = new ArrayList<>();
+        mPodCasts = new ArrayList<>();
     }
 
-    public void setData(List<Album> albums) {
-        mAlbums.clear();
-        mAlbums.addAll(albums);
+    public void setData(List<PodCast> podCasts) {
+        mPodCasts.clear();
+        mPodCasts.addAll(podCasts);
     }
 
     @Override

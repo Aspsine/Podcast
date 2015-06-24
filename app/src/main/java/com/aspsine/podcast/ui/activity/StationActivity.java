@@ -1,12 +1,13 @@
 package com.aspsine.podcast.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import com.aspsine.podcast.R;
+import com.aspsine.podcast.model.Station;
 import com.aspsine.podcast.ui.fragment.StationFragment;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 public class StationActivity extends BaseAppCompatActivity {
 
@@ -18,9 +19,12 @@ public class StationActivity extends BaseAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        Station station = (Station) intent.getSerializableExtra("EXTRA_STATION");
+        Fresco.initialize(this);
         if (savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new StationFragment()).commit();
+                    .replace(R.id.container, StationFragment.newInstance(station)).commit();
         }
     }
 

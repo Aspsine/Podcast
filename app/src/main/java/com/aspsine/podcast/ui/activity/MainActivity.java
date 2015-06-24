@@ -17,7 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aspsine.podcast.R;
-import com.aspsine.podcast.model.Album;
+import com.aspsine.podcast.model.Page;
+import com.aspsine.podcast.model.PodCast;
 import com.aspsine.podcast.model.Station;
 import com.aspsine.podcast.network.OkHttp;
 import com.aspsine.podcast.ui.adapter.MainAdapter;
@@ -94,16 +95,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //                Section section = new Section(stations, genres);
 
-                List<Album> albums = getAlbums(document);
+//                List<PodCast> podCasts = getAlbums(document);
 
 
-//                Element liPage = document.select(".nav-pages-showing").first();
-//                Elements spans = liPage.getElementsByTag("span");
-//                Page page = new Page();
-//                page.setPageIndex(Integer.valueOf(spans.get(0).text()));
-//                page.setPageSize(Integer.valueOf(spans.get(1).text()));
+                Element liPage = document.select(".nav-pages-showing").first();
+                Elements spans = liPage.getElementsByTag("span");
+                Page page = new Page();
 
-                handler.obtainMessage(0, albums).sendToTarget();
+                page.setPageSize(Integer.valueOf(spans.get(1).text()));
+                page.setPodCastNum(Integer.valueOf(spans.get(2).text()));
+                handler.obtainMessage(0, page).sendToTarget();
             } catch (Exception e) {
                 handler.obtainMessage(-1).sendToTarget();
                 e.printStackTrace();
@@ -127,24 +128,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return list;
     }
 
-    private List<Album> getAlbums(Document document) {
-        List<Album> list = new ArrayList<Album>();
+    private List<PodCast> getAlbums(Document document) {
+        List<PodCast> list = new ArrayList<PodCast>();
         Element ulAlbums = document.getElementById("results-list");
         Elements divsAlbums = ulAlbums.getElementsByClass("pc-results-box");
         for (Element divAlbum : divsAlbums) {
-            Album album = new Album();
+            PodCast podCast = new PodCast();
             Element aArtWork = divAlbum.getElementsByClass("pc-results-artwork").get(0).getElementsByTag("a").get(0);
-            album.setHref(aArtWork.attr("href"));
-            album.setArtwork(aArtWork.getElementsByTag("img").get(0).attr("src"));
+            podCast.setHref(aArtWork.attr("href"));
+            podCast.setArtwork(aArtWork.getElementsByTag("img").get(0).attr("src"));
             String name = divAlbum.getElementsByClass("pc-result-heading").get(0).getElementsByTag("a").get(0).text();
-            album.setName(name);
+            podCast.setName(name);
             String lastUpdate = divAlbum.getElementsByClass("pc-result-episode-date").get(0).text();
-            album.setLastUpdate(lastUpdate);
+            podCast.setLastUpdate(lastUpdate);
             String averageDuration = divAlbum.getElementsByClass("pc-result-episode-duration").get(0).text();
-            album.setAverageDuration(averageDuration);
+            podCast.setAverageDuration(averageDuration);
             String description = divAlbum.getElementsByClass("pc-results-description").get(0).text();
-            album.setDescription(description);
-            list.add(album);
+            podCast.setDescription(description);
+            list.add(podCast);
         }
         return list;
     }
@@ -156,10 +157,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.handleMessage(msg);
             progressDialog.dismiss();
             if (msg.what == 0) {
-//                Page page = (Page) msg.obj;
-//                tvLog.setText(page.getPageIndex() + " " + page.getPageSize());
+                Page page = (Page) msg.obj;
 //                Section sections = (Section) msg.obj;
-                mainAdapter.setAlbums((List<Album>) msg.obj);
+//                mainAdapter.setPodCasts((List<PodCast>) msg.obj);
             } else {
                 Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
             }

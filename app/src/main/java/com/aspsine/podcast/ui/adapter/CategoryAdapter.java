@@ -27,11 +27,11 @@ import java.util.List;
  * Created by Aspsine on 2015/4/15.
  */
 public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private OnItemClickListener onItemClickListener;
+    private OnItemClickListener mOnItemClickListener;
     private Section mSection;
 
     public interface OnItemClickListener {
-        public void onItemClick(View v, int position);
+        public void onItemClick(View v, Station station);
     }
 
     public static class Type {
@@ -53,7 +53,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+        this.mOnItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -128,24 +128,33 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         List<Station> genres = mSection.getGenres();
         int percentNum = genres.size() % 2;
         int columnNum = genres.size() / 2 + percentNum;
-        holder.tvOne.setText(genres.get(position * 2).getName());
+
+        Station genresOne = genres.get(position * 2);
+
+        holder.tvOne.setText(genresOne.getName());
         holder.tvOne.setBackgroundColor(genres.get(position * 2).getColor());
+        holder.tvOne.setOnClickListener(new CategoryOnClickListener(mOnItemClickListener, genresOne));
+
         if (columnNum - 1 == position && percentNum == 1) {
             holder.setVisibility(View.VISIBLE, View.GONE);
         } else {
             holder.setVisibility(View.VISIBLE, View.VISIBLE);
-            holder.tvTwo.setText(genres.get(position * 2 + 1).getName());
-            holder.tvTwo.setBackgroundColor(genres.get(position * 2 + 1).getColor());
+            Station genresTwo = genres.get(position * 2 + 1);
+            holder.tvTwo.setText(genresTwo.getName());
+            holder.tvTwo.setBackgroundColor(genresTwo.getColor());
+            holder.tvTwo.setOnClickListener(new CategoryOnClickListener(mOnItemClickListener, genresTwo));
         }
     }
 
     void bindSubTitleView(SubTitleHolder holder, int position) {
-        holder.tvSubTitle.setText("Categories");
+        holder.tvSubTitle.setText("Stations");
     }
 
     void bindCategoryView(CategoryHolder holder, int position) {
         position = position - (getGenresColumnNum() + 1);
-        holder.tvStation.setText(mSection.getStataions().get(position).getName());
+        Station station = mSection.getStataions().get(position);
+        holder.tvStation.setText(station.getName());
+        holder.tvStation.setOnClickListener(new CategoryOnClickListener(mOnItemClickListener, station));
     }
 
     private int getGenresColumnNum() {
@@ -211,7 +220,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView tvStation;
 
         int oneDp = DensityUtil.dip2px(itemView.getContext(), 1);
-        int dp = DensityUtil.dip2px(itemView.getContext(), 8);
         int screenWidth = DensityUtil.getScreenWidth(itemView.getContext());
 
         public CategoryHolder(View itemView) {
@@ -230,5 +238,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
+    public static class CategoryOnClickListener implements View.OnClickListener {
+        private OnItemClickListener mmOnItemClickListener;
+        private Station mStation;
+
+        public CategoryOnClickListener(OnItemClickListener listener, Station station) {
+            this.mmOnItemClickListener = listener;
+            this.mStation = station;
+        }
+
+        @Override
+        public void onClick(View v) {
+            mmOnItemClickListener.onItemClick(v, mStation);
+        }
+    }
 
 }
