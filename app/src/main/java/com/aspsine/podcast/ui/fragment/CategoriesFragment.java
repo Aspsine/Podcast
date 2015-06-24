@@ -2,6 +2,7 @@ package com.aspsine.podcast.ui.fragment;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.model.Section;
+import com.aspsine.podcast.model.Station;
+import com.aspsine.podcast.ui.activity.StationActivity;
 import com.aspsine.podcast.ui.adapter.CategoryAdapter;
 import com.aspsine.podcast.ui.widget.PagerTabItem;
 import com.aspsine.podcast.util.AssetUtils;
@@ -69,14 +72,10 @@ public class CategoriesFragment extends BaseTabFragment implements CategoryAdapt
         mAdapter.setSection(section);
     }
 
-
     @Override
-    public void onItemClick(View v, int position) {
-        selectItem(position);
+    public void onItemClick(View v, Station station) {
+        Intent intent = new Intent(getActivity(), StationActivity.class);
+        intent.putExtra("EXTRA_STATION", station);
+        getActivity().startActivity(intent);
     }
-
-    private void selectItem(int position) {
-    }
-
-
 }

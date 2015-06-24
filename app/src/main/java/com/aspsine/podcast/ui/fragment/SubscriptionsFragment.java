@@ -49,7 +49,7 @@ public class SubscriptionsFragment extends BaseTabFragment {
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new SubscriptionAdapter());
+        recyclerView.setAdapter(mAdapter);
     }
 
     
