@@ -36,6 +36,10 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
     }
 
+    public void setTitle(CharSequence title) {
+        getSupportActionBar().setTitle(title);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -44,8 +48,10 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

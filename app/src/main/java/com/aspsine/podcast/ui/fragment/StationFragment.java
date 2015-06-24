@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.model.Page;
@@ -20,6 +21,7 @@ import com.aspsine.podcast.network.OkHttp;
 import com.aspsine.podcast.ui.adapter.PodCastAdapter;
 import com.aspsine.podcast.ui.widget.LoadMoreRecyclerView;
 import com.aspsine.podcast.util.DocumentUtils;
+import com.aspsine.podcast.util.L;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
@@ -90,10 +92,11 @@ public class StationFragment extends Fragment implements LoadMoreRecyclerView.on
     }
 
     private void loadMore() {
-        if (mPageIndex < mPageSize) {
+        if (mPageIndex <= mPageSize) {
             recyclerView.setLoadingMore(true);
-            mPageIndex++;
             new Thread(new GetPageTask(mStation.getHref(), mPageIndex, handler)).start();
+        }else {
+            Toast.makeText(getActivity(), "end",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -105,14 +108,14 @@ public class StationFragment extends Fragment implements LoadMoreRecyclerView.on
             progressBar.setVisibility(View.GONE);
             if (msg.what == 0) {
                 Page page = (Page) msg.obj;
-                if (page.isParsePageInfo()){
+                if (page.isParsePageInfo()) {
                     mPageSize = page.getPodCastNum() / page.getPageSize() + (page.getPodCastNum() % page.getPageSize() == 0 ? 0 : 1);
                     mAdapter.setData(page.getPodCasts());
-                }else {
+                } else {
                     mAdapter.appendData(page.getPodCasts());
                 }
+                mPageIndex++;
             } else {
-                mPageIndex--;
                 Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
             }
         }
@@ -154,6 +157,7 @@ public class StationFragment extends Fragment implements LoadMoreRecyclerView.on
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        L.i("onDestroyView");
         handler.removeCallbacksAndMessages(null);
     }
 
