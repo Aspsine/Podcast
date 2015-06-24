@@ -1,9 +1,11 @@
 package com.aspsine.podcast.model;
 
+import java.io.Serializable;
+
 /**
  * Created by littlexi on 2015/4/12.
  */
-public class Station {
+public class Station implements Serializable{
     private String id;
     private String name;
     private String href;
