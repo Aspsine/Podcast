@@ -3,6 +3,7 @@ package com.aspsine.podcast.ui.adapter;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
@@ -26,13 +27,9 @@ import java.util.List;
 /**
  * Created by Aspsine on 2015/4/15.
  */
-public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CategoryAdapter extends BaseRecyclerViewAdapter {
     private OnItemClickListener mOnItemClickListener;
     private Section mSection;
-
-    public interface OnItemClickListener {
-        public void onItemClick(View v, Station station);
-    }
 
     public static class Type {
         public static final int TYPE_GENRES = -2;
@@ -62,10 +59,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         int genresSize = genres.size();
         int genresColumnNum = genresSize / 2 + genresSize % 2;
-
-        if (position < genresColumnNum) {
+        if (position == 0) {
+            return Type.TYPE_SUB_TITLE;
+        } else if (0 < position && position < genresColumnNum + 1) {
             return Type.TYPE_GENRES;
-        } else if (position == genresColumnNum) {
+        } else if (position == genresColumnNum + 1) {
             return Type.TYPE_SUB_TITLE;
         } else {
             return Type.TYPE_CATAGORY;
@@ -78,8 +76,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         List<Station> genres = mSection.getGenres();
 
-        //genres
         if (!ListUtils.isEmpty(genres)) {
+            //sub title
+            count++;
+            //genres
             count += getGenresColumnNum();
         }
 
@@ -110,11 +110,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int type = getItemViewType(position);
         switch (type) {
-            case Type.TYPE_GENRES:
-                bindGenresView((GenerationHolder) holder, position);
-                break;
             case Type.TYPE_SUB_TITLE:
                 bindSubTitleView((SubTitleHolder) holder, position);
+                break;
+            case Type.TYPE_GENRES:
+                bindGenresView((GenerationHolder) holder, position);
                 break;
             case Type.TYPE_CATAGORY:
                 bindCategoryView((CategoryHolder) holder, position);
@@ -125,6 +125,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     void bindGenresView(GenerationHolder holder, int position) {
+
+        position = position - 1;
+
         List<Station> genres = mSection.getGenres();
         int percentNum = genres.size() % 2;
         int columnNum = genres.size() / 2 + percentNum;
@@ -132,8 +135,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Station genresOne = genres.get(position * 2);
 
         holder.tvOne.setText(genresOne.getName());
-        holder.tvOne.setBackgroundColor(genres.get(position * 2).getColor());
-        holder.tvOne.setOnClickListener(new CategoryOnClickListener(mOnItemClickListener, genresOne));
+        holder.cardOne.setCardBackgroundColor(genres.get(position * 2).getColor());
+        holder.cardOne.setOnClickListener(new CategoryOnClickListener(mOnItemClickListener, genresOne));
 
         if (columnNum - 1 == position && percentNum == 1) {
             holder.setVisibility(View.VISIBLE, View.GONE);
@@ -141,17 +144,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.setVisibility(View.VISIBLE, View.VISIBLE);
             Station genresTwo = genres.get(position * 2 + 1);
             holder.tvTwo.setText(genresTwo.getName());
-            holder.tvTwo.setBackgroundColor(genresTwo.getColor());
-            holder.tvTwo.setOnClickListener(new CategoryOnClickListener(mOnItemClickListener, genresTwo));
+            holder.cardTwo.setCardBackgroundColor(genresTwo.getColor());
+            holder.cardTwo.setOnClickListener(new CategoryOnClickListener(mOnItemClickListener, genresTwo));
         }
     }
 
     void bindSubTitleView(SubTitleHolder holder, int position) {
-        holder.tvSubTitle.setText("Stations");
+        if (position == 0) {
+            holder.tvSubTitle.setText("Genres");
+        } else {
+            holder.tvSubTitle.setText("Stations");
+        }
     }
 
     void bindCategoryView(CategoryHolder holder, int position) {
-        position = position - (getGenresColumnNum() + 1);
+        position = position - (getGenresColumnNum() + 2);
         Station station = mSection.getStataions().get(position);
         holder.tvStation.setText(station.getName());
         holder.tvStation.setOnClickListener(new CategoryOnClickListener(mOnItemClickListener, station));
@@ -163,6 +170,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public static class GenerationHolder extends RecyclerView.ViewHolder {
+        CardView cardOne;
+        CardView cardTwo;
         TextView tvOne;
         TextView tvTwo;
 
@@ -171,6 +180,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public GenerationHolder(View itemView) {
             super(itemView);
+            cardOne = (CardView) itemView.findViewById(R.id.cardOne);
+            cardTwo = (CardView) itemView.findViewById(R.id.cardTwo);
             tvOne = (TextView) itemView.findViewById(R.id.tvOne);
             tvTwo = (TextView) itemView.findViewById(R.id.tvTwo);
 
@@ -181,26 +192,26 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             itemView.setLayoutParams(lpItem);
 
-            LinearLayout.LayoutParams lpTvOne = (LinearLayout.LayoutParams) tvOne.getLayoutParams();
-            lpTvOne.width = (screenWidth - 3 * dp) / 2;
-            lpTvOne.height = lpItem.height;
-            lpTvOne.setMargins(0, 0, dp / 2, 0);
-            tvOne.setLayoutParams(lpTvOne);
+            LinearLayout.LayoutParams lpCardOne = (LinearLayout.LayoutParams) cardOne.getLayoutParams();
+            lpCardOne.width = (screenWidth - 3 * dp) / 2;
+            lpCardOne.height = lpItem.height;
+            lpCardOne.setMargins(0, 0, dp / 2, 0);
+            cardOne.setLayoutParams(lpCardOne);
             tvOne.setPadding(dp, 0, dp, 0);
             tvOne.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
 
-            LinearLayout.LayoutParams lpTvTwo = (LinearLayout.LayoutParams) tvTwo.getLayoutParams();
-            lpTvTwo.width = (screenWidth - 3 * dp) / 2;
-            lpTvTwo.height = lpItem.height;
-            lpTvTwo.setMargins(dp / 2, 0, 0, 0);
-            tvTwo.setLayoutParams(lpTvTwo);
+            LinearLayout.LayoutParams lpCardTwo = (LinearLayout.LayoutParams) cardTwo.getLayoutParams();
+            lpCardTwo.width = (screenWidth - 3 * dp) / 2;
+            lpCardTwo.height = lpItem.height;
+            lpCardTwo.setMargins(dp / 2, 0, 0, 0);
+            cardTwo.setLayoutParams(lpCardTwo);
             tvTwo.setPadding(dp, 0, dp, 0);
             tvTwo.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
         }
 
         public void setVisibility(int visibilityOne, int visibilityTwo) {
-            tvOne.setVisibility(visibilityOne);
-            tvTwo.setVisibility(visibilityTwo);
+            cardOne.setVisibility(visibilityOne);
+            cardTwo.setVisibility(visibilityTwo);
         }
     }
 
@@ -212,7 +223,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public SubTitleHolder(View itemView) {
             super(itemView);
             tvSubTitle = (TextView) itemView.findViewById(R.id.tvSubTitle);
-            lpItem.setMargins(0, 2 * dp, 0, dp);
+            lpItem.setMargins(0, dp, 0, 0);
         }
     }
 
@@ -231,7 +242,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
             RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) itemView.getLayoutParams();
-            lp.height = screenWidth / 6;
+            lp.height = screenWidth / 7;
             lp.width = screenWidth;
             lp.setMargins(0, 0, 0, 0);
             itemView.setLayoutParams(lp);
@@ -249,7 +260,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         @Override
         public void onClick(View v) {
-            mmOnItemClickListener.onItemClick(v, mStation);
+            //in this context, position meaningless and useless
+            mmOnItemClickListener.onItemClick(v, -1, mStation);
         }
     }
 

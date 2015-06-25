@@ -6,5 +6,6 @@
     android:gravity="center_vertical|left"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:textSize="18sp"
+    android:background="?android:selectableItemBackground"
+    android:textAppearance="?android:textAppearanceMedium"
     android:textColor="@color/style_color_accent"/>

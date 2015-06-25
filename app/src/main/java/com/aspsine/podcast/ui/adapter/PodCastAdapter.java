@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.aspsine.podcast.R;
@@ -17,11 +18,22 @@ import java.util.List;
 /**
  * Created by Aspsine on 2015/6/24.
  */
-public class PodCastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PodCastAdapter extends BaseRecyclerViewAdapter {
     private List<PodCast> mPodCasts;
 
-    public PodCastAdapter(){
+    private OnItemClickListener mOnItemClickListener;
+    private OnItemMenuClickListener mOnItemMenuClickListener;
+
+    public PodCastAdapter() {
         mPodCasts = new ArrayList<>();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
+    public void setOnItemMenuClickListener(OnItemMenuClickListener listener) {
+        this.mOnItemMenuClickListener = listener;
     }
 
     public void setData(List<PodCast> podCasts) {
@@ -30,14 +42,28 @@ public class PodCastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         notifyDataSetChanged();
     }
 
-    public void appendData(List<PodCast> podCasts){
+    public void appendData(List<PodCast> podCasts) {
         this.mPodCasts.addAll(podCasts);
         notifyDataSetChanged();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new PodCastViewHolder(UIUtils.inflate(R.layout.item_main, parent));
+        final PodCastViewHolder holder = new PodCastViewHolder(UIUtils.inflate(R.layout.item_podcast, parent));
+        holder.ibMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnItemMenuClickListener.onItemMenuClick(v, holder.getLayoutPosition(), mPodCasts.get(holder.getLayoutPosition()));
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnItemClickListener.onItemClick(v, holder.getLayoutPosition(), mPodCasts.get(holder.getLayoutPosition()));
+            }
+        });
+        return holder;
     }
 
     @Override
@@ -50,21 +76,25 @@ public class PodCastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return mPodCasts.size();
     }
 
-    private void bindPodCastView(PodCastViewHolder holder, int position) {
-        PodCast podCast = mPodCasts.get(position);
-        holder.name.setText(podCast.getName());
-        holder.artwork.setImageURI(Uri.parse(podCast.getArtwork()));
+    private void bindPodCastView(final PodCastViewHolder holder, int position) {
+        final PodCast podCast = mPodCasts.get(position);
+        holder.tvName.setText(position + ". " + podCast.getName());
+        holder.tvStation.setText(podCast.getStation());
+        holder.sdvArtwork.setImageURI(Uri.parse(podCast.getArtwork()));
     }
 
     public static class PodCastViewHolder extends RecyclerView.ViewHolder {
-        TextView name;
-        SimpleDraweeView artwork;
-
+        TextView tvName;
+        TextView tvStation;
+        SimpleDraweeView sdvArtwork;
+        ImageButton ibMenu;
 
         public PodCastViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.name);
-            artwork = (SimpleDraweeView) itemView.findViewById(R.id.artwork);
+            tvStation = (TextView) itemView.findViewById(R.id.tvStation);
+            tvName = (TextView) itemView.findViewById(R.id.tvName);
+            sdvArtwork = (SimpleDraweeView) itemView.findViewById(R.id.sdvArtwork);
+            ibMenu = (ImageButton) itemView.findViewById(R.id.ibMenu);
         }
     }
 }

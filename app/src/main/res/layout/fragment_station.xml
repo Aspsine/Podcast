@@ -7,6 +7,10 @@
     <com.aspsine.podcast.ui.widget.LoadMoreRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
+        android:paddingTop="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:clipToPadding="false"
         android:layout_height="match_parent" />
 
     <ProgressBar

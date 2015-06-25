@@ -29,13 +29,4 @@ public class StationActivity extends BaseAppCompatActivity {
                     .replace(R.id.container, StationFragment.newInstance(station)).commit();
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_station, menu);
-        return true;
-    }
-
-
 }

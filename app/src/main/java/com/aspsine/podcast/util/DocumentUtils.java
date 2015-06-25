@@ -33,6 +33,8 @@ public class DocumentUtils {
             Element aArtWork = divAlbum.getElementsByClass("pc-results-artwork").get(0).getElementsByTag("a").get(0);
             podCast.setHref(aArtWork.attr("href"));
             podCast.setArtwork(aArtWork.getElementsByTag("img").get(0).attr("src"));
+            String station = divAlbum.getElementsByClass("pc-results-network").get(0).getElementsByTag("a").get(0).text();
+            podCast.setStation(station);
             String name = divAlbum.getElementsByClass("pc-result-heading").get(0).getElementsByTag("a").get(0).text();
             podCast.setName(name);
             String lastUpdate = divAlbum.getElementsByClass("pc-result-episode-date").get(0).text();

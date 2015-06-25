@@ -14,6 +14,7 @@ import com.aspsine.podcast.R;
 import com.aspsine.podcast.model.Section;
 import com.aspsine.podcast.model.Station;
 import com.aspsine.podcast.ui.activity.StationActivity;
+import com.aspsine.podcast.ui.adapter.BaseRecyclerViewAdapter;
 import com.aspsine.podcast.ui.adapter.CategoryAdapter;
 import com.aspsine.podcast.ui.widget.PagerTabItem;
 import com.aspsine.podcast.util.AssetUtils;
@@ -23,9 +24,8 @@ import com.google.gson.Gson;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CategoriesFragment extends BaseTabFragment implements CategoryAdapter.OnItemClickListener {
-
-
+public class CategoriesFragment extends BaseTabFragment implements BaseRecyclerViewAdapter.OnItemClickListener<Station> {
+    
     private static final String TAG = CategoriesFragment.class.getSimpleName();
     private CategoryAdapter mAdapter;
     private int mCurrentSelectedPosition = 0;
@@ -73,7 +73,7 @@ public class CategoriesFragment extends BaseTabFragment implements CategoryAdapt
     }
 
     @Override
-    public void onItemClick(View v, Station station) {
+    public void onItemClick(View v, int position, Station station) {
         Intent intent = new Intent(getActivity(), StationActivity.class);
         intent.putExtra("EXTRA_STATION", station);
         getActivity().startActivity(intent);

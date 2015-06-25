@@ -48,9 +48,9 @@ public class MainAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if(convertView == null){
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_podcast, parent, false);
             holder = new ViewHolder();
-            holder.name = (TextView) convertView.findViewById(R.id.name);
+            holder.name = (TextView) convertView.findViewById(R.id.tvName);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();

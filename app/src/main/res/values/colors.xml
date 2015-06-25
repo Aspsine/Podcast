@@ -9,4 +9,6 @@
     <color name="style_text_color_secondary">#ffffffff</color>
     <color name="style_divider">#DEDEDE</color>
     <color name="style_window_background">#EEEEEE</color>
+
+    <color name="white">#ffffffff</color>
 </resources>
