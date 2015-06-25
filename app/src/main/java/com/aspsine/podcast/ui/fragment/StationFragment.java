@@ -178,15 +178,13 @@ public class StationFragment extends Fragment implements LoadMoreRecyclerView.on
     };
 
 
-    private static class GetPageTask implements Runnable {
+    private class GetPageTask implements Runnable {
         private String mHref;
         private int mPageIndex;
-        private Handler mHandler;
 
         public GetPageTask(String href, int pageIndex, Handler handler) {
             this.mPageIndex = pageIndex;
             this.mHref = href;
-            this.mHandler = handler;
         }
 
         @Override
@@ -198,9 +196,9 @@ public class StationFragment extends Fragment implements LoadMoreRecyclerView.on
                 Log.i("html", html);
                 Document document = Jsoup.parse(html);
                 Page page = DocumentUtils.getPage(document, mPageIndex == 1);
-                mHandler.obtainMessage(0, page).sendToTarget();
+                handler.obtainMessage(0, page).sendToTarget();
             } catch (Exception e) {
-                mHandler.obtainMessage(-1).sendToTarget();
+                handler.obtainMessage(-1).sendToTarget();
                 e.printStackTrace();
             }
         }
