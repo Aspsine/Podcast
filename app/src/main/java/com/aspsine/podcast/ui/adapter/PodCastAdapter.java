@@ -4,7 +4,7 @@ import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aspsine.podcast.R;
@@ -50,7 +50,7 @@ public class PodCastAdapter extends BaseRecyclerViewAdapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final PodCastViewHolder holder = new PodCastViewHolder(UIUtils.inflate(R.layout.item_podcast, parent));
-        holder.ibMenu.setOnClickListener(new View.OnClickListener() {
+        holder.ivMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mOnItemMenuClickListener.onItemMenuClick(v, holder.getLayoutPosition(), mPodCasts.get(holder.getLayoutPosition()));
@@ -78,7 +78,7 @@ public class PodCastAdapter extends BaseRecyclerViewAdapter {
 
     private void bindPodCastView(final PodCastViewHolder holder, int position) {
         final PodCast podCast = mPodCasts.get(position);
-        holder.tvName.setText(position + ". " + podCast.getName());
+        holder.tvName.setText((position + 1) + ". " + podCast.getName());
         holder.tvStation.setText(podCast.getStation());
         holder.sdvArtwork.setImageURI(Uri.parse(podCast.getArtwork()));
     }
@@ -87,14 +87,14 @@ public class PodCastAdapter extends BaseRecyclerViewAdapter {
         TextView tvName;
         TextView tvStation;
         SimpleDraweeView sdvArtwork;
-        ImageButton ibMenu;
+        ImageView ivMenu;
 
         public PodCastViewHolder(View itemView) {
             super(itemView);
             tvStation = (TextView) itemView.findViewById(R.id.tvStation);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
             sdvArtwork = (SimpleDraweeView) itemView.findViewById(R.id.sdvArtwork);
-            ibMenu = (ImageButton) itemView.findViewById(R.id.ibMenu);
+            ivMenu = (ImageView) itemView.findViewById(R.id.ivMenu);
         }
     }
 }

@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/ibMenu"
+            android:layout_toLeftOf="@+id/ivMenu"
             android:layout_toRightOf="@id/sdvArtwork"
             android:gravity="center_vertical"
             android:orientation="vertical"
@@ -47,8 +47,8 @@
                 android:textStyle="italic" />
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/ibMenu"
+        <ImageView
+            android:id="@+id/ivMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

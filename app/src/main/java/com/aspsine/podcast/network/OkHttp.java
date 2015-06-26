@@ -24,6 +24,7 @@ public class OkHttp {
                 okHttpClient.setConnectTimeout(Constants.Config.HTTP_CONNECT_TIMEOUT, TimeUnit.MILLISECONDS);
                 okHttpClient.setReadTimeout(Constants.Config.HTTP_READ_TIMEOUT, TimeUnit.MILLISECONDS);
                 okHttpClient.networkInterceptors().add(new CacheInterceptor());
+//                okHttpClient.setFollowRedirects(true);
             }
         }
         return okHttpClient;
