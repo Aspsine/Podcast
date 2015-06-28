@@ -12,11 +12,16 @@ import com.aspsine.podcast.R;
 import com.aspsine.podcast.model.PodCast;
 import com.aspsine.podcast.network.CacheInterceptor;
 import com.aspsine.podcast.network.OkHttp;
+import com.aspsine.podcast.network.OkHttpRssReader;
 import com.aspsine.podcast.util.L;
+import com.aspsine.rss.model.itunes.ItunesChannel;
+import com.aspsine.rss.parser.RSSParser;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,12 +74,14 @@ public class PodCastFragment extends Fragment {
                 try {
                     Response response = OkHttp.createHttpClient().newCall(request).execute();
                     if (response.isSuccessful()) {
-                        String redirectUrl = null;
+                        String redirectUrl = response.priorResponse().header("Location");
                         String rssUrl = redirectUrl + ".rss";
+                        L.i("rss = " + rssUrl);
                         Response resp = OkHttp.createHttpClient().newCall(new Request.Builder().url(rssUrl).build()).execute();
                         if (resp.isSuccessful()) {
-                            String rss = resp.body().string();
-                            L.i("rss", "rss = " + rss);
+                            InputStream inputStream = resp.body().byteStream();
+                            ItunesChannel channel = OkHttpRssReader.getInstance().load(inputStream);
+                            L.i(channel.toString());
                             return;
                         }
                     }
