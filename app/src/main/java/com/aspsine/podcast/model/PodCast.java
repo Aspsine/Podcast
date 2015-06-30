@@ -15,6 +15,11 @@ public class PodCast implements Serializable{
     private String artwork;
     private String href;
     private String station;
+
+    private String background;
+    private String language;
+
+
     private List<PodCastTrack> podCastTracks;
 
     public String getId() {
