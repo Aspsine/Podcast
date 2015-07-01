@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.model.PodCast;
 import com.aspsine.podcast.model.PodCastTrack;
-import com.aspsine.podcast.network.CacheInterceptor;
 import com.aspsine.podcast.network.OkHttp;
 import com.aspsine.podcast.network.OkHttpRssReader;
 import com.aspsine.podcast.ui.adapter.TrackAdapter;
@@ -23,13 +22,9 @@ import com.aspsine.podcast.util.L;
 import com.aspsine.podcast.util.ListUtils;
 import com.aspsine.rss.model.itunes.ItunesChannel;
 import com.aspsine.rss.model.itunes.ItunesItem;
-import com.aspsine.rss.parser.RSSParser;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -66,7 +61,7 @@ public class PodCastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pod_cast, container, false);
+        return inflater.inflate(R.layout.fragment_podcast, container, false);
     }
 
     @Override

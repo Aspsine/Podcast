@@ -39,9 +39,9 @@ public class TrackAdapter extends BaseRecyclerViewAdapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        TrackHolder trackHolder = (TrackHolder)holder;
+        TrackHolder trackHolder = (TrackHolder) holder;
         PodCastTrack track = mTracks.get(position);
-        trackHolder.tvTitle.setText(track.getTitle());
+        trackHolder.tvTitle.setText((position + 1) + ". " + track.getTitle());
         trackHolder.tvDescription.setText(track.getDescription());
     }
 
@@ -53,14 +53,12 @@ public class TrackAdapter extends BaseRecyclerViewAdapter {
     public static final class TrackHolder extends RecyclerView.ViewHolder {
         TextView tvTitle;
         TextView tvDescription;
-        SimpleDraweeView sdvArtwork;
         ImageView ivMenu;
 
         public TrackHolder(View itemView) {
             super(itemView);
             tvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-            sdvArtwork = (SimpleDraweeView) itemView.findViewById(R.id.sdvArtwork);
             ivMenu = (ImageView) itemView.findViewById(R.id.ivMenu);
         }
     }

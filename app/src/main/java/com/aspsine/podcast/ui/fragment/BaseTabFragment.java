@@ -19,7 +19,7 @@ import static com.aspsine.podcast.ui.widget.PagerTabItem.Type.SUBSCRIPTIONS;
 /**
  * A simple {@link Fragment} subclass.
  */
-public abstract class BaseTabFragment extends Fragment {
+public abstract class BaseTabFragment extends BaseFragment {
 
     private static final String KEY_TITLE = "title";
 

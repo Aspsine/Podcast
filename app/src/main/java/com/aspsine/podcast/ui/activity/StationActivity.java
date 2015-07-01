@@ -19,11 +19,11 @@ public class StationActivity extends BaseAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Fresco.initialize(this);
         Intent intent = getIntent();
         Station station = (Station) intent.getSerializableExtra("EXTRA_STATION");
         setTitle(station.getName());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, StationFragment.newInstance(station)).commit();
