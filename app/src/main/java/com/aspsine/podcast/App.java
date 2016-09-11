@@ -11,20 +11,13 @@ import com.facebook.drawee.backends.pipeline.Fresco;
  * Created by Aspsine on 2015/4/13.
  */
 public class App extends Application{
-    private static Context context;
 
     @Override
     public void onCreate() {
         setStrictMode();
         super.onCreate();
-        context = getApplicationContext();
-        CrashHandler.getInstance(getApplicationContext());
     }
-
-    public static Context getContext(){
-        return context;
-    }
-
+    
     /**
      * issue: retrofit Memory leak in StrickMode
      * https://github.com/square/retrofit/issues/801

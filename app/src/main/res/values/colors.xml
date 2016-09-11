@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--theme color-->
-    <color name="style_color_primary_dark">#222222</color>
-    <color name="style_color_primary">#333333</color>
-    <color name="style_color_primary_light">#666666</color>
-    <color name="style_color_accent">#48B000</color>
-    <color name="style_text_color_primary">#ffffffff</color>
-    <color name="style_text_color_secondary">#ffffffff</color>
-    <color name="style_divider">#DEDEDE</color>
-    <color name="style_window_background">#ffffff</color>
+    <color name="color_primary_dark">#ffffff</color>
+    <color name="color_primary">#ffffff</color>
+    <color name="color_primary_light">#ffffff</color>
+    <color name="color_accent">#222222</color>
+    <color name="text_color_primary">#222222</color>
+    <color name="text_color_secondary">#aaaaaa</color>
+    <color name="window_background">#ffffff</color>
 
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
