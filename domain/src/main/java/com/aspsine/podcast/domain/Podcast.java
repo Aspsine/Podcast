@@ -7,6 +7,7 @@ import java.util.List;
  */
 
 public class Podcast {
-
-    List<Episode> episodes;
+    String id;
+    String name;
+    private List<Episode> episodes;
 }
