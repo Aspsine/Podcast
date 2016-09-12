@@ -1,5 +1,6 @@
 package com.aspsine.podcast.ui.featured;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import static com.facebook.common.internal.Preconditions.checkNotNull;
@@ -20,17 +21,35 @@ public class FeaturedPresenter implements FeaturedContract.Presenter {
 
     @Override
     public void start() {
-
+        mView.startRefresh();
     }
 
     @Override
     public void refresh() {
-
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mView.bindBannerData();
+                mView.bindRefreshData();
+                mView.stopRefresh();
+            }
+        }, 2000);
     }
 
     @Override
     public void loadMore() {
         mView.showLoadMore();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mView.bindLoadMoreData();
+
+            }
+        }, 1000);
+    }
+
+    @Override
+    public void onBannerItemClick(int position) {
 
     }
 }

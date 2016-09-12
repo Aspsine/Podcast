@@ -4,6 +4,5 @@
     android:id="@+id/iRecyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:loadMoreEnabled="false"
     app:refreshEnabled="true"
     app:refreshHeaderLayout="@layout/layout_irecyclerview_refresh_header" />

@@ -13,6 +13,12 @@ public interface FeaturedContract {
 
         void startRefresh();
 
+        void bindBannerData();
+
+        void bindRefreshData();
+
+        void bindLoadMoreData();
+
         void stopRefresh();
 
         void refreshError();
@@ -29,6 +35,8 @@ public interface FeaturedContract {
         void refresh();
 
         void loadMore();
+
+        void onBannerItemClick(int position);
     }
 
 }

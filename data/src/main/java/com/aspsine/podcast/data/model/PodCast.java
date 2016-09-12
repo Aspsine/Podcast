@@ -15,7 +15,6 @@ public class Podcast implements Serializable{
     private String artwork;
     private String href;
     private String station;
-
     private String background;
     private String language;
 

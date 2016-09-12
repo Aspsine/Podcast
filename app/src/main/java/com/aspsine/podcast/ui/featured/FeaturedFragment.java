@@ -10,12 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.ui.base.BaseFragment;
+import com.aspsine.podcast.widget.banner.BannerView;
 import com.aspsine.podcast.widget.refresh.LoadMoreFooterView;
 
 import static com.facebook.common.internal.Preconditions.checkNotNull;
@@ -33,6 +35,8 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
     private Toolbar toolbar;
 
     private IRecyclerView iRecyclerView;
+
+    private BannerView bannerView;
 
     private LoadMoreFooterView loadMoreFooterView;
 
@@ -70,12 +74,20 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.main_tab_featured));
 
         iRecyclerView = (IRecyclerView) view.findViewById(R.id.iRecyclerView);
         iRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         loadMoreFooterView = (LoadMoreFooterView) iRecyclerView.getLoadMoreFooterView();
+
+        bannerView = (BannerView) LayoutInflater.from(getActivity())
+                .inflate(R.layout.layout_featured_banner, iRecyclerView.getHeaderContainer(), false);
+        bannerView.setItemLayoutId(R.layout.layout_featured_banner_item);
+        bannerView.setOnItemClickListener(mOnBannerItemClickListener);
+        iRecyclerView.addHeaderView(bannerView);
+
         iRecyclerView.setIAdapter(mAdapter);
 
         iRecyclerView.setOnRefreshListener(this);
@@ -109,6 +121,31 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
     }
 
     @Override
+    public void bindBannerData() {
+        bannerView.setOnDataBindingCallback(new BannerView.OnDataBindingCallback() {
+            @Override
+            public void onDataBinding(int position, View view) {
+                ((ImageView) view).setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
+            }
+
+            @Override
+            public int getItemCount() {
+                return 3;
+            }
+        });
+    }
+
+    @Override
+    public void bindRefreshData() {
+
+    }
+
+    @Override
+    public void bindLoadMoreData() {
+
+    }
+
+    @Override
     public void stopRefresh() {
         iRecyclerView.setRefreshing(false);
     }
@@ -132,4 +169,12 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
     public void loadMoreError() {
         loadMoreFooterView.setVisibility(View.INVISIBLE);
     }
+
+    private BannerView.OnItemClickListener mOnBannerItemClickListener = new BannerView.OnItemClickListener() {
+
+        @Override
+        public void onItemClick(int position, View view) {
+            mPresenter.onBannerItemClick(position);
+        }
+    };
 }
