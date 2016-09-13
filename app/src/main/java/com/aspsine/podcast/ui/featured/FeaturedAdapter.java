@@ -16,10 +16,8 @@ import java.util.List;
 
 public class FeaturedAdapter extends RecyclerView.Adapter<IViewHolder> {
 
-    private List<ItemData> mItemDatas;
-
     public FeaturedAdapter (){
-        this.mItemDatas = new ArrayList<>();
+
     }
 
     @Override
@@ -38,14 +36,4 @@ public class FeaturedAdapter extends RecyclerView.Adapter<IViewHolder> {
         return 0;
     }
 
-    public static class ItemViewHolder extends IViewHolder{
-
-        public ItemViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-    public static class ItemData{
-
-    }
 }

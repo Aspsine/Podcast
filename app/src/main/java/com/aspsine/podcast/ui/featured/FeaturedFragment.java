@@ -32,8 +32,6 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
 
     private FeaturedContract.Presenter mPresenter;
 
-    private Toolbar toolbar;
-
     private IRecyclerView iRecyclerView;
 
     private BannerView bannerView;
@@ -74,8 +72,6 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setTitle(getString(R.string.main_tab_featured));
 
         iRecyclerView = (IRecyclerView) view.findViewById(R.id.iRecyclerView);
         iRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

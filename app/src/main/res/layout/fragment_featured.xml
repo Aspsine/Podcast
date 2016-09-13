@@ -5,8 +5,6 @@
     android:orientation="vertical"
     tools:context="com.aspsine.podcast.ui.featured.FeaturedFragment">
 
-    <include layout="@layout/layout_toolbar"/>
-
     <include layout="@layout/layout_irecyclerview"/>
 
 </LinearLayout>

@@ -11,4 +11,6 @@
     <dimen name="bottom_navigation_bar_image_size">24dp</dimen>
     <dimen name="main_bottom_navigation_text_size">12sp</dimen>
     <dimen name="main_bottom_navigation_text_margin_top">2dp</dimen>
+
+    <dimen name="featured_banner_height">120dp</dimen>
 </resources>
