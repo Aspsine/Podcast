@@ -8,8 +8,8 @@ import com.aspsine.irecyclerview.IViewHolder;
  * Created by aspsine on 16/9/13.
  */
 
-public class FeaturedStationRecyclerViewHolder extends IViewHolder {
-    public FeaturedStationRecyclerViewHolder(View itemView) {
+public class FeaturedStationListViewHolder extends IViewHolder {
+    public FeaturedStationListViewHolder(View itemView) {
         super(itemView);
     }
 }

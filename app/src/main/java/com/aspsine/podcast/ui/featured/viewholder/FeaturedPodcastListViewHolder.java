@@ -9,9 +9,9 @@ import com.aspsine.irecyclerview.IViewHolder;
  * Created by aspsine on 16/9/13.
  */
 
-public class FeaturedPodcastRecyclerViewHolder extends IViewHolder{
+public class FeaturedPodcastListViewHolder extends IViewHolder{
 
-    public FeaturedPodcastRecyclerViewHolder(View itemView) {
+    public FeaturedPodcastListViewHolder(View itemView) {
         super(itemView);
     }
 }

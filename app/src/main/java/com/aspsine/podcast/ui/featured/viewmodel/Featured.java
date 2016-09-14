@@ -12,5 +12,4 @@ public class Featured {
 
     public List<FeaturedItem> featuredItems;
 
-
 }

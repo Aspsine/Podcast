@@ -2,6 +2,16 @@ package com.aspsine.podcast.ui.featured.viewmodel;
 
 import android.support.annotation.IntDef;
 
+import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedEpisode;
+import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedEpisodeList;
+import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedHotTagList;
+import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedPodcast;
+import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedPodcastList;
+import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedProvider;
+import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedProviderList;
+import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedStation;
+import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedStationList;
+
 /**
  * Created by aspsine on 16/9/13.
  */
@@ -9,8 +19,6 @@ import android.support.annotation.IntDef;
 public class FeaturedItem {
 
     public static final int TYPE_FEATURED_TITLE = 1;
-
-    public static final int TYPE_HOT_TAGS = 2;
 
     public static final int TYPE_FEATURED_PROVIDER = 11;
 
@@ -28,9 +36,10 @@ public class FeaturedItem {
 
     public static final int TYPE_FEATURED_EPISODE_LIST = 24;
 
+    public static final int TYPE_FEATURED_HOT_TAG_LIST = 31;
+
     @IntDef(value = {
             TYPE_FEATURED_TITLE,
-            TYPE_HOT_TAGS,
             TYPE_FEATURED_PROVIDER,
             TYPE_FEATURED_STATION,
             TYPE_FEATURED_PODCAST,
@@ -39,15 +48,18 @@ public class FeaturedItem {
             TYPE_FEATURED_STATION_LIST,
             TYPE_FEATURED_PODCAST_LIST,
             TYPE_FEATURED_EPISODE_LIST,
+            TYPE_FEATURED_HOT_TAG_LIST,
     })
+
     @interface Type {
     }
 
     @Type
     private int type;
 
-    @Type
-    private int childType;
+    private FeaturedTitle featuredTitle;
+
+    private FeaturedHotTagList featuredHotTagList;
 
     private FeaturedProvider featuredProvider;
 
@@ -55,7 +67,101 @@ public class FeaturedItem {
 
     private FeaturedPodcast featuredPodcast;
 
-    private FeaturedTitle featuredTitle;
+    private FeaturedEpisode featuredEpisode;
 
+    private FeaturedProviderList featuredProviderList;
 
+    private FeaturedStationList featuredStationList;
+
+    private FeaturedPodcastList featuredPodcastList;
+
+    private FeaturedEpisodeList featuredEpisodeList;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(@Type int type) {
+        this.type = type;
+    }
+
+    public FeaturedTitle getFeaturedTitle() {
+        return featuredTitle;
+    }
+
+    public void setFeaturedTitle(FeaturedTitle featuredTitle) {
+        this.featuredTitle = featuredTitle;
+    }
+
+    public FeaturedHotTagList getFeaturedHotTagList() {
+        return featuredHotTagList;
+    }
+
+    public void setFeaturedHotTagList(FeaturedHotTagList featuredHotTagList) {
+        this.featuredHotTagList = featuredHotTagList;
+    }
+
+    public FeaturedProvider getFeaturedProvider() {
+        return featuredProvider;
+    }
+
+    public void setFeaturedProvider(FeaturedProvider featuredProvider) {
+        this.featuredProvider = featuredProvider;
+    }
+
+    public FeaturedStation getFeaturedStation() {
+        return featuredStation;
+    }
+
+    public void setFeaturedStation(FeaturedStation featuredStation) {
+        this.featuredStation = featuredStation;
+    }
+
+    public FeaturedPodcast getFeaturedPodcast() {
+        return featuredPodcast;
+    }
+
+    public void setFeaturedPodcast(FeaturedPodcast featuredPodcast) {
+        this.featuredPodcast = featuredPodcast;
+    }
+
+    public FeaturedEpisode getFeaturedEpisode() {
+        return featuredEpisode;
+    }
+
+    public void setFeaturedEpisode(FeaturedEpisode featuredEpisode) {
+        this.featuredEpisode = featuredEpisode;
+    }
+
+    public FeaturedProviderList getFeaturedProviderList() {
+        return featuredProviderList;
+    }
+
+    public void setFeaturedProviderList(FeaturedProviderList featuredProviderList) {
+        this.featuredProviderList = featuredProviderList;
+    }
+
+    public FeaturedStationList getFeaturedStationList() {
+        return featuredStationList;
+    }
+
+    public void setFeaturedStationList(FeaturedStationList featuredStationList) {
+        this.featuredStationList = featuredStationList;
+    }
+
+    public FeaturedPodcastList getFeaturedPodcastList() {
+        return featuredPodcastList;
+    }
+
+    public void setFeaturedPodcastList(FeaturedPodcastList featuredPodcastList) {
+        this.featuredPodcastList = featuredPodcastList;
+    }
+
+    public FeaturedEpisodeList getFeaturedEpisodeList() {
+        return featuredEpisodeList;
+    }
+
+    public void setFeaturedEpisodeList(FeaturedEpisodeList featuredEpisodeList) {
+        this.featuredEpisodeList = featuredEpisodeList;
+    }
 }

@@ -8,8 +8,8 @@ import com.aspsine.irecyclerview.IViewHolder;
  * Created by aspsine on 16/9/13.
  */
 
-public class FeaturedProviderRecyclerViewHolder extends IViewHolder {
-    public FeaturedProviderRecyclerViewHolder(View itemView) {
+public class FeaturedProviderListViewHolder extends IViewHolder {
+    public FeaturedProviderListViewHolder(View itemView) {
         super(itemView);
     }
 }
