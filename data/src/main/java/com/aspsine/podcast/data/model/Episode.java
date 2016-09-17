@@ -5,23 +5,21 @@ import java.io.Serializable;
 /**
  * Created by Aspsine on 2015/6/23.
  */
-public class PodCastTrack implements Serializable{
-    String title;
-    String link;
-    String description;
-    String pubDate;
-    String duration;
-    String size;
+public class Episode implements Serializable{
+    private String id;
+    private String title;
+    private String link;
+    private String description;
+    private String pubDate;
+    private String duration;
+    private String size;
 
-    public PodCastTrack(){}
+    public String getId() {
+        return id;
+    }
 
-    public PodCastTrack(String title, String link, String description, String pubDate, String duration, String size) {
-        this.title = title;
-        this.link = link;
-        this.description = description;
-        this.pubDate = pubDate;
-        this.duration = duration;
-        this.size = size;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {

@@ -5,38 +5,34 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.aspsine.irecyclerview.IRecyclerView;
-import com.aspsine.irecyclerview.OnLoadMoreListener;
-import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.ui.base.BaseFragment;
-import com.aspsine.podcast.widget.banner.BannerView;
-import com.aspsine.podcast.widget.refresh.LoadMoreFooterView;
+import com.aspsine.podcast.ui.featured.viewmodel.FeaturedItem;
+import com.aspsine.podcast.util.DisplayUtil;
 
-import static com.facebook.common.internal.Preconditions.checkNotNull;
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FeaturedFragment extends BaseFragment implements FeaturedContract.View,
-        OnRefreshListener, OnLoadMoreListener {
+        SwipeRefreshLayout.OnRefreshListener {
 
     public static final String TAG = FeaturedFragment.class.getSimpleName();
 
     private FeaturedContract.Presenter mPresenter;
 
-    private IRecyclerView iRecyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
-    private BannerView bannerView;
-
-    private LoadMoreFooterView loadMoreFooterView;
+    private RecyclerView recyclerView;
 
     private FeaturedAdapter mAdapter;
 
@@ -50,7 +46,7 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
 
     @Override
     public void setPresenter(@NonNull FeaturedContract.Presenter presenter) {
-        mPresenter = checkNotNull(presenter);
+        mPresenter = presenter;
     }
 
     @Override
@@ -73,21 +69,14 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        iRecyclerView = (IRecyclerView) view.findViewById(R.id.iRecyclerView);
-        iRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
 
-        loadMoreFooterView = (LoadMoreFooterView) iRecyclerView.getLoadMoreFooterView();
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.addItemDecoration(new FeaturedItemDecoration(DisplayUtil.dip2px(getContext(), 12)));
+        recyclerView.setAdapter(mAdapter);
 
-        bannerView = (BannerView) LayoutInflater.from(getActivity())
-                .inflate(R.layout.layout_featured_banner, iRecyclerView.getHeaderContainer(), false);
-        bannerView.setItemLayoutId(R.layout.layout_featured_banner_item);
-        bannerView.setOnItemClickListener(mOnBannerItemClickListener);
-        iRecyclerView.addHeaderView(bannerView);
-
-        iRecyclerView.setIAdapter(mAdapter);
-
-        iRecyclerView.setOnRefreshListener(this);
-        iRecyclerView.setOnLoadMoreListener(this);
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
@@ -102,48 +91,33 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
     }
 
     @Override
-    public void onLoadMore() {
-        mPresenter.loadMore();
-    }
-
-    @Override
     public void startRefresh() {
-        iRecyclerView.post(new Runnable() {
+        swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
-                iRecyclerView.setRefreshing(true);
+                swipeRefreshLayout.setRefreshing(true);
             }
         });
     }
 
     @Override
-    public void bindBannerData() {
-        bannerView.setOnDataBindingCallback(new BannerView.OnDataBindingCallback() {
-            @Override
-            public void onDataBinding(int position, View view) {
-                ((ImageView) view).setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
-            }
-
-            @Override
-            public int getItemCount() {
-                return 3;
-            }
-        });
+    public void bindRefreshData(List<FeaturedItem> featuredItems) {
+        mAdapter.setList(featuredItems);
     }
 
     @Override
-    public void bindRefreshData() {
-
-    }
-
-    @Override
-    public void bindLoadMoreData() {
-
+    public void bindLoadMoreData(List<FeaturedItem> featuredItems) {
+        mAdapter.append(featuredItems);
     }
 
     @Override
     public void stopRefresh() {
-        iRecyclerView.setRefreshing(false);
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     @Override
@@ -152,25 +126,14 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
     }
 
     @Override
-    public void showLoadMore() {
-        loadMoreFooterView.setVisibility(View.VISIBLE);
+    public void startLoadMore() {
     }
 
     @Override
     public void stopLoadMore() {
-        loadMoreFooterView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void loadMoreError() {
-        loadMoreFooterView.setVisibility(View.INVISIBLE);
     }
-
-    private BannerView.OnItemClickListener mOnBannerItemClickListener = new BannerView.OnItemClickListener() {
-
-        @Override
-        public void onItemClick(int position, View view) {
-            mPresenter.onBannerItemClick(position);
-        }
-    };
 }

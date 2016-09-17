@@ -2,6 +2,7 @@ package com.aspsine.podcast.ui.featured.viewmodel;
 
 import android.support.annotation.IntDef;
 
+import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedBanner;
 import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedEpisode;
 import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedEpisodeList;
 import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedHotTagList;
@@ -36,7 +37,9 @@ public class FeaturedItem {
 
     public static final int TYPE_FEATURED_EPISODE_LIST = 24;
 
-    public static final int TYPE_FEATURED_HOT_TAG_LIST = 31;
+    public static final int TYPE_FEATURED_BANNER = 31;
+
+    public static final int TYPE_FEATURED_HOT_TAG_LIST = 41;
 
     @IntDef(value = {
             TYPE_FEATURED_TITLE,
@@ -49,8 +52,8 @@ public class FeaturedItem {
             TYPE_FEATURED_PODCAST_LIST,
             TYPE_FEATURED_EPISODE_LIST,
             TYPE_FEATURED_HOT_TAG_LIST,
+            TYPE_FEATURED_BANNER,
     })
-
     @interface Type {
     }
 
@@ -76,6 +79,15 @@ public class FeaturedItem {
     private FeaturedPodcastList featuredPodcastList;
 
     private FeaturedEpisodeList featuredEpisodeList;
+
+    private FeaturedBanner featuredBanner;
+
+    public FeaturedItem() {
+    }
+
+    public FeaturedItem(@Type int type) {
+        this.type = type;
+    }
 
     public int getType() {
         return type;
@@ -163,5 +175,13 @@ public class FeaturedItem {
 
     public void setFeaturedEpisodeList(FeaturedEpisodeList featuredEpisodeList) {
         this.featuredEpisodeList = featuredEpisodeList;
+    }
+
+    public FeaturedBanner getFeaturedBanner() {
+        return featuredBanner;
+    }
+
+    public void setFeaturedBanner(FeaturedBanner featuredBanner) {
+        this.featuredBanner = featuredBanner;
     }
 }

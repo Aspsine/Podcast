@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Created by aspsine on 15-3-13.
  */
-public class DensityUtil {
+public class DisplayUtil {
 
     public static int getScreenWidth(Context context) {
         DisplayMetrics dm = new DisplayMetrics();

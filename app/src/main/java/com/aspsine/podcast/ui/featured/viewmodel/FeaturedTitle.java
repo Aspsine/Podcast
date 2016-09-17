@@ -5,4 +5,13 @@ package com.aspsine.podcast.ui.featured.viewmodel;
  */
 public class FeaturedTitle {
 
+    private String text;
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }

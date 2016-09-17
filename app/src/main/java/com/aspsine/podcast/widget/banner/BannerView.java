@@ -12,8 +12,6 @@ import android.widget.LinearLayout;
 
 import com.aspsine.podcast.R;
 
-import java.util.List;
-
 
 /**
  * Created by aspsine on 16/9/11.

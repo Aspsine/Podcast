@@ -18,8 +18,7 @@ public class Podcast implements Serializable{
     private String background;
     private String language;
 
-
-    private List<PodCastTrack> podCastTracks;
+    private List<Episode> episodes;
 
     public String getId() {
         return id;
@@ -77,12 +76,12 @@ public class Podcast implements Serializable{
         this.href = href;
     }
 
-    public List<PodCastTrack> getPodCastTracks() {
-        return podCastTracks;
+    public List<Episode> getEpisodes() {
+        return episodes;
     }
 
-    public void setPodCastTracks(List<PodCastTrack> podCastTracks) {
-        this.podCastTracks = podCastTracks;
+    public void setEpisodes(List<Episode> episodes) {
+        this.episodes = episodes;
     }
 
     public String getStation() {

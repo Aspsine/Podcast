@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Featured {
 
-    public List<FeaturedBanner> featuredBanners;
+    public List<FeaturedItem> featuredBanners;
 
     public List<FeaturedItem> featuredItems;
 

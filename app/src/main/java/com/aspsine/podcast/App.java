@@ -1,11 +1,8 @@
 package com.aspsine.podcast;
 
 import android.app.Application;
-import android.content.Context;
 import android.os.Build;
 import android.os.StrictMode;
-
-import com.facebook.drawee.backends.pipeline.Fresco;
 
 /**
  * Created by Aspsine on 2015/4/13.

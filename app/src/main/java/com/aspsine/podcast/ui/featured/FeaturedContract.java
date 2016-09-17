@@ -2,6 +2,9 @@ package com.aspsine.podcast.ui.featured;
 
 import com.aspsine.podcast.ui.base.BasePresenter;
 import com.aspsine.podcast.ui.base.BaseView;
+import com.aspsine.podcast.ui.featured.viewmodel.FeaturedItem;
+
+import java.util.List;
 
 /**
  * Created by aspsine on 16/9/11.
@@ -13,17 +16,15 @@ public interface FeaturedContract {
 
         void startRefresh();
 
-        void bindBannerData();
+        void bindRefreshData(List<FeaturedItem> featuredItems);
 
-        void bindRefreshData();
-
-        void bindLoadMoreData();
+        void bindLoadMoreData(List<FeaturedItem> featuredItems);
 
         void stopRefresh();
 
         void refreshError();
 
-        void showLoadMore();
+        void startLoadMore();
 
         void stopLoadMore();
 
@@ -35,8 +36,6 @@ public interface FeaturedContract {
         void refresh();
 
         void loadMore();
-
-        void onBannerItemClick(int position);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.aspsine.podcast.widget;
+package com.aspsine.podcast.widget.recyclerView.decoration;
 
 import android.content.Context;
 import android.content.res.TypedArray;
