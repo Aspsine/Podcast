@@ -1,4 +1,4 @@
-package com.aspsine.podcast.ui.featured.viewholder;
+package com.aspsine.podcast.ui.featured.item.podcast;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,32 +13,33 @@ import android.widget.TextView;
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.ui.featured.ItemMarginDecoration;
 import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedPodcast;
-import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedPodcastList;
 import com.aspsine.podcast.util.DisplayUtil;
+import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolder;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by aspsine on 16/9/13.
+ * Created by aspsine on 16/9/18.
  */
 
-public class FeaturedPodcastListViewHolder extends RecyclerView.ViewHolder {
+public class PodcastListViewHolder extends RecyclerView.ViewHolder implements ItemViewHolder<PodcastListViewModel>{
 
     public RecyclerView recyclerView;
 
-    public FeaturedPodcastListViewHolder(View itemView) {
+    public PodcastListViewHolder(View itemView) {
         super(itemView);
         recyclerView = (RecyclerView) itemView.findViewById(R.id.recyclerView);
-        GridLayoutManager layoutManager = new GridLayoutManager(itemView.getContext(), 2,LinearLayoutManager.HORIZONTAL, false);
+        GridLayoutManager layoutManager = new GridLayoutManager(itemView.getContext(), 2, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new ItemMarginDecoration(DisplayUtil.dip2px(itemView.getContext(), 12)));
     }
 
-    public void bind(FeaturedPodcastList featuredPodcastList) {
+    @Override
+    public void onBindViewHolder(int position, PodcastListViewModel featuredPodcastList) {
         FeaturedPodcastAdapter adapter = (FeaturedPodcastAdapter) recyclerView.getAdapter();
-        if (adapter == null){
+        if (adapter == null) {
             adapter = new FeaturedPodcastAdapter();
             recyclerView.setAdapter(adapter);
         }
@@ -69,7 +70,7 @@ public class FeaturedPodcastListViewHolder extends RecyclerView.ViewHolder {
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            PodcastViewHolder podcastViewHolder = (PodcastViewHolder)holder;
+            PodcastViewHolder podcastViewHolder = (PodcastViewHolder) holder;
             podcastViewHolder.bind(mFeaturedPodcasts.get(position));
         }
 
@@ -109,5 +110,4 @@ public class FeaturedPodcastListViewHolder extends RecyclerView.ViewHolder {
             tvStationName.setText(podcast.getStation());
         }
     }
-
 }

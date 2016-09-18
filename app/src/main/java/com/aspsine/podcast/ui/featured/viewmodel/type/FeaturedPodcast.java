@@ -2,13 +2,14 @@ package com.aspsine.podcast.ui.featured.viewmodel.type;
 
 import com.aspsine.podcast.domain.Episode;
 import com.aspsine.podcast.domain.Podcast;
+import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
 
 import java.util.List;
 
 /**
  * Created by aspsine on 16/9/13.
  */
-public class FeaturedPodcast {
+public class FeaturedPodcast implements ItemViewModel{
     private final Podcast podcast;
 
     public FeaturedPodcast() {

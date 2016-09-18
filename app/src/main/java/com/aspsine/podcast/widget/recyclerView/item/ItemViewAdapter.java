@@ -9,12 +9,33 @@ import java.util.List;
  * Created by aspsine on 16/9/17.
  */
 
-public class ItemViewAdaper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ItemViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<ItemViewModel> mItemViewModels;
 
-    public ItemViewAdaper(List<ItemViewModel> itemViewModels) {
+    public ItemViewAdapter(List<ItemViewModel> itemViewModels) {
         this.mItemViewModels = itemViewModels;
+    }
+
+    public void setList(List<ItemViewModel> itemViewModels) {
+        if (itemViewModels != null) {
+            mItemViewModels = itemViewModels;
+            notifyDataSetChanged();
+        }
+    }
+
+    public void append(List<ItemViewModel> itemViewModels) {
+        if (mItemViewModels != null && itemViewModels != null){
+            mItemViewModels.addAll(itemViewModels);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void clear() {
+        if (mItemViewModels != null){
+            mItemViewModels.clear();
+            notifyDataSetChanged();
+        }
     }
 
     @Override

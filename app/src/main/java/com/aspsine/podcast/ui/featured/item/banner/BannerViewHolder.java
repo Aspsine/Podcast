@@ -1,4 +1,4 @@
-package com.aspsine.podcast.ui.featured.viewholder;
+package com.aspsine.podcast.ui.featured.item.banner;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -6,24 +6,23 @@ import android.widget.ImageView;
 
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.ui.featured.viewmodel.FeaturedItem;
-import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedBanner;
 import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedPodcast;
 import com.aspsine.podcast.widget.banner.BannerView;
+import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolder;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 /**
- * Created by aspsine on 16/9/17.
+ * Created by aspsine on 16/9/18.
  */
 
-public class FeaturedBannerViewHolder extends RecyclerView.ViewHolder{
-
+public class BannerViewHolder extends RecyclerView.ViewHolder implements ItemViewHolder<BannerViewModel>{
     private BannerView bannerView;
 
-    public FeaturedBannerViewHolder(View itemView) {
+    public BannerViewHolder(View itemView) {
         super(itemView);
-        bannerView = (BannerView)itemView;
+        bannerView = (BannerView) itemView;
         bannerView.setItemLayoutId(R.layout.layout_featured_item_banner_item);
         bannerView.setOnItemClickListener(new BannerView.OnItemClickListener() {
             @Override
@@ -33,7 +32,8 @@ public class FeaturedBannerViewHolder extends RecyclerView.ViewHolder{
         });
     }
 
-    public void bind(final FeaturedBanner featuredBanner){
+    @Override
+    public void onBindViewHolder(int position, final BannerViewModel featuredBanner) {
         bannerView.setOnDataBindingCallback(new BannerView.OnDataBindingCallback() {
             @Override
             public void onDataBinding(int position, View view) {

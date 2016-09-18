@@ -1,13 +1,15 @@
-package com.aspsine.podcast.ui.featured.viewmodel.type;
+package com.aspsine.podcast.ui.featured.item.podcast;
 
+import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedPodcast;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
 
 import java.util.List;
 
 /**
- * Created by zhangfan10 on 16/9/13.
+ * Created by aspsine on 16/9/18.
  */
-public class FeaturedPodcastList implements ItemViewModel{
+
+public class PodcastListViewModel implements ItemViewModel {
     private List<FeaturedPodcast> featuredPodcasts;
 
     public List<FeaturedPodcast> getFeaturedPodcasts() {

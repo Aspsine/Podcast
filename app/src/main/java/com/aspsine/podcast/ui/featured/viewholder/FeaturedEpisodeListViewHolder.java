@@ -9,8 +9,6 @@ import android.view.View;
 
 public class FeaturedEpisodeListViewHolder extends RecyclerView.ViewHolder{
 
-
-
     public FeaturedEpisodeListViewHolder(View itemView) {
         super(itemView);
     }

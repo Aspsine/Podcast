@@ -16,7 +16,10 @@ import com.aspsine.podcast.R;
 import com.aspsine.podcast.ui.base.BaseFragment;
 import com.aspsine.podcast.ui.featured.viewmodel.FeaturedItem;
 import com.aspsine.podcast.util.DisplayUtil;
+import com.aspsine.podcast.widget.recyclerView.item.ItemViewAdapter;
+import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,7 +37,7 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
 
     private RecyclerView recyclerView;
 
-    private FeaturedAdapter mAdapter;
+    private ItemViewAdapter mAdapter;
 
     public static Fragment newInstance() {
         return new FeaturedFragment();
@@ -55,7 +58,7 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
         FeaturedContract.Presenter presenter = new FeaturedPresenter(this);
         setPresenter(presenter);
 
-        mAdapter = new FeaturedAdapter();
+        mAdapter = new ItemViewAdapter(new ArrayList<ItemViewModel>(0));
     }
 
     @Override
@@ -101,13 +104,13 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
     }
 
     @Override
-    public void bindRefreshData(List<FeaturedItem> featuredItems) {
-        mAdapter.setList(featuredItems);
+    public void bindRefreshData(List<ItemViewModel> itemViewModels) {
+        mAdapter.setList(itemViewModels);
     }
 
     @Override
-    public void bindLoadMoreData(List<FeaturedItem> featuredItems) {
-        mAdapter.append(featuredItems);
+    public void bindLoadMoreData(List<ItemViewModel> itemViewModels) {
+        mAdapter.append(itemViewModels);
     }
 
     @Override

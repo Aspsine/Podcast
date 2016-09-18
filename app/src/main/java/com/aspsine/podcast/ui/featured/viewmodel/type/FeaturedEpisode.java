@@ -1,12 +1,13 @@
 package com.aspsine.podcast.ui.featured.viewmodel.type;
 
 import com.aspsine.podcast.domain.Episode;
+import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
 
 /**
  * Created by zhangfan10 on 16/9/13.
  */
 
-public class FeaturedEpisode {
+public class FeaturedEpisode implements ItemViewModel{
 
     private final Episode episode;
 

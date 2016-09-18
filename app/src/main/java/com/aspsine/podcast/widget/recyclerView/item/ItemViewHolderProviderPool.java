@@ -15,19 +15,23 @@ public class ItemViewHolderProviderPool {
     private static List<ItemViewHolderProvider> sProviders = new ArrayList<>();
 
     public static void register(Class<? extends ItemViewModel> clazz, ItemViewHolderProvider provider) {
-        sItemViewModelClasses.add(clazz);
-        sProviders.add(provider);
+        if (sItemViewModelClasses.contains(clazz) || sProviders.contains(provider)) {
+            throw new IllegalArgumentException("Already exist:" + clazz.getName());
+        } else {
+            sItemViewModelClasses.add(clazz);
+            sProviders.add(provider);
+        }
     }
 
     public static ItemViewHolderProvider get(int viewType) {
         return sProviders.get(viewType);
     }
 
-    public static int getItemViewType(Class<? extends ItemViewModel> clazz){
+    public static int getItemViewType(Class<? extends ItemViewModel> clazz) {
         return indexOfItemViewModelClazz(clazz);
     }
 
-    private static int indexOfItemViewModelClazz(Class<? extends ItemViewModel> clazz){
+    private static int indexOfItemViewModelClazz(Class<? extends ItemViewModel> clazz) {
         return sItemViewModelClasses.indexOf(clazz);
     }
 

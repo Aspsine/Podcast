@@ -1,4 +1,4 @@
-package com.aspsine.podcast.ui.featured.viewholder;
+package com.aspsine.podcast.ui.featured.item.station;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,9 +11,10 @@ import android.widget.ImageView;
 
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.ui.featured.ItemMarginDecoration;
+import com.aspsine.podcast.ui.featured.viewholder.provider.FeaturedStationListViewHolderProvider;
 import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedStation;
-import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedStationList;
 import com.aspsine.podcast.util.DisplayUtil;
+import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolder;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -22,21 +23,21 @@ import java.util.List;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
- * Created by aspsine on 16/9/13.
+ * Created by aspsine on 16/9/18.
  */
 
-public class FeaturedStationListViewHolder extends RecyclerView.ViewHolder {
-
+public class StationListViewHolder extends RecyclerView.ViewHolder implements ItemViewHolder<StationListViewModel>{
     private RecyclerView recyclerView;
 
-    public FeaturedStationListViewHolder(View itemView) {
+    public StationListViewHolder(View itemView) {
         super(itemView);
         recyclerView = (RecyclerView) itemView;
         recyclerView.setLayoutManager(new GridLayoutManager(itemView.getContext(), 1, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.addItemDecoration(new ItemMarginDecoration(DisplayUtil.dip2px(itemView.getContext(), 12)));
     }
 
-    public void bind(FeaturedStationList featuredStationList) {
+    @Override
+    public void onBindViewHolder(int position, StationListViewModel featuredStationList) {
         FeaturedStationsAdapter adapter = (FeaturedStationsAdapter) recyclerView.getAdapter();
         if (adapter == null) {
             adapter = new FeaturedStationsAdapter();
