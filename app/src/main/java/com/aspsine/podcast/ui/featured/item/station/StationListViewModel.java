@@ -10,13 +10,13 @@ import java.util.List;
  */
 
 public class StationListViewModel implements ItemViewModel{
-    private List<FeaturedStation> featuredStations;
+    private List<StationViewModel> stationViewModels;
 
-    public List<FeaturedStation> getFeaturedStations() {
-        return featuredStations;
+    public List<StationViewModel> getStationViewModels() {
+        return stationViewModels;
     }
 
-    public void setFeaturedStations(List<FeaturedStation> featuredStations) {
-        this.featuredStations = featuredStations;
+    public void setStationViewModels(List<StationViewModel> stationViewModels) {
+        this.stationViewModels = stationViewModels;
     }
 }

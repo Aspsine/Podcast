@@ -10,13 +10,13 @@ import java.util.List;
  */
 
 public class PodcastListViewModel implements ItemViewModel {
-    private List<FeaturedPodcast> featuredPodcasts;
+    private List<PodcastViewModel> podcastViewModels;
 
-    public List<FeaturedPodcast> getFeaturedPodcasts() {
-        return featuredPodcasts;
+    public List<PodcastViewModel> getPodcastViewModels() {
+        return podcastViewModels;
     }
 
-    public void setFeaturedPodcasts(List<FeaturedPodcast> featuredPodcasts) {
-        this.featuredPodcasts = featuredPodcasts;
+    public void setPodcastViewModels(List<PodcastViewModel> podcastViewModels) {
+        this.podcastViewModels = podcastViewModels;
     }
 }

@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by littlexi on 2015/4/12.
+ * Created by zhangfan10 on 16/9/18.
  */
-public class Podcast implements Serializable{
+
+public class Podcast implements Serializable {
     private String id;
     private String name;
     private String lastUpdate;
@@ -92,3 +93,4 @@ public class Podcast implements Serializable{
         this.station = station;
     }
 }
+

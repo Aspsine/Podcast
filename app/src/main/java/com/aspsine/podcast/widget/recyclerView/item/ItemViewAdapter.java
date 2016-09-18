@@ -13,13 +13,13 @@ public class ItemViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private List<ItemViewModel> mItemViewModels;
 
-    public ItemViewAdapter(List<ItemViewModel> itemViewModels) {
-        this.mItemViewModels = itemViewModels;
+    public ItemViewAdapter(List<? extends ItemViewModel> itemViewModels) {
+        this.mItemViewModels = (List<ItemViewModel>) itemViewModels;
     }
 
-    public void setList(List<ItemViewModel> itemViewModels) {
+    public void setList(List<? extends ItemViewModel> itemViewModels) {
         if (itemViewModels != null) {
-            mItemViewModels = itemViewModels;
+            mItemViewModels = (List<ItemViewModel>) itemViewModels;
             notifyDataSetChanged();
         }
     }
