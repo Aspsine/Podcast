@@ -18,7 +18,7 @@ import java.util.List;
  * Created by aspsine on 16/9/18.
  */
 
-public class PodcastListViewHolder extends RecyclerView.ViewHolder implements ItemViewHolder<PodcastListViewModel>{
+public class PodcastListViewHolder extends RecyclerView.ViewHolder implements ItemViewHolder<PodcastListViewModel> {
 
     public RecyclerView recyclerView;
     private ItemViewAdapter<PodcastViewModel> mAdapter;

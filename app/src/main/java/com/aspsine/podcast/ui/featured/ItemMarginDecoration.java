@@ -46,8 +46,8 @@ public class ItemMarginDecoration extends RecyclerView.ItemDecoration {
                 right = mMargin / 2;
             }
 
-            top = mMargin / 2;
-            bottom = mMargin/2;
+            top = mMargin;
+            bottom = mMargin;
 
             outRect.set(left, top, right, bottom);
         } else {

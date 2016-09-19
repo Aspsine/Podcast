@@ -30,7 +30,7 @@ public class PodcastViewHolder extends RecyclerView.ViewHolder implements ItemVi
 
         int minScreenSize = Math.min(DisplayUtil.getScreenWidth(context), DisplayUtil.getScreenHeight(context));
         int space = DisplayUtil.dip2px(context, 12);
-        float num = 3.5f;
+        float num = 2.5f;
         int width = (int) ((minScreenSize - space * num) / num);
 
         RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(width, RecyclerView.LayoutParams.WRAP_CONTENT);

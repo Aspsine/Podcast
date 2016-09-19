@@ -59,4 +59,8 @@ public class ItemViewAdapter<ViewModel extends ItemViewModel> extends RecyclerVi
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
         itemViewHolder.onBindViewHolder(position, mItemViewModels.get(position));
     }
+
+    public Class<? extends ItemViewModel> getItemViewModelClass(int type){
+        return ItemViewHolderProviderPool.getItemViewModelClass(type);
+    }
 }

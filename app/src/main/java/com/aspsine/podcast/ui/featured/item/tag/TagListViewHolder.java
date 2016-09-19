@@ -1,5 +1,7 @@
 package com.aspsine.podcast.ui.featured.item.tag;
 
+import android.content.Context;
+import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +20,7 @@ import java.util.List;
  */
 
 public class TagListViewHolder extends RecyclerView.ViewHolder implements ItemViewHolder<TagListViewModel> {
+
     public RecyclerView recyclerView;
     private ItemViewAdapter<TagViewModel> mAdapter;
 

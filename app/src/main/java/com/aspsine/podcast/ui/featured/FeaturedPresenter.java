@@ -44,7 +44,7 @@ public class FeaturedPresenter implements FeaturedContract.Presenter {
                 mView.bindRefreshData(getMockedRefreshItems());
                 mView.stopRefresh();
             }
-        }, 2000);
+        }, 500);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class FeaturedPresenter implements FeaturedContract.Presenter {
 
         for (int i = 0; i < 100; i++) {
             int type = i % 10;
-            if (type == 2) {
+            if (type == 1) {
                 TitleViewModel titleViewModel = new TitleViewModel();
                 titleViewModel.setText("Title:" + i);
                 itemViewModels.add(titleViewModel);

@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/image_view"
     app:ratioBy="width"
-    app:ratio="0.5"
+    app:ratio="0.56"
+    android:background="@drawable/drawable_featured_item_station_list_item_station_bg"
+    android:elevation="2dp"
     android:scaleType="centerCrop"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />

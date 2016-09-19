@@ -57,7 +57,7 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
         FeaturedContract.Presenter presenter = new FeaturedPresenter(this);
         setPresenter(presenter);
 
-        mAdapter = new ItemViewAdapter<>(new ArrayList<ItemViewModel>(0));
+        mAdapter = new FeaturedAdapter(new ArrayList<ItemViewModel>(0));
     }
 
     @Override
