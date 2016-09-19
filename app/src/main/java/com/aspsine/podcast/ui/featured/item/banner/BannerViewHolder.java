@@ -5,10 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.aspsine.podcast.R;
-import com.aspsine.podcast.ui.featured.item.podcast.PodcastListViewModel;
 import com.aspsine.podcast.ui.featured.item.podcast.PodcastViewModel;
-import com.aspsine.podcast.ui.featured.viewmodel.FeaturedItem;
-import com.aspsine.podcast.ui.featured.viewmodel.type.FeaturedPodcast;
 import com.aspsine.podcast.widget.banner.BannerView;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolder;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;

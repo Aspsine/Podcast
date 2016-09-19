@@ -25,6 +25,8 @@ public class ItemMarginDecoration extends RecyclerView.ItemDecoration {
 
         int spanCount = gridLayoutManager.getSpanCount();
 
+        int itemCount = parent.getAdapter().getItemCount();
+
         int orientation = gridLayoutManager.getOrientation();
 
         if (orientation == GridLayoutManager.HORIZONTAL) {
@@ -36,15 +38,16 @@ public class ItemMarginDecoration extends RecyclerView.ItemDecoration {
             if (position < spanCount) {
                 left = mMargin;
                 right = mMargin / 2;
-            } else if (position > parent.getAdapter().getItemCount() - spanCount - 1) {
+            } else if (position > itemCount - spanCount - 1) {
                 left = mMargin / 2;
                 right = mMargin;
             } else {
                 left = mMargin / 2;
                 right = mMargin / 2;
             }
-            top = mMargin;
-            bottom = mMargin;
+
+            top = mMargin / 2;
+            bottom = mMargin/2;
 
             outRect.set(left, top, right, bottom);
         } else {
