@@ -27,8 +27,11 @@ public class StationViewHolder extends RecyclerView.ViewHolder implements ItemVi
         Context context = itemView.getContext();
         int minScreenSize = Math.min(DisplayUtil.getScreenWidth(context), DisplayUtil.getScreenHeight(context));
         int space = DisplayUtil.dip2px(context, 12);
-        float num = 3.5f;
-        int width = (int) (((minScreenSize - space * num) / num * 3 + 2 * space - space) / 2);
+        float podcastShowNum = 2.5f;
+        int podcastNum = 4;
+        int stationNum = 3;
+        int width = (int) ((minScreenSize - space * podcastShowNum) / podcastShowNum);
+        width = (width * podcastNum + space * (podcastNum - 1) - space * (stationNum - 1)) / stationNum;
 
         RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(width, width / 2);
         itemView.setLayoutParams(layoutParams);

@@ -31,6 +31,10 @@ public class ItemViewHolderProviderPool {
         return indexOfItemViewModelClazz(clazz);
     }
 
+    public static Class<? extends ItemViewModel> getItemViewModelClass(int type) {
+        return sItemViewModelClasses.get(type);
+    }
+
     private static int indexOfItemViewModelClazz(Class<? extends ItemViewModel> clazz) {
         return sItemViewModelClasses.indexOf(clazz);
     }

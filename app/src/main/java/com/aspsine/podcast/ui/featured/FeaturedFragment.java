@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.ui.base.BaseFragment;
-import com.aspsine.podcast.ui.featured.viewmodel.FeaturedItem;
 import com.aspsine.podcast.util.DisplayUtil;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewAdapter;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
@@ -37,7 +36,7 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
 
     private RecyclerView recyclerView;
 
-    private ItemViewAdapter mAdapter;
+    private ItemViewAdapter<ItemViewModel> mAdapter;
 
     public static Fragment newInstance() {
         return new FeaturedFragment();
@@ -58,7 +57,7 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
         FeaturedContract.Presenter presenter = new FeaturedPresenter(this);
         setPresenter(presenter);
 
-        mAdapter = new ItemViewAdapter(new ArrayList<ItemViewModel>(0));
+        mAdapter = new FeaturedAdapter(new ArrayList<ItemViewModel>(0));
     }
 
     @Override

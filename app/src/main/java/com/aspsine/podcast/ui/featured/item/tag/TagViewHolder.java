@@ -12,7 +12,7 @@ import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolder;
 
 public class TagViewHolder extends RecyclerView.ViewHolder implements ItemViewHolder<TagViewModel>{
 
-    TextView textView;
+    public TextView textView;
 
     public TagViewHolder(View itemView) {
         super(itemView);

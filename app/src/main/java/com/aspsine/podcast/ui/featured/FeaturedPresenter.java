@@ -3,12 +3,13 @@ package com.aspsine.podcast.ui.featured;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
-import com.aspsine.podcast.data.model.Station;
 import com.aspsine.podcast.ui.featured.item.banner.BannerViewModel;
 import com.aspsine.podcast.ui.featured.item.podcast.PodcastListViewModel;
 import com.aspsine.podcast.ui.featured.item.podcast.PodcastViewModel;
 import com.aspsine.podcast.ui.featured.item.station.StationListViewModel;
 import com.aspsine.podcast.ui.featured.item.station.StationViewModel;
+import com.aspsine.podcast.ui.featured.item.tag.TagListViewModel;
+import com.aspsine.podcast.ui.featured.item.tag.TagViewModel;
 import com.aspsine.podcast.ui.featured.item.title.TitleViewModel;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
 
@@ -43,7 +44,7 @@ public class FeaturedPresenter implements FeaturedContract.Presenter {
                 mView.bindRefreshData(getMockedRefreshItems());
                 mView.stopRefresh();
             }
-        }, 2000);
+        }, 500);
     }
 
     @Override
@@ -78,7 +79,7 @@ public class FeaturedPresenter implements FeaturedContract.Presenter {
 
         for (int i = 0; i < 100; i++) {
             int type = i % 10;
-            if (type == 2) {
+            if (type == 1) {
                 TitleViewModel titleViewModel = new TitleViewModel();
                 titleViewModel.setText("Title:" + i);
                 itemViewModels.add(titleViewModel);
@@ -98,7 +99,18 @@ public class FeaturedPresenter implements FeaturedContract.Presenter {
                 itemViewModels.add(podcastListViewModel);
 
             } else if (type == 4) {
+                TagListViewModel tagListViewModel = new TagListViewModel();
+                List<TagViewModel> tagViewModels = new ArrayList<>();
+                for (int j = 0; j < 20; j++) {
+                    TagViewModel tagViewModel = new TagViewModel();
+                    tagViewModel.setId(i + "" + j);
+                    tagViewModel.setText("TAG " + i + j);
+                    tagViewModels.add(tagViewModel);
+                }
+                tagListViewModel.setTagViewModels(tagViewModels);
+                itemViewModels.add(tagListViewModel);
 
+            } else if (type == 5) {
                 StationListViewModel stationListViewModel = new StationListViewModel();
                 List<StationViewModel> stationViewModels = new ArrayList<>();
                 for (int j = 0; j < 10; j++) {
@@ -110,9 +122,6 @@ public class FeaturedPresenter implements FeaturedContract.Presenter {
                 }
                 stationListViewModel.setStationViewModels(stationViewModels);
                 itemViewModels.add(stationListViewModel);
-
-            } else if (type == 5) {
-
             }
         }
 

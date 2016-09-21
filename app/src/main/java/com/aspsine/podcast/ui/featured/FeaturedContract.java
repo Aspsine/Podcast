@@ -2,7 +2,6 @@ package com.aspsine.podcast.ui.featured;
 
 import com.aspsine.podcast.ui.base.BasePresenter;
 import com.aspsine.podcast.ui.base.BaseView;
-import com.aspsine.podcast.ui.featured.viewmodel.FeaturedItem;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
 
 import java.util.List;

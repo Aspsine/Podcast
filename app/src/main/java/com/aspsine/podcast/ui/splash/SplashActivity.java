@@ -1,14 +1,14 @@
 package com.aspsine.podcast.ui.splash;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 import com.aspsine.podcast.R;
-import com.aspsine.podcast.ui.base.BaseActivity;
 import com.aspsine.podcast.ui.main.MainActivity;
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class SplashActivity extends BaseActivity {
             public void run() {
                 intentIntoMain();
             }
-        }, 2000);
+        }, 500);
     }
 
     private void intentIntoMain(){

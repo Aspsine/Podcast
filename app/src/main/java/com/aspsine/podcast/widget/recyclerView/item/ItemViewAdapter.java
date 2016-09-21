@@ -9,22 +9,22 @@ import java.util.List;
  * Created by aspsine on 16/9/17.
  */
 
-public class ItemViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ItemViewAdapter<ViewModel extends ItemViewModel> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<ItemViewModel> mItemViewModels;
+    private List<ViewModel> mItemViewModels;
 
-    public ItemViewAdapter(List<? extends ItemViewModel> itemViewModels) {
-        this.mItemViewModels = (List<ItemViewModel>) itemViewModels;
+    public ItemViewAdapter(List<ViewModel> itemViewModels) {
+        this.mItemViewModels = itemViewModels;
     }
 
-    public void setList(List<? extends ItemViewModel> itemViewModels) {
+    public void setList(List<ViewModel> itemViewModels) {
         if (itemViewModels != null) {
-            mItemViewModels = (List<ItemViewModel>) itemViewModels;
+            mItemViewModels = itemViewModels;
             notifyDataSetChanged();
         }
     }
 
-    public void append(List<ItemViewModel> itemViewModels) {
+    public void append(List<ViewModel> itemViewModels) {
         if (mItemViewModels != null && itemViewModels != null){
             mItemViewModels.addAll(itemViewModels);
             notifyDataSetChanged();
@@ -58,5 +58,9 @@ public class ItemViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
         itemViewHolder.onBindViewHolder(position, mItemViewModels.get(position));
+    }
+
+    public Class<? extends ItemViewModel> getItemViewModelClass(int type){
+        return ItemViewHolderProviderPool.getItemViewModelClass(type);
     }
 }
