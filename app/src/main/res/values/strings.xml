@@ -4,5 +4,6 @@
 
     <string name="main_tab_my_podcast">Podcasts</string>
     <string name="main_tab_featured">Featured</string>
+    <string name="main_tab_discover">Discover</string>
     <string name="main_tab_me">Me</string>
 </resources>

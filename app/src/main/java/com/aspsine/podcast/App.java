@@ -1,25 +1,26 @@
 package com.aspsine.podcast;
 
 import android.app.Application;
-import android.os.Build;
 import android.os.StrictMode;
 
-import com.aspsine.podcast.ui.featured.item.banner.BannerViewHolderProvider;
-import com.aspsine.podcast.ui.featured.item.banner.BannerViewModel;
-import com.aspsine.podcast.ui.featured.item.podcast.PodcastListViewHolderProvider;
-import com.aspsine.podcast.ui.featured.item.podcast.PodcastListViewModel;
-import com.aspsine.podcast.ui.featured.item.podcast.PodcastViewHolderProvider;
-import com.aspsine.podcast.ui.featured.item.podcast.PodcastViewModel;
-import com.aspsine.podcast.ui.featured.item.station.StationListViewHolderProvider;
-import com.aspsine.podcast.ui.featured.item.station.StationListViewModel;
-import com.aspsine.podcast.ui.featured.item.station.StationViewHolderProvider;
-import com.aspsine.podcast.ui.featured.item.station.StationViewModel;
-import com.aspsine.podcast.ui.featured.item.tag.TagListViewHolderProvider;
-import com.aspsine.podcast.ui.featured.item.tag.TagListViewModel;
-import com.aspsine.podcast.ui.featured.item.tag.TagViewHolderProvider;
-import com.aspsine.podcast.ui.featured.item.tag.TagViewModel;
-import com.aspsine.podcast.ui.featured.item.title.TitleViewHolderProvider;
-import com.aspsine.podcast.ui.featured.item.title.TitleViewModel;
+import com.aspsine.podcast.ui.main.featured.item.banner.BannerViewHolderProvider;
+import com.aspsine.podcast.ui.main.featured.item.banner.BannerViewModel;
+import com.aspsine.podcast.ui.main.featured.item.podcast.PodcastListViewHolderProvider;
+import com.aspsine.podcast.ui.main.featured.item.podcast.PodcastListViewModel;
+import com.aspsine.podcast.ui.main.featured.item.podcast.PodcastViewHolderProvider;
+import com.aspsine.podcast.ui.main.featured.item.podcast.PodcastViewModel;
+import com.aspsine.podcast.ui.main.featured.item.station.StationListViewHolderProvider;
+import com.aspsine.podcast.ui.main.featured.item.station.StationListViewModel;
+import com.aspsine.podcast.ui.main.featured.item.station.StationViewHolderProvider;
+import com.aspsine.podcast.ui.main.featured.item.station.StationViewModel;
+import com.aspsine.podcast.ui.main.featured.item.tag.TagListViewHolderProvider;
+import com.aspsine.podcast.ui.main.featured.item.tag.TagListViewModel;
+import com.aspsine.podcast.ui.main.featured.item.tag.TagViewHolderProvider;
+import com.aspsine.podcast.ui.main.featured.item.tag.TagViewModel;
+import com.aspsine.podcast.ui.main.featured.item.title.TitleViewHolderProvider;
+import com.aspsine.podcast.ui.main.featured.item.title.TitleViewModel;
+import com.aspsine.podcast.ui.main.podcast.MyPodcastViewHolderProvider;
+import com.aspsine.podcast.ui.main.podcast.MyPodcastViewModel;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolderProviderPool;
 import com.github.moduth.blockcanary.BlockCanary;
 import com.squareup.leakcanary.LeakCanary;
@@ -58,5 +59,7 @@ public class App extends Application{
         ItemViewHolderProviderPool.register(StationListViewModel.class, new StationListViewHolderProvider());
         ItemViewHolderProviderPool.register(PodcastViewModel.class, new PodcastViewHolderProvider());
         ItemViewHolderProviderPool.register(PodcastListViewModel.class, new PodcastListViewHolderProvider());
+
+        ItemViewHolderProviderPool.register(MyPodcastViewModel.class, new MyPodcastViewHolderProvider());
     }
 }

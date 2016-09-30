@@ -12,6 +12,7 @@ public class Podcast {
     private List<Episode> episodes;
     private String artwork;
     private String station;
+    private String lastUpdateTime;
 
     public String getId() {
         return id;
@@ -51,5 +52,13 @@ public class Podcast {
 
     public void setStation(String station) {
         this.station = station;
+    }
+
+    public String getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public void setLastUpdateTime(String lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
     }
 }

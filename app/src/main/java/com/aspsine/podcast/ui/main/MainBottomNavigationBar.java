@@ -23,10 +23,12 @@ public class MainBottomNavigationBar extends LinearLayoutCompat {
     private static final int TEXTS[] = {
             R.string.main_tab_my_podcast,
             R.string.main_tab_featured,
+            R.string.main_tab_discover,
             R.string.main_tab_me
     };
 
     private static final int DRAWABLE[] = {
+            R.mipmap.ic_launcher,
             R.mipmap.ic_launcher,
             R.mipmap.ic_launcher,
             R.mipmap.ic_launcher
