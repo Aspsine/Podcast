@@ -12,5 +12,5 @@
     <dimen name="main_bottom_navigation_text_size">12sp</dimen>
     <dimen name="main_bottom_navigation_text_margin_top">2dp</dimen>
 
-    <dimen name="featured_banner_height">160dp</dimen>
+    <dimen name="featured_banner_height">144dp</dimen>
 </resources>

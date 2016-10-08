@@ -30,7 +30,8 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':domain')
 
-    compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
+
+    compile 'org.jsoup:jsoup:1.9.2'
 }

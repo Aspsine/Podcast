@@ -99,16 +99,16 @@ public class FeaturedPresenter implements FeaturedContract.Presenter {
                 itemViewModels.add(podcastListViewModel);
 
             } else if (type == 4) {
-                TagListViewModel tagListViewModel = new TagListViewModel();
-                List<TagViewModel> tagViewModels = new ArrayList<>();
-                for (int j = 0; j < 20; j++) {
-                    TagViewModel tagViewModel = new TagViewModel();
-                    tagViewModel.setId(i + "" + j);
-                    tagViewModel.setText("TAG " + i + j);
-                    tagViewModels.add(tagViewModel);
-                }
-                tagListViewModel.setTagViewModels(tagViewModels);
-                itemViewModels.add(tagListViewModel);
+//                TagListViewModel tagListViewModel = new TagListViewModel();
+//                List<TagViewModel> tagViewModels = new ArrayList<>();
+//                for (int j = 0; j < 20; j++) {
+//                    TagViewModel tagViewModel = new TagViewModel();
+//                    tagViewModel.setId(i + "" + j);
+//                    tagViewModel.setText("TAG " + i + j);
+//                    tagViewModels.add(tagViewModel);
+//                }
+//                tagListViewModel.setTagViewModels(tagViewModels);
+//                itemViewModels.add(tagListViewModel);
 
             } else if (type == 5) {
                 StationListViewModel stationListViewModel = new StationListViewModel();

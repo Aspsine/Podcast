@@ -1,9 +1,6 @@
 package com.aspsine.podcast.data.network;
 
 
-
-import java.util.concurrent.TimeUnit;
-
 import okhttp3.OkHttpClient;
 
 /**

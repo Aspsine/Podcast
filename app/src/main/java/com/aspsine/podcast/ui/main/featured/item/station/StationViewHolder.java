@@ -16,21 +16,22 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  * Created by aspsine on 16/9/18.
  */
 
-public class StationViewHolder extends RecyclerView.ViewHolder implements ItemViewHolder<StationViewModel> {
+class StationViewHolder extends RecyclerView.ViewHolder implements ItemViewHolder<StationViewModel> {
 
-    public ImageView imageView;
+    private ImageView imageView;
 
-    public StationViewHolder(View itemView) {
+    StationViewHolder(View itemView) {
         super(itemView);
         imageView = (ImageView) itemView;
 
         Context context = itemView.getContext();
         int minScreenSize = Math.min(DisplayUtil.getScreenWidth(context), DisplayUtil.getScreenHeight(context));
         int space = DisplayUtil.dip2px(context, 12);
-        float podcastShowNum = 2.5f;
+        float podcastShowNum = 3.25f;
+        int podcastSpaceNum = (int) Math.ceil(podcastShowNum);
         int podcastNum = 4;
-        int stationNum = 3;
-        int width = (int) ((minScreenSize - space * podcastShowNum) / podcastShowNum);
+        int stationNum = 2;
+        int width = (int) ((minScreenSize - space * podcastSpaceNum) / podcastShowNum);
         width = (width * podcastNum + space * (podcastNum - 1) - space * (stationNum - 1)) / stationNum;
 
         RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(width, width / 2);
@@ -39,6 +40,7 @@ public class StationViewHolder extends RecyclerView.ViewHolder implements ItemVi
 
     @Override
     public void onBindViewHolder(int position, StationViewModel stationViewModel) {
+
         Context context = imageView.getContext();
         Glide.with(context)
                 .load(stationViewModel.getImage())

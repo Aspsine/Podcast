@@ -5,26 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/drawable_featured_item_podcast_list_item_podcast_bg"
-    android:elevation="2dp"
     android:orientation="vertical">
 
     <com.aspsine.podcast.widget.RatioImageView
         android:id="@+id/iv_cover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:ratioBy="width"
         app:ratio="1"
+        app:ratioBy="width"
         tools:background="@color/color_accent" />
 
     <TextView
         android:id="@+id/tv_podcast_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
+        android:layout_marginTop="8dp"
+        android:maxLines="2"
+        android:textColor="@color/black"
         tools:text="Learning English" />
 
     <TextView
@@ -33,9 +31,6 @@
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:textSize="12sp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="8dp"
         tools:text="BBC" />
 
 </LinearLayout>

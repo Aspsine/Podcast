@@ -3,6 +3,7 @@ package com.aspsine.podcast.ui.main.discover;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +24,7 @@ import java.util.List;
  */
 
 public class DiscoverFragment extends BaseFragment implements DiscoverContract.View
-        , SwipeRefreshLayout.OnRefreshListener{
+        , SwipeRefreshLayout.OnRefreshListener {
 
     private DiscoverContract.Presenter mPresenter;
 
@@ -34,7 +35,7 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
     private ItemViewAdapter<ItemViewModel> mAdapter;
 
     public static Fragment newInstance() {
-        DiscoverFragment fragment =  new DiscoverFragment();
+        DiscoverFragment fragment = new DiscoverFragment();
         return fragment;
     }
 
@@ -61,10 +62,20 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(mAdapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    if (!ViewCompat.canScrollVertically(recyclerView, 1)) {
+                        mPresenter.loadMore();
+                    }
+                }
+            }
+        });
         swipeRefreshLayout.setOnRefreshListener(this);
     }
 
