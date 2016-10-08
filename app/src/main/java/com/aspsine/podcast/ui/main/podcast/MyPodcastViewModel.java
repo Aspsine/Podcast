@@ -40,10 +40,10 @@ public class MyPodcastViewModel implements ItemViewModel{
     }
 
     public void setLastUpdateTime(String lastUpdateTime) {
-        podcast.setLastUpdateTime(lastUpdateTime);
+        podcast.setLastUpdate(lastUpdateTime);
     }
 
     public String getLastUpdateTime() {
-        return podcast.getLastUpdateTime();
+        return podcast.getLastUpdate();
     }
 }

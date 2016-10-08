@@ -63,15 +63,15 @@ public class RatioImageView extends ImageView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int width = getMeasuredWidth();
-        int height = getMeasuredHeight();
         if (mRatio > 0) {
+            int width = getMeasuredWidth();
+            int height = getMeasuredHeight();
             if (mRatioBy == RATIO_BY_WIDTH) {
                 height = (int) (width * mRatio);
             } else if (mRatioBy == RATIO_BY_HEIGHT) {
                 width = (int) (height * mRatio);
             }
+            setMeasuredDimension(width, height);
         }
-        setMeasuredDimension(width, height);
     }
 }

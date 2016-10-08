@@ -12,7 +12,8 @@ public class Podcast {
     private List<Episode> episodes;
     private String artwork;
     private String station;
-    private String lastUpdateTime;
+    private String lastUpdate;
+    private String description;
 
     public String getId() {
         return id;
@@ -54,11 +55,19 @@ public class Podcast {
         this.station = station;
     }
 
-    public String getLastUpdateTime() {
-        return lastUpdateTime;
+    public String getLastUpdate() {
+        return lastUpdate;
     }
 
-    public void setLastUpdateTime(String lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
+    public void setLastUpdate(String lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

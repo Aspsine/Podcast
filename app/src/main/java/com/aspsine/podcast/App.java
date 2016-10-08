@@ -3,6 +3,8 @@ package com.aspsine.podcast;
 import android.app.Application;
 import android.os.StrictMode;
 
+import com.aspsine.podcast.ui.main.discover.item.DiscoverPodcastViewHolderProvider;
+import com.aspsine.podcast.ui.main.discover.item.DiscoverPodcastViewModel;
 import com.aspsine.podcast.ui.main.featured.item.banner.BannerViewHolderProvider;
 import com.aspsine.podcast.ui.main.featured.item.banner.BannerViewModel;
 import com.aspsine.podcast.ui.main.featured.item.podcast.PodcastListViewHolderProvider;
@@ -61,5 +63,7 @@ public class App extends Application{
         ItemViewHolderProviderPool.register(PodcastListViewModel.class, new PodcastListViewHolderProvider());
 
         ItemViewHolderProviderPool.register(MyPodcastViewModel.class, new MyPodcastViewHolderProvider());
+
+        ItemViewHolderProviderPool.register(DiscoverPodcastViewModel.class, new DiscoverPodcastViewHolderProvider());
     }
 }
