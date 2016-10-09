@@ -3,6 +3,7 @@ package com.aspsine.podcast;
 import android.app.Application;
 import android.os.StrictMode;
 
+import com.aspsine.podcast.data.network.OkHttp;
 import com.aspsine.podcast.ui.main.discover.item.DiscoverPodcastViewHolderProvider;
 import com.aspsine.podcast.ui.main.discover.item.DiscoverPodcastViewModel;
 import com.aspsine.podcast.ui.main.featured.item.banner.BannerViewHolderProvider;
@@ -39,6 +40,7 @@ public class App extends Application{
         LeakCanary.install(this);
         BlockCanary.install(this, new AppBlockCanaryContext(getApplicationContext())).start();
 
+        OkHttp.init(this);
         registerItemProviders();
     }
     

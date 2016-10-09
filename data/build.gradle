@@ -32,6 +32,5 @@ dependencies {
 
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
-
     compile 'org.jsoup:jsoup:1.9.2'
 }
