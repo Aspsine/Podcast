@@ -14,13 +14,12 @@ import rx.Observable;
 public class CategoryDataRepository implements CategoryRepository {
 
     @Override
-    public Observable<Category> category(String id) {
-
+    public Observable<Category> getCategory(String id) {
         return null;
     }
 
     @Override
-    public Observable<List<Category>> categories() {
+    public Observable<List<Category>> getCategories() {
         return null;
     }
 }

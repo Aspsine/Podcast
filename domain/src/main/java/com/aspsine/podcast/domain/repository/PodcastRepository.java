@@ -12,7 +12,9 @@ import rx.Observable;
 
 public interface PodcastRepository {
 
-    Observable<Podcast> podcast(String id);
+    Observable<Podcast> getPodcast(String id);
 
-    Observable<List<Podcast>> podcasts();
+    Observable<List<Podcast>> getPodcasts(int page);
+
+    Observable<List<Podcast>> getPodcasts();
 }

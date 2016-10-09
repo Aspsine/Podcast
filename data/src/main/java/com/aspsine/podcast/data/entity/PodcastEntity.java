@@ -1,4 +1,4 @@
-package com.aspsine.podcast.data.model;
+package com.aspsine.podcast.data.entity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.List;
  * Created by zhangfan10 on 16/9/18.
  */
 
-public class Podcast implements Serializable {
+public class PodcastEntity implements Serializable {
     private String id;
     private String name;
     private String lastUpdate;
@@ -19,7 +19,7 @@ public class Podcast implements Serializable {
     private String background;
     private String language;
 
-    private List<Episode> episodes;
+    private List<EpisodeEntity> episodes;
 
     public String getId() {
         return id;
@@ -77,11 +77,11 @@ public class Podcast implements Serializable {
         this.href = href;
     }
 
-    public List<Episode> getEpisodes() {
+    public List<EpisodeEntity> getEpisodes() {
         return episodes;
     }
 
-    public void setEpisodes(List<Episode> episodes) {
+    public void setEpisodes(List<EpisodeEntity> episodes) {
         this.episodes = episodes;
     }
 

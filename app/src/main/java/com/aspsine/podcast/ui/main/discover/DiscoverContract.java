@@ -19,8 +19,6 @@ public interface DiscoverContract {
         void loadMore();
     }
 
-
-
     interface View extends BaseView<Presenter> {
 
         void startRefresh();

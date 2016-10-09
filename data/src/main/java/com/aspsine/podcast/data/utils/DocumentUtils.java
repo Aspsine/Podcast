@@ -1,7 +1,7 @@
-package com.aspsine.podcast.util;
+package com.aspsine.podcast.data.utils;
 
-import com.aspsine.podcast.data.model.Page;
-import com.aspsine.podcast.data.model.Podcast;
+import com.aspsine.podcast.data.entity.PageEntity;
+import com.aspsine.podcast.data.entity.PodcastEntity;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class DocumentUtils {
 
-    public static Page getPage(Document document, boolean isParsePageInfo) {
-        Page page = new Page();
+    public static PageEntity getPage(Document document, boolean isParsePageInfo) {
+        PageEntity page = new PageEntity();
         page.setIsParsePageInfo(isParsePageInfo);
         //page info
         if (isParsePageInfo) {
@@ -26,10 +26,10 @@ public class DocumentUtils {
             page.setPodCastNum(Integer.valueOf(spans.get(2).text()));
         }
         //list
-        List<Podcast> podcasts = new ArrayList<Podcast>();
+        List<PodcastEntity> podcasts = new ArrayList<PodcastEntity>();
         Elements podCastDivs = document.getElementById("results-list").getElementsByClass("pc-results-box");
         for (Element divAlbum : podCastDivs) {
-            Podcast podcast = new Podcast();
+            PodcastEntity podcast = new PodcastEntity();
             Element aArtWork = divAlbum.getElementsByClass("pc-results-artwork").get(0).getElementsByTag("a").get(0);
             podcast.setHref(aArtWork.attr("href"));
             podcast.setArtwork(aArtWork.getElementsByTag("img").get(0).attr("src"));

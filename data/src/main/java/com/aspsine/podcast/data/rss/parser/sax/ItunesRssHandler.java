@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * Created by aspsine on 15/6/28.
  * <p/>
- * map is not suit the case, we must use stack!!! fuck!! I miss JDom!!!
+ * transform is not suit the case, we must use stack!!! fuck!! I miss JDom!!!
  */
 public class ItunesRssHandler extends RssHandler<ItunesChannel> {
     private ItunesChannel mChannel;

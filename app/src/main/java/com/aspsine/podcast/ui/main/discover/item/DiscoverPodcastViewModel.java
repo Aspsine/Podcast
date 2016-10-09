@@ -18,6 +18,10 @@ public class DiscoverPodcastViewModel implements ItemViewModel{
         this.podcast = new Podcast();
     }
 
+    public DiscoverPodcastViewModel(Podcast podcast) {
+        this.podcast = podcast;
+    }
+
     public String getId() {
         return podcast.getId();
     }

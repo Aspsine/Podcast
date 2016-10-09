@@ -1,11 +1,11 @@
-package com.aspsine.podcast.data.model;
+package com.aspsine.podcast.data.entity;
 
 import java.io.Serializable;
 
 /**
  * Created by littlexi on 2015/4/12.
  */
-public class Station implements Serializable{
+public class StationEntity implements Serializable{
     private String id;
     private String name;
     private String href;

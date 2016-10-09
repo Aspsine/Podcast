@@ -1,6 +1,7 @@
 package com.aspsine.podcast.data.source.remote;
 
-import com.aspsine.podcast.data.model.Podcast;
+import com.aspsine.podcast.data.entity.PodcastEntity;
+import com.aspsine.podcast.data.network.RestApi;
 import com.aspsine.podcast.data.source.PodcastDataSource;
 
 import java.util.List;
@@ -13,14 +14,24 @@ import rx.Observable;
 
 public class RemotePodcastDataSource implements PodcastDataSource{
 
-    @Override
-    public Observable<List<Podcast>> podcasts() {
+    private RestApi mRestApi;
 
-        return null;
+    public RemotePodcastDataSource(RestApi restApi) {
+        this.mRestApi = restApi;
     }
 
     @Override
-    public Observable<Podcast> podcast(String id) {
-        return null;
+    public Observable<List<PodcastEntity>> getPodcasts(int page) {
+        return mRestApi.getPodcasts(page);
+    }
+
+    @Override
+    public Observable<List<PodcastEntity>> getPodcasts() {
+        return mRestApi.getPodcasts();
+    }
+
+    @Override
+    public Observable<PodcastEntity> getPodcast(String id) {
+        return mRestApi.getPodcast(id);
     }
 }

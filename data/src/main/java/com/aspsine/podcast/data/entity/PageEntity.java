@@ -1,12 +1,12 @@
-package com.aspsine.podcast.data.model;
+package com.aspsine.podcast.data.entity;
 
 import java.util.List;
 
 /**
  * Created by aspsine on 15-4-12.
  */
-public class Page {
-    private List<Podcast> podcasts;
+public class PageEntity {
+    private List<PodcastEntity> podcasts;
     private boolean isParsePageInfo;
     private int pageSize;
     private int podCastNum;
@@ -27,11 +27,11 @@ public class Page {
         this.podCastNum = podCastNum;
     }
 
-    public List<Podcast> getPodcasts() {
+    public List<PodcastEntity> getPodcasts() {
         return podcasts;
     }
 
-    public void setPodcasts(List<Podcast> podcasts) {
+    public void setPodcasts(List<PodcastEntity> podcasts) {
         this.podcasts = podcasts;
     }
 

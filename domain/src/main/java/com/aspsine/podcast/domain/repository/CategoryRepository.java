@@ -13,7 +13,7 @@ import rx.Observable;
 
 public interface CategoryRepository {
 
-    Observable<Category> category(String id);
+    Observable<Category> getCategory(String id);
 
-    Observable<List<Category>> categories();
+    Observable<List<Category>> getCategories();
 }
