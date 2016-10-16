@@ -1,4 +1,4 @@
-package com.aspsine.podcast.ui.main.podcast;
+package com.aspsine.podcast.ui.main.podcasts;
 
 
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.ui.base.BaseFragment;
+import com.aspsine.podcast.ui.main.podcasts.item.MyPodcastViewModel;
 import com.aspsine.podcast.util.DisplayUtil;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewAdapter;
 

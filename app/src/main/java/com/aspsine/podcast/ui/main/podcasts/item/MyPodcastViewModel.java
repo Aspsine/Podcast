@@ -1,4 +1,4 @@
-package com.aspsine.podcast.ui.main.podcast;
+package com.aspsine.podcast.ui.main.podcasts.item;
 
 import com.aspsine.podcast.domain.Podcast;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;

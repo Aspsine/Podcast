@@ -7,14 +7,11 @@ import java.io.File;
 import java.io.IOException;
 
 import okhttp3.Cache;
-import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import rx.Observable;
-import rx.Scheduler;
 import rx.Subscriber;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by aspsine on 15-4-13.
@@ -52,12 +49,21 @@ public class OkHttp {
 
             @Override
             public void call(Subscriber<? super Response> subscriber) {
+                if (subscriber.isUnsubscribed()){
+                    return;
+                }
                 try {
                     Response response = getOkHttpClient().newCall(request).execute();
-                    subscriber.onNext(response);
-                    subscriber.onCompleted();
+                    if (!subscriber.isUnsubscribed()) {
+                        subscriber.onNext(response);
+                    }
+                    if (!subscriber.isUnsubscribed()) {
+                        subscriber.onCompleted();
+                    }
                 } catch (IOException e) {
-                    subscriber.onError(e);
+                    if (!subscriber.isUnsubscribed()) {
+                        subscriber.onError(e);
+                    }
                 }
             }
         });

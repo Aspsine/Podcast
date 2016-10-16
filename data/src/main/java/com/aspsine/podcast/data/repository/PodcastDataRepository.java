@@ -10,7 +10,9 @@ import com.aspsine.podcast.domain.repository.PodcastRepository;
 import java.util.List;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by aspsine on 16/9/12.
@@ -35,7 +37,8 @@ public class PodcastDataRepository implements PodcastRepository {
             public Podcast call(PodcastEntity podcastEntity) {
                 return mPodcastDataMapper.transform(podcastEntity);
             }
-        });
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -46,7 +49,8 @@ public class PodcastDataRepository implements PodcastRepository {
             public List<Podcast> call(List<PodcastEntity> podcastEntities) {
                 return mPodcastDataMapper.transform(podcastEntities);
             }
-        });
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override

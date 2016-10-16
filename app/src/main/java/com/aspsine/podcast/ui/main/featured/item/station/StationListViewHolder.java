@@ -25,9 +25,10 @@ public class StationListViewHolder extends RecyclerView.ViewHolder implements It
     public StationListViewHolder(View itemView) {
         super(itemView);
         recyclerView = (RecyclerView) itemView;
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new GridLayoutManager(itemView.getContext(), 1, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.addItemDecoration(new ItemMarginDecoration(DisplayUtil.dip2px(itemView.getContext(), 12)));
-        mAdapter = new ItemViewAdapter<>(new ArrayList<StationViewModel>(0));
+        mAdapter = new ItemViewAdapter<>(new ArrayList<StationViewModel>());
         recyclerView.setAdapter(mAdapter);
     }
 

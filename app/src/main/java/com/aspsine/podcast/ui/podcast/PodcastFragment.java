@@ -1,8 +1,7 @@
-package com.aspsine.podcast.ui.main.featured;
+package com.aspsine.podcast.ui.podcast;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,74 +10,75 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.ui.base.BaseFragment;
-import com.aspsine.podcast.util.DisplayUtil;
+import com.aspsine.podcast.ui.podcast.item.EpisodeViewModel;
+import com.aspsine.podcast.ui.podcast.mapper.EpisodeViewModelDataMapper;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewAdapter;
-import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FeaturedFragment extends BaseFragment implements FeaturedContract.View,
+public class PodcastFragment extends BaseFragment implements PodcastContract.View,
         SwipeRefreshLayout.OnRefreshListener {
 
-    public static final String TAG = FeaturedFragment.class.getSimpleName();
+    public static final String TAG = PodcastFragment.class.getName();
 
-    private FeaturedContract.Presenter mPresenter;
+    public static final String EXTRA_PODCAST_ID = "extra_podcast_id";
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private RecyclerView recyclerView;
 
-    private ItemViewAdapter<ItemViewModel> mAdapter;
+    private ItemViewAdapter<EpisodeViewModel> mAdapter;
 
-    public static Fragment newInstance() {
-        return new FeaturedFragment();
+    private PodcastContract.Presenter mPresenter;
+
+    public static PodcastFragment newInstance(String podcastId) {
+        PodcastFragment podcastFragment = new PodcastFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(EXTRA_PODCAST_ID, podcastId);
+        podcastFragment.setArguments(bundle);
+        return podcastFragment;
     }
 
-    public FeaturedFragment() {
+    public PodcastFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public void setPresenter(@NonNull FeaturedContract.Presenter presenter) {
-        mPresenter = presenter;
+    public void setPresenter(PodcastContract.Presenter presenter) {
+        this.mPresenter = presenter;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FeaturedContract.Presenter presenter = new FeaturedPresenter(this);
+        final String podcastId = getArguments().getString(EXTRA_PODCAST_ID);
+        final PodcastContract.Presenter presenter = new PodcastPresenter(this, podcastId);
         setPresenter(presenter);
-
-        mAdapter = new FeaturedAdapter(new ArrayList<ItemViewModel>(0));
+        mAdapter = new ItemViewAdapter<>(new ArrayList<EpisodeViewModel>());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_featured, container, false);
+        return inflater.inflate(R.layout.fragment_podcast, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
-
+        swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addItemDecoration(new FeaturedItemDecoration(DisplayUtil.dip2px(getContext(), 12)));
         recyclerView.setAdapter(mAdapter);
-        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
@@ -87,10 +87,6 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
         mPresenter.start();
     }
 
-    @Override
-    public void onRefresh() {
-        mPresenter.refresh();
-    }
 
     @Override
     public void startRefresh() {
@@ -103,13 +99,8 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
     }
 
     @Override
-    public void bindRefreshData(List<ItemViewModel> itemViewModels) {
-        mAdapter.setList(itemViewModels);
-    }
-
-    @Override
-    public void bindLoadMoreData(List<ItemViewModel> itemViewModels) {
-        mAdapter.append(itemViewModels);
+    public void onRefresh() {
+        mPresenter.refresh();
     }
 
     @Override
@@ -124,18 +115,14 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
 
     @Override
     public void refreshError() {
-        stopLoadMore();
+        stopRefresh();
+        Toast.makeText(getActivity(), "Refresh error!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void startLoadMore() {
+    public void bindRefreshData(PodcastViewModel podcastViewModel) {
+        mAdapter.setList(new EpisodeViewModelDataMapper().transform(podcastViewModel.getEpisodes()));
     }
 
-    @Override
-    public void stopLoadMore() {
-    }
 
-    @Override
-    public void loadMoreError() {
-    }
 }

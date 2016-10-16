@@ -1,4 +1,4 @@
-package com.aspsine.podcast.ui.main.podcast;
+package com.aspsine.podcast.ui.main.podcasts;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;

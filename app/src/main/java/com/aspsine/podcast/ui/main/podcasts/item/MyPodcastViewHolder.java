@@ -1,4 +1,4 @@
-package com.aspsine.podcast.ui.main.podcast;
+package com.aspsine.podcast.ui.main.podcasts.item;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

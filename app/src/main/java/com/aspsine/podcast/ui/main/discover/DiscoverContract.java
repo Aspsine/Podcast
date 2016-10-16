@@ -25,7 +25,7 @@ public interface DiscoverContract {
 
         void stopRefresh();
 
-        void startLoadMore();
+        void refreshError();
 
         void stopLoadMore();
 

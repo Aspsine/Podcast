@@ -1,7 +1,8 @@
-package com.aspsine.podcast.ui.main.podcast;
+package com.aspsine.podcast.ui.main.podcasts;
 
 import com.aspsine.podcast.ui.base.BasePresenter;
 import com.aspsine.podcast.ui.base.BaseView;
+import com.aspsine.podcast.ui.main.podcasts.item.MyPodcastViewModel;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public interface MyPodcastsContract {
     }
 
     interface Presenter extends BasePresenter {
+
 
     }
 

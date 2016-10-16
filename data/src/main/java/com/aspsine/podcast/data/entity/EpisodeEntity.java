@@ -9,6 +9,7 @@ public class EpisodeEntity implements Serializable{
     private String id;
     private String title;
     private String link;
+    private String artwork;
     private String description;
     private String pubDate;
     private String duration;
@@ -36,6 +37,14 @@ public class EpisodeEntity implements Serializable{
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getArtwork() {
+        return artwork;
+    }
+
+    public void setArtwork(String artwork) {
+        this.artwork = artwork;
     }
 
     public String getDescription() {

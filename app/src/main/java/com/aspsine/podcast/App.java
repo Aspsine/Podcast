@@ -22,10 +22,12 @@ import com.aspsine.podcast.ui.main.featured.item.tag.TagViewHolderProvider;
 import com.aspsine.podcast.ui.main.featured.item.tag.TagViewModel;
 import com.aspsine.podcast.ui.main.featured.item.title.TitleViewHolderProvider;
 import com.aspsine.podcast.ui.main.featured.item.title.TitleViewModel;
-import com.aspsine.podcast.ui.main.podcast.MyPodcastViewHolderProvider;
-import com.aspsine.podcast.ui.main.podcast.MyPodcastViewModel;
+import com.aspsine.podcast.ui.main.podcasts.item.MyPodcastViewHolderProvider;
+import com.aspsine.podcast.ui.main.podcasts.item.MyPodcastViewModel;
+import com.aspsine.podcast.ui.podcast.item.EpisodeViewHolderProvider;
+import com.aspsine.podcast.ui.podcast.item.EpisodeViewModel;
+import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolderProvider;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolderProviderPool;
-import com.github.moduth.blockcanary.BlockCanary;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -38,7 +40,7 @@ public class App extends Application{
         setStrictMode();
         super.onCreate();
         LeakCanary.install(this);
-        BlockCanary.install(this, new AppBlockCanaryContext(getApplicationContext())).start();
+//        BlockCanary.install(this, new AppBlockCanaryContext(getApplicationContext())).start();
 
         OkHttp.init(this);
         registerItemProviders();
@@ -67,5 +69,7 @@ public class App extends Application{
         ItemViewHolderProviderPool.register(MyPodcastViewModel.class, new MyPodcastViewHolderProvider());
 
         ItemViewHolderProviderPool.register(DiscoverPodcastViewModel.class, new DiscoverPodcastViewHolderProvider());
+
+        ItemViewHolderProviderPool.register(EpisodeViewModel.class, new EpisodeViewHolderProvider());
     }
 }

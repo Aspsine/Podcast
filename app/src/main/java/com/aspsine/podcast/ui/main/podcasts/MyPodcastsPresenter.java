@@ -1,4 +1,6 @@
-package com.aspsine.podcast.ui.main.podcast;
+package com.aspsine.podcast.ui.main.podcasts;
+
+import com.aspsine.podcast.ui.main.podcasts.item.MyPodcastViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

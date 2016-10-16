@@ -1,5 +1,6 @@
 package com.aspsine.podcast.data.utils;
 
+import com.aspsine.podcast.data.entity.EpisodeEntity;
 import com.aspsine.podcast.data.entity.PageEntity;
 import com.aspsine.podcast.data.entity.PodcastEntity;
 
@@ -31,7 +32,9 @@ public class DocumentUtils {
         for (Element divAlbum : podCastDivs) {
             PodcastEntity podcast = new PodcastEntity();
             Element aArtWork = divAlbum.getElementsByClass("pc-results-artwork").get(0).getElementsByTag("a").get(0);
-            podcast.setHref(aArtWork.attr("href"));
+            String href = aArtWork.attr("href");
+            podcast.setId(href.substring("http://www.bbc.co.uk/programmes/".length(), href.indexOf("/episodes/downloads")));
+            podcast.setHref(href);
             podcast.setArtwork(aArtWork.getElementsByTag("img").get(0).attr("src"));
             String station = divAlbum.getElementsByClass("pc-results-network").get(0).getElementsByTag("a").get(0).text();
             podcast.setStation(station);
@@ -48,5 +51,6 @@ public class DocumentUtils {
         page.setPodcasts(podcasts);
         return page;
     }
+
 
 }

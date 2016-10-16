@@ -6,7 +6,7 @@ import com.aspsine.fragmentnavigator.FragmentNavigatorAdapter;
 import com.aspsine.podcast.ui.main.discover.DiscoverFragment;
 import com.aspsine.podcast.ui.main.featured.FeaturedFragment;
 import com.aspsine.podcast.ui.main.me.MeFragment;
-import com.aspsine.podcast.ui.main.podcast.MyPodcastsFragment;
+import com.aspsine.podcast.ui.main.podcasts.MyPodcastsFragment;
 
 /**
  * Created by aspsine on 16/9/11.

@@ -25,6 +25,7 @@ public class TagListViewHolder extends RecyclerView.ViewHolder implements ItemVi
     public TagListViewHolder(View itemView) {
         super(itemView);
         recyclerView = (RecyclerView) itemView;
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new GridLayoutManager(itemView.getContext(), 1, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.addItemDecoration(new ItemMarginDecoration(DisplayUtil.dip2px(itemView.getContext(), 12)));
         mAdapter = new ItemViewAdapter<>(new ArrayList<TagViewModel>(0));

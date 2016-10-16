@@ -107,7 +107,7 @@ public class MainBottomNavigationBar extends LinearLayoutCompat {
         TextView textView;
 
         public TabViewHolder(View view) {
-            imageView = (ImageView) view.findViewById(R.id.image_view);
+            imageView = (ImageView) view.findViewById(R.id.iv_cover);
             textView = (TextView) view.findViewById(R.id.text_view);
         }
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.aspsine.podcast.widget.RatioImageView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/image_view"
+    android:id="@+id/iv_cover"
     app:ratioBy="width"
     app:ratio="0.5"
     android:background="@drawable/drawable_featured_item_station_list_item_station_bg"

@@ -28,7 +28,7 @@ public class PodcastDataMapper {
                 episode.setId(episodeEntity.getId());
                 episode.setTitle(episodeEntity.getTitle());
                 episode.setDescription(episodeEntity.getDescription());
-                episode.setArtwork("");
+                episode.setArtwork(episodeEntity.getArtwork());
                 episode.setPubDate(episodeEntity.getPubDate());
                 episodes.add(episode);
             }

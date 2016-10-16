@@ -3,6 +3,7 @@ package com.aspsine.podcast.widget.recyclerView.item;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,25 +15,30 @@ public class ItemViewAdapter<ViewModel extends ItemViewModel> extends RecyclerVi
     private List<ViewModel> mItemViewModels;
 
     public ItemViewAdapter(List<ViewModel> itemViewModels) {
-        this.mItemViewModels = itemViewModels;
+        this.mItemViewModels = new ArrayList<>();
     }
 
     public void setList(List<ViewModel> itemViewModels) {
         if (itemViewModels != null) {
-            mItemViewModels = itemViewModels;
-            notifyDataSetChanged();
+            mItemViewModels.clear();
+            append(itemViewModels);
         }
     }
 
     public void append(List<ViewModel> itemViewModels) {
-        if (mItemViewModels != null && itemViewModels != null){
+        if (mItemViewModels != null && itemViewModels != null) {
+            int count = mItemViewModels.size();
             mItemViewModels.addAll(itemViewModels);
-            notifyDataSetChanged();
+            if (count > 0) {
+                notifyItemRangeInserted(count, mItemViewModels.size());
+            } else {
+                notifyDataSetChanged();
+            }
         }
     }
 
     public void clear() {
-        if (mItemViewModels != null){
+        if (mItemViewModels != null) {
             mItemViewModels.clear();
             notifyDataSetChanged();
         }
@@ -60,7 +66,7 @@ public class ItemViewAdapter<ViewModel extends ItemViewModel> extends RecyclerVi
         itemViewHolder.onBindViewHolder(position, mItemViewModels.get(position));
     }
 
-    public Class<? extends ItemViewModel> getItemViewModelClass(int type){
+    public Class<? extends ItemViewModel> getItemViewModelClass(int type) {
         return ItemViewHolderProviderPool.getItemViewModelClass(type);
     }
 }

@@ -1,4 +1,4 @@
-package com.aspsine.podcast.ui.main.podcast;
+package com.aspsine.podcast.ui.main.podcasts.item;
 
 import android.view.LayoutInflater;
 import android.view.View;
