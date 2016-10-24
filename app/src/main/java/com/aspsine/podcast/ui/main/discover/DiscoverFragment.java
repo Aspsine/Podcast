@@ -3,7 +3,6 @@ package com.aspsine.podcast.ui.main.discover;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,9 +16,9 @@ import com.aspsine.podcast.ui.base.BaseFragment;
 import com.aspsine.podcast.widget.recyclerView.LoadMoreHelper;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewAdapter;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
-import com.aspsine.podcast.widget.recyclerView.item.OnLoadMoreScrollListener;
+import com.aspsine.podcast.widget.recyclerView.loadmore.ItemViewLoadMoreAdapter;
+import com.aspsine.podcast.widget.recyclerView.loadmore.State;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,7 +34,7 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
 
     private LoadMoreHelper mLoadMoreHelper;
 
-    private ItemViewAdapter<ItemViewModel> mAdapter;
+    private ItemViewLoadMoreAdapter<ItemViewModel> mAdapter;
 
     public static Fragment newInstance() {
         return new DiscoverFragment();
@@ -51,7 +50,7 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
         super.onCreate(savedInstanceState);
         final DiscoverContract.Presenter presenter = new DiscoverPresenter(this);
         setPresenter(presenter);
-        mAdapter = new ItemViewAdapter<>(new ArrayList<ItemViewModel>(0));
+        mAdapter = new ItemViewLoadMoreAdapter<>();
         mLoadMoreHelper = new LoadMoreHelper();
     }
 
@@ -112,6 +111,7 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
 
     @Override
     public void onLoadMore() {
+        mAdapter.setState(State.LoadingMore);
         mPresenter.loadMore();
     }
 
@@ -121,9 +121,14 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
     }
 
     @Override
+    public void loadMoreEnd() {
+        mAdapter.setState(State.End);
+    }
+
+    @Override
     public void loadMoreError() {
         stopLoadMore();
-        Toast.makeText(getActivity(), "Load more error!", Toast.LENGTH_SHORT).show();
+        mAdapter.setState(State.Error);
     }
 
     @Override

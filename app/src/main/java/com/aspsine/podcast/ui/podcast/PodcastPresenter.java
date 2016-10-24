@@ -1,5 +1,8 @@
 package com.aspsine.podcast.ui.podcast;
 
+import android.app.Activity;
+import android.view.View;
+
 import com.aspsine.podcast.data.entity.mapper.PodcastDataMapper;
 import com.aspsine.podcast.data.repository.PodcastDataRepository;
 import com.aspsine.podcast.data.source.PodcastDataSourceFactory;
@@ -7,8 +10,6 @@ import com.aspsine.podcast.domain.Podcast;
 import com.aspsine.podcast.domain.repository.PodcastRepository;
 
 import rx.SimpleObserver;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by aspsine on 16/10/15.
@@ -49,7 +50,7 @@ public class PodcastPresenter implements PodcastContract.Presenter {
                 mView.refreshError();
                 e.printStackTrace();
             }
-
         });
     }
+
 }

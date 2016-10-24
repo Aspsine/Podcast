@@ -10,7 +10,6 @@ import com.aspsine.podcast.util.DisplayUtil;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewAdapter;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +27,7 @@ public class TagListViewHolder extends RecyclerView.ViewHolder implements ItemVi
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new GridLayoutManager(itemView.getContext(), 1, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.addItemDecoration(new ItemMarginDecoration(DisplayUtil.dip2px(itemView.getContext(), 12)));
-        mAdapter = new ItemViewAdapter<>(new ArrayList<TagViewModel>(0));
+        mAdapter = new ItemViewAdapter<>();
         recyclerView.setAdapter(mAdapter);
     }
 

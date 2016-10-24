@@ -1,6 +1,7 @@
 package com.aspsine.podcast.data.rss.model.itunes;
 
-import com.aspsine.podcast.data.rss.model.Channel;
+
+import com.aspsine.rss.model.Channel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,16 @@ public class ItunesChannel extends Channel {
      */
     private String itunesExplicit;
 
+    private String mediaRating;
+
+    /**
+     * xmlns:ppg="http://bbc.co.uk/2009/01/ppgRss"
+     * ppg:network
+     */
+    private PPGNetwork ppgNetwork;
+
+    private PPGSeriesDetails ppgSeriesDetails;
+
     private List<ItunesItem> itunesItems;
 
     public String getItunesSubtitle() {
@@ -75,20 +86,20 @@ public class ItunesChannel extends Channel {
         this.itunesSummary = itunesSummary;
     }
 
-    public String getItunesImage() {
-        return itunesImage;
-    }
-
-    public void setItunesImage(String itunesImage) {
-        this.itunesImage = itunesImage;
-    }
-
     public ItunesOwner getItunesOwner() {
         return itunesOwner;
     }
 
     public void setItunesOwner(ItunesOwner itunesOwner) {
         this.itunesOwner = itunesOwner;
+    }
+
+    public String getItunesImage() {
+        return itunesImage;
+    }
+
+    public void setItunesImage(String itunesImage) {
+        this.itunesImage = itunesImage;
     }
 
     public List<String> getItunesCategory() {
@@ -99,12 +110,36 @@ public class ItunesChannel extends Channel {
         this.itunesCategory = itunesCategory;
     }
 
+    public String getMediaRating() {
+        return mediaRating;
+    }
+
+    public void setMediaRating(String mediaRating) {
+        this.mediaRating = mediaRating;
+    }
+
     public String getItunesExplicit() {
         return itunesExplicit;
     }
 
     public void setItunesExplicit(String itunesExplicit) {
         this.itunesExplicit = itunesExplicit;
+    }
+
+    public PPGNetwork getPpgNetwork() {
+        return ppgNetwork;
+    }
+
+    public void setPpgNetwork(PPGNetwork ppgNetwork) {
+        this.ppgNetwork = ppgNetwork;
+    }
+
+    public PPGSeriesDetails getPpgSeriesDetails() {
+        return ppgSeriesDetails;
+    }
+
+    public void setPpgSeriesDetails(PPGSeriesDetails ppgSeriesDetails) {
+        this.ppgSeriesDetails = ppgSeriesDetails;
     }
 
     public List<ItunesItem> getItunesItems() {

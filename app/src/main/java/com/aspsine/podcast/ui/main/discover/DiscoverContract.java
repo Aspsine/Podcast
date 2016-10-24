@@ -29,6 +29,8 @@ public interface DiscoverContract {
 
         void stopLoadMore();
 
+        void loadMoreEnd();
+
         void loadMoreError();
 
         void bindRefreshData(List<ItemViewModel> itemViewModels);

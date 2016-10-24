@@ -26,8 +26,11 @@ import com.aspsine.podcast.ui.main.podcasts.item.MyPodcastViewHolderProvider;
 import com.aspsine.podcast.ui.main.podcasts.item.MyPodcastViewModel;
 import com.aspsine.podcast.ui.podcast.item.EpisodeViewHolderProvider;
 import com.aspsine.podcast.ui.podcast.item.EpisodeViewModel;
-import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolderProvider;
+import com.aspsine.podcast.ui.podcast.item.PodcastHeaderViewHolderProvider;
+import com.aspsine.podcast.ui.podcast.item.PodcastHeaderViewModel;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolderProviderPool;
+import com.aspsine.podcast.widget.recyclerView.loadmore.LoadMoreViewHolderProvider;
+import com.aspsine.podcast.widget.recyclerView.loadmore.LoadMoreViewModel;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -57,6 +60,8 @@ public class App extends Application{
     }
 
     private void registerItemProviders(){
+        ItemViewHolderProviderPool.register(LoadMoreViewModel.class, new LoadMoreViewHolderProvider());
+
         ItemViewHolderProviderPool.register(BannerViewModel.class, new BannerViewHolderProvider());
         ItemViewHolderProviderPool.register(TitleViewModel.class, new TitleViewHolderProvider());
         ItemViewHolderProviderPool.register(TagViewModel.class, new TagViewHolderProvider());
@@ -70,6 +75,7 @@ public class App extends Application{
 
         ItemViewHolderProviderPool.register(DiscoverPodcastViewModel.class, new DiscoverPodcastViewHolderProvider());
 
+        ItemViewHolderProviderPool.register(PodcastHeaderViewModel.class, new PodcastHeaderViewHolderProvider());
         ItemViewHolderProviderPool.register(EpisodeViewModel.class, new EpisodeViewHolderProvider());
     }
 }

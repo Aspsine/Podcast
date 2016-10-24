@@ -1,6 +1,7 @@
 package com.aspsine.podcast.data.rss.parser.sax;
 
-import com.aspsine.podcast.data.rss.parser.RSSParser;
+
+import com.aspsine.rss.RSSParser;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -31,6 +32,14 @@ public class SAXRSSParser<T> implements RSSParser<T> {
             return parse(source, rssHandler);
         } catch (IOException | SAXException | ParserConfigurationException e) {
             throw new RuntimeException(e);
+        }finally {
+            if (inputStream!= null){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

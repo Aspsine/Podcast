@@ -3,9 +3,10 @@ package com.aspsine.podcast.data.rss;
 
 
 import com.aspsine.podcast.data.rss.model.itunes.ItunesChannel;
-import com.aspsine.podcast.data.rss.parser.RSSParser;
-import com.aspsine.podcast.data.rss.parser.sax.ItunesRssHandler;
+import com.aspsine.podcast.data.rss.parser.sax.ItemsRssHandler;
 import com.aspsine.podcast.data.rss.parser.sax.SAXRSSParser;
+import com.aspsine.rss.RSSParser;
+import com.aspsine.rss.RssReader;
 
 import javax.xml.parsers.SAXParserFactory;
 
@@ -20,9 +21,8 @@ public class ItunesChannelRssReader extends RssReader<ItunesChannel> {
             synchronized (ItunesChannelRssReader.class) {
                 if (rssReader == null) {
                     SAXParserFactory factory = SAXParserFactory.newInstance();
-                    ItunesRssHandler handler = new ItunesRssHandler();
                     factory.setNamespaceAware(true);
-                    SAXRSSParser parser = new SAXRSSParser<ItunesChannel>(factory, handler);
+                    SAXRSSParser parser = new SAXRSSParser<>(factory, new ItemsRssHandler());
                     rssReader = new ItunesChannelRssReader(parser);
                 }
             }

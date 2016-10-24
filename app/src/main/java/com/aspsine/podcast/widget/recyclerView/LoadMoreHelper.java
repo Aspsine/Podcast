@@ -1,6 +1,6 @@
 package com.aspsine.podcast.widget.recyclerView;
 
-import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 /**
@@ -13,30 +13,39 @@ public class LoadMoreHelper {
 
     private OnLoadMoreListener mOnLoadMoreListener;
 
-    public void setOnLoadMoreListener(RecyclerView recyclerView, OnLoadMoreListener onLoadMoreListener){
+    public void setOnLoadMoreListener(RecyclerView recyclerView, OnLoadMoreListener onLoadMoreListener) {
         this.mOnLoadMoreListener = onLoadMoreListener;
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    if (!ViewCompat.canScrollVertically(recyclerView, 1) && !isLoadingMore) {
-                        isLoadingMore = true;
-                        mOnLoadMoreListener.onLoadMore();
-                    }
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (linearLayoutManager.findLastVisibleItemPosition() + 10 > recyclerView.getAdapter().getItemCount()
+                        && !isLoadingMore) {
+                    isLoadingMore = true;
+                    mOnLoadMoreListener.onLoadMore();
                 }
             }
         });
     }
 
-    public void startLoadMore(){
+    public void startLoadMore() {
         mOnLoadMoreListener.onLoadMore();
     }
 
-    public void stopLoadMore(){
+    public void stopLoadMore() {
         isLoadingMore = false;
     }
 
-    public boolean isLoadingMore(){
+    public void loadMoreError() {
+        isLoadingMore = false;
+    }
+
+    public void loadMoreEnd() {
+        isLoadingMore = false;
+    }
+
+    public boolean isLoadingMore() {
         return isLoadingMore;
     }
 

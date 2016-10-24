@@ -3,6 +3,9 @@ package com.aspsine.podcast.ui.podcast;
 import com.aspsine.podcast.domain.Podcast;
 import com.aspsine.podcast.ui.base.BasePresenter;
 import com.aspsine.podcast.ui.base.BaseView;
+import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
+
+import java.util.List;
 
 /**
  * Created by aspsine on 16/10/15.

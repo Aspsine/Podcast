@@ -14,7 +14,7 @@ public class ItemViewAdapter<ViewModel extends ItemViewModel> extends RecyclerVi
 
     private List<ViewModel> mItemViewModels;
 
-    public ItemViewAdapter(List<ViewModel> itemViewModels) {
+    public ItemViewAdapter() {
         this.mItemViewModels = new ArrayList<>();
     }
 
@@ -35,6 +35,10 @@ public class ItemViewAdapter<ViewModel extends ItemViewModel> extends RecyclerVi
                 notifyDataSetChanged();
             }
         }
+    }
+
+    public List<ViewModel> getList(){
+        return mItemViewModels;
     }
 
     public void clear() {

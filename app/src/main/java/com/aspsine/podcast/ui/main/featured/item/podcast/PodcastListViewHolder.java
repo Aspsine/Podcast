@@ -11,7 +11,6 @@ import com.aspsine.podcast.util.DisplayUtil;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewAdapter;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ class PodcastListViewHolder extends RecyclerView.ViewHolder implements ItemViewH
         GridLayoutManager layoutManager = new GridLayoutManager(itemView.getContext(), 1, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new ItemMarginDecoration(DisplayUtil.dip2px(itemView.getContext(), 12)));
-        mAdapter = new ItemViewAdapter<PodcastViewModel>(new ArrayList<PodcastViewModel>(0));
+        mAdapter = new ItemViewAdapter<PodcastViewModel>();
         recyclerView.setAdapter(mAdapter);
     }
 

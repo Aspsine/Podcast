@@ -1,6 +1,5 @@
 package com.aspsine.podcast.ui.main.discover.item;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,7 +35,7 @@ public class DiscoverPodcastViewHolder extends RecyclerView.ViewHolder implement
     @Override
     public void onBindViewHolder(int position, final DiscoverPodcastViewModel viewModel) {
         tvName.setText(viewModel.getName());
-        tvUpdateTime.setText(viewModel.getLastUpdate());
+        tvUpdateTime.setText(viewModel.getLastUpdate().replace("Updated: ",""));
         tvDescription.setText(viewModel.getDescription());
         Glide.with(ivCover.getContext()).load(viewModel.getArtwork()).centerCrop().into(ivCover);
         itemView.setOnClickListener(new View.OnClickListener() {

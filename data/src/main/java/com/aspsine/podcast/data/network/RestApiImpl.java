@@ -4,16 +4,14 @@ import com.aspsine.podcast.data.entity.EpisodeEntity;
 import com.aspsine.podcast.data.entity.PageEntity;
 import com.aspsine.podcast.data.entity.PodcastEntity;
 import com.aspsine.podcast.data.rss.ItunesChannelRssReader;
-import com.aspsine.podcast.data.rss.model.Item;
 import com.aspsine.podcast.data.rss.model.itunes.ItunesChannel;
 import com.aspsine.podcast.data.rss.model.itunes.ItunesItem;
 import com.aspsine.podcast.data.utils.DocumentUtils;
-import com.aspsine.podcast.domain.Episode;
 
 import org.jsoup.Jsoup;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,20 +66,15 @@ public class RestApiImpl implements RestApi {
     public Observable<PodcastEntity> getPodcast(String id) {
         final String url = BASE_URL + "/programmes/" + id + "/episodes/downloads.rss";
         final Request request = new Request.Builder().url(url).get().build();
-        return OkHttp.execute(request).map(new Func1<Response, String>() {
+        return OkHttp.execute(request).map(new Func1<Response, InputStream>() {
             @Override
-            public String call(Response response) {
-                try {
-                    return response.body().string();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+            public InputStream call(Response response) {
+                return response.body().byteStream();
             }
-        }).map(new Func1<String, ItunesChannel>() {
+        }).map(new Func1<InputStream, ItunesChannel>() {
             @Override
-            public ItunesChannel call(String s) {
-
-                return ItunesChannelRssReader.getInstance().load(new ByteArrayInputStream(s.getBytes()));
+            public ItunesChannel call(InputStream s) {
+                return ItunesChannelRssReader.getInstance().load(s);
             }
         }).map(new Func1<ItunesChannel, PodcastEntity>() {
             @Override

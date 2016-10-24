@@ -1,8 +1,11 @@
 package com.aspsine.podcast.data.rss.model.itunes;
 
-import com.aspsine.podcast.data.rss.model.Item;
+
+import com.aspsine.rss.model.Item;
 
 /**
+ * xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+ *
  * Created by aspsine on 15/6/27.
  */
 public class ItunesItem extends Item {
@@ -31,6 +34,12 @@ public class ItunesItem extends Item {
      * itunes:duration
      */
     private String itunesDuration;
+
+    private String itunesExplicit;
+
+    private MediaContent mediaContent;
+
+    private String ppgCanonical;
 
     public String getItunesAuthor() {
         return itunesAuthor;
@@ -70,5 +79,29 @@ public class ItunesItem extends Item {
 
     public void setItunesDuration(String itunesDuration) {
         this.itunesDuration = itunesDuration;
+    }
+
+    public String getItunesExplicit() {
+        return itunesExplicit;
+    }
+
+    public void setItunesExplicit(String itunesExplicit) {
+        this.itunesExplicit = itunesExplicit;
+    }
+
+    public MediaContent getMediaContent() {
+        return mediaContent;
+    }
+
+    public void setMediaContent(MediaContent mediaContent) {
+        this.mediaContent = mediaContent;
+    }
+
+    public String getPpgCanonical() {
+        return ppgCanonical;
+    }
+
+    public void setPpgCanonical(String ppgCanonical) {
+        this.ppgCanonical = ppgCanonical;
     }
 }

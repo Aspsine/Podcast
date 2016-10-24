@@ -1,5 +1,6 @@
 package com.aspsine.podcast.ui.podcast;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,5 +33,4 @@ public class PodcastActivity extends BaseActivity {
                     .commit();
         }
     }
-
 }

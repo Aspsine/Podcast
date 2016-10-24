@@ -17,7 +17,6 @@ import com.aspsine.podcast.ui.main.podcasts.item.MyPodcastViewModel;
 import com.aspsine.podcast.util.DisplayUtil;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,7 +44,7 @@ public class MyPodcastsFragment extends BaseFragment implements MyPodcastsContra
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = new MyPodcastsPresenter(this);
-        mAdapter = new ItemViewAdapter<>(new ArrayList<MyPodcastViewModel>(0));
+        mAdapter = new ItemViewAdapter<>();
     }
 
     @Override
