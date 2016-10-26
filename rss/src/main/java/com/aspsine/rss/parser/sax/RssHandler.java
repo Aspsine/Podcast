@@ -1,4 +1,4 @@
-package com.aspsine.podcast.data.rss.parser.sax;
+package com.aspsine.rss.parser.sax;
 
 import org.xml.sax.helpers.DefaultHandler;
 

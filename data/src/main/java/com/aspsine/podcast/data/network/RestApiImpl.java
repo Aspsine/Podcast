@@ -3,9 +3,9 @@ package com.aspsine.podcast.data.network;
 import com.aspsine.podcast.data.entity.EpisodeEntity;
 import com.aspsine.podcast.data.entity.PageEntity;
 import com.aspsine.podcast.data.entity.PodcastEntity;
-import com.aspsine.podcast.data.rss.ItunesChannelRssReader;
-import com.aspsine.podcast.data.rss.model.itunes.ItunesChannel;
-import com.aspsine.podcast.data.rss.model.itunes.ItunesItem;
+import com.aspsine.podcast.data.rss.itunes.ItunesChannelRssReader;
+import com.aspsine.podcast.data.rss.itunes.model.ItunesChannel;
+import com.aspsine.podcast.data.rss.itunes.model.ItunesItem;
 import com.aspsine.podcast.data.utils.DocumentUtils;
 
 import org.jsoup.Jsoup;
@@ -73,8 +73,8 @@ public class RestApiImpl implements RestApi {
             }
         }).map(new Func1<InputStream, ItunesChannel>() {
             @Override
-            public ItunesChannel call(InputStream s) {
-                return ItunesChannelRssReader.getInstance().load(s);
+            public ItunesChannel call(InputStream inputStream) {
+                return ItunesChannelRssReader.getInstance().load(inputStream);
             }
         }).map(new Func1<ItunesChannel, PodcastEntity>() {
             @Override

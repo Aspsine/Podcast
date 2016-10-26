@@ -1,7 +1,7 @@
-package com.aspsine.podcast.data.rss.parser.pull;
+package com.aspsine.rss.parser.pull;
 
 
-import com.aspsine.rss.RSSParser;
+import com.aspsine.rss.parser.RSSParser;
 
 import java.io.InputStream;
 

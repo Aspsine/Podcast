@@ -1,4 +1,4 @@
-package com.aspsine.podcast.data.rss.model.itunes;
+package com.aspsine.podcast.data.rss.itunes.model;
 
 
 import com.aspsine.rss.model.Item;

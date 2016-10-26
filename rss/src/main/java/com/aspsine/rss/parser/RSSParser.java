@@ -1,4 +1,4 @@
-package com.aspsine.rss;
+package com.aspsine.rss.parser;
 
 import java.io.InputStream;
 

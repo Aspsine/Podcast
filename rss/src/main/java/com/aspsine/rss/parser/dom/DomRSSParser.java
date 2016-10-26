@@ -1,7 +1,7 @@
-package com.aspsine.podcast.data.rss.parser.dom;
+package com.aspsine.rss.parser.dom;
 
 
-import com.aspsine.rss.RSSParser;
+import com.aspsine.rss.parser.RSSParser;
 
 /**
  * Created by aspsine on 15/6/28.

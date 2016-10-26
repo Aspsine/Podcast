@@ -1,14 +1,15 @@
-package com.aspsine.podcast.data.rss.parser.sax;
+package com.aspsine.podcast.data.rss.itunes;
 
 import android.util.Log;
 
 
-import com.aspsine.podcast.data.rss.model.itunes.ItunesChannel;
-import com.aspsine.podcast.data.rss.model.itunes.ItunesItem;
-import com.aspsine.podcast.data.rss.model.itunes.ItunesOwner;
-import com.aspsine.podcast.data.rss.model.itunes.MediaContent;
-import com.aspsine.podcast.data.rss.model.itunes.PPGNetwork;
-import com.aspsine.podcast.data.rss.model.itunes.PPGSeriesDetails;
+import com.aspsine.podcast.data.rss.itunes.model.ItunesChannel;
+import com.aspsine.podcast.data.rss.itunes.model.ItunesItem;
+import com.aspsine.podcast.data.rss.itunes.model.ItunesOwner;
+import com.aspsine.podcast.data.rss.itunes.model.MediaContent;
+import com.aspsine.podcast.data.rss.itunes.model.PPGNetwork;
+import com.aspsine.podcast.data.rss.itunes.model.PPGSeriesDetails;
+import com.aspsine.rss.parser.sax.RssHandler;
 import com.aspsine.rss.model.Enclosure;
 import com.aspsine.rss.model.Image;
 
@@ -23,7 +24,7 @@ import java.util.Stack;
  * Created by aspsine on 16/10/23.
  */
 
-public class ItemsRssHandler extends RssHandler<ItunesChannel> {
+public class ItunesChannelRssHandler extends RssHandler<ItunesChannel> {
 
     private ItunesChannel itunesChannel;
 

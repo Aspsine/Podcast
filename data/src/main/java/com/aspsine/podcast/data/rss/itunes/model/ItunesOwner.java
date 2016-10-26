@@ -1,4 +1,4 @@
-package com.aspsine.podcast.data.rss.model.itunes;
+package com.aspsine.podcast.data.rss.itunes.model;
 
 /**
  * Created by aspsine on 15/6/27.

@@ -1,7 +1,7 @@
-package com.aspsine.podcast.data.rss.parser.sax;
+package com.aspsine.rss.parser.sax;
 
 
-import com.aspsine.rss.RSSParser;
+import com.aspsine.rss.parser.RSSParser;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
