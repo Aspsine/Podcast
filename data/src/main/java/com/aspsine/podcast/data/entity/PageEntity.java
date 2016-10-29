@@ -1,5 +1,7 @@
 package com.aspsine.podcast.data.entity;
 
+import com.aspsine.podcast.data.entity.PodcastEntity;
+
 import java.util.List;
 
 /**

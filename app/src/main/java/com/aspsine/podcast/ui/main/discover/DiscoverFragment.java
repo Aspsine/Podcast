@@ -13,10 +13,10 @@ import android.widget.Toast;
 
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.ui.base.BaseFragment;
-import com.aspsine.podcast.widget.recyclerView.LoadMoreHelper;
-import com.aspsine.podcast.widget.recyclerView.item.ItemViewAdapter;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
 import com.aspsine.podcast.widget.recyclerView.loadmore.ItemViewLoadMoreAdapter;
+import com.aspsine.podcast.widget.recyclerView.loadmore.LoadMoreHelper;
+import com.aspsine.podcast.widget.recyclerView.loadmore.OnLoadMoreListener;
 import com.aspsine.podcast.widget.recyclerView.loadmore.State;
 
 import java.util.List;
@@ -26,13 +26,13 @@ import java.util.List;
  */
 
 public class DiscoverFragment extends BaseFragment implements DiscoverContract.View
-        , SwipeRefreshLayout.OnRefreshListener, LoadMoreHelper.OnLoadMoreListener {
+        , SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private DiscoverContract.Presenter mPresenter;
 
-    private LoadMoreHelper mLoadMoreHelper;
+    private LoadMoreHelper.LoadMoreAble mLoadMoreAble;
 
     private ItemViewLoadMoreAdapter<ItemViewModel> mAdapter;
 
@@ -51,7 +51,6 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
         final DiscoverContract.Presenter presenter = new DiscoverPresenter(this);
         setPresenter(presenter);
         mAdapter = new ItemViewLoadMoreAdapter<>();
-        mLoadMoreHelper = new LoadMoreHelper();
     }
 
     @Nullable
@@ -60,7 +59,6 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
         return inflater.inflate(R.layout.fragment_discover, container, false);
     }
 
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -68,7 +66,7 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(mAdapter);
-        mLoadMoreHelper.setOnLoadMoreListener(recyclerView, this);
+        mLoadMoreAble = LoadMoreHelper.help(recyclerView).setOnLoadMoreListener(this);
         swipeRefreshLayout.setOnRefreshListener(this);
     }
 
@@ -117,7 +115,8 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
 
     @Override
     public void stopLoadMore() {
-        mLoadMoreHelper.stopLoadMore();
+        mLoadMoreAble.stopLoadMore();
+        mAdapter.setState(State.Empty);
     }
 
     @Override

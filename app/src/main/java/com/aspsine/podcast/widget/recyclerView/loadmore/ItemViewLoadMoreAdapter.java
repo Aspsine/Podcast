@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewAdapter;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
+import com.aspsine.podcast.widget.recyclerView.item.MultiTypeManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,20 @@ public class ItemViewLoadMoreAdapter<ViewModel extends ItemViewModel> extends It
         super();
     }
 
+    public ItemViewLoadMoreAdapter(MultiTypeManager itemViewHolderFactoryManager) {
+        super(itemViewHolderFactoryManager);
+    }
+
+    private ItemViewLoadMoreAdapter(List<ViewModel> itemViewModels) {
+        super(itemViewModels);
+    }
+
+    private ItemViewLoadMoreAdapter(List<ViewModel> itemViewModels, MultiTypeManager itemViewHolderFactoryManager) {
+        super(itemViewModels, itemViewHolderFactoryManager);
+    }
+
     @Override
+    @SuppressWarnings("unchecked")
     public void setList(List<ViewModel> itemViewModels) {
         List<ViewModel> models = new ArrayList<>();
         for (ViewModel viewModel : itemViewModels){

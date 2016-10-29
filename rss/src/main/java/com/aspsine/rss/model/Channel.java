@@ -11,21 +11,21 @@ public class Channel {
 
     /**
      * must
-     *
+     * <p>
      * The name of the channel. It's how people refer to your service. If you have an HTML website that contains the same information as your RSS file, the title of your channel should be the same as the title of your website.
      */
     protected String title;
 
     /**
      * must
-     *
+     * <p>
      * The URL to the HTML website corresponding to the channel.
      */
     protected String link;
 
     /**
      * must
-     *
+     * <p>
      * Phrase or sentence describing the channel.
      */
     protected String description;

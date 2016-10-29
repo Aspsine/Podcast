@@ -22,10 +22,6 @@ class FeaturedAdapter extends ItemViewAdapter<ItemViewModel> {
 
     private SparseArray<Parcelable> mSavedStates = new SparseArray<>();
 
-    FeaturedAdapter(List<ItemViewModel> itemViewModels) {
-        super();
-    }
-
     public void clearSavedStates(){
         this.mSavedStates.clear();
     }

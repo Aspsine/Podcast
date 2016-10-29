@@ -1,6 +1,8 @@
 package com.aspsine.podcast.widget.recyclerView.loadmore;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -12,14 +14,14 @@ import com.aspsine.podcast.R;
  * Created by aspsine on 16/10/22.
  */
 
-public class LoadMoreView extends FrameLayout {
+public class LoadMoreItemView extends FrameLayout {
 
     private TextView textView;
     private ProgressBar progressBar;
 
     private State mState;
 
-    public LoadMoreView(Context context) {
+    public LoadMoreItemView(Context context) {
         super(context);
         inflate(context, R.layout.layout_load_more, this);
         textView = (TextView) findViewById(R.id.text_view);
@@ -54,4 +56,7 @@ public class LoadMoreView extends FrameLayout {
         }
     }
 
+    public State getState(){
+        return mState;
+    }
 }

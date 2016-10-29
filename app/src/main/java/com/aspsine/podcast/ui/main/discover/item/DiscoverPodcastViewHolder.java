@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.ui.podcast.PodcastActivity;
+import com.aspsine.podcast.util.BBCImageUtils;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolder;
 import com.bumptech.glide.Glide;
 
@@ -35,9 +36,9 @@ public class DiscoverPodcastViewHolder extends RecyclerView.ViewHolder implement
     @Override
     public void onBindViewHolder(int position, final DiscoverPodcastViewModel viewModel) {
         tvName.setText(viewModel.getName());
-        tvUpdateTime.setText(viewModel.getLastUpdate().replace("Updated: ",""));
+        tvUpdateTime.setText(viewModel.getLastUpdate().replace("Updated: ", ""));
         tvDescription.setText(viewModel.getDescription());
-        Glide.with(ivCover.getContext()).load(viewModel.getArtwork()).centerCrop().into(ivCover);
+        Glide.with(ivCover.getContext()).load(BBCImageUtils.getImageUrl(viewModel.getArtwork(), ivCover.getLayoutParams().width)).centerCrop().into(ivCover);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

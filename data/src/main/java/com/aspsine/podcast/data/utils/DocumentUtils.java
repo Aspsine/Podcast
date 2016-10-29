@@ -1,6 +1,5 @@
 package com.aspsine.podcast.data.utils;
 
-import com.aspsine.podcast.data.entity.EpisodeEntity;
 import com.aspsine.podcast.data.entity.PageEntity;
 import com.aspsine.podcast.data.entity.PodcastEntity;
 

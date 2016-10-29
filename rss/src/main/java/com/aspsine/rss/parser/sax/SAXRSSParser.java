@@ -32,8 +32,8 @@ public class SAXRSSParser<T> implements RSSParser<T> {
             return parse(source, rssHandler);
         } catch (IOException | SAXException | ParserConfigurationException e) {
             throw new RuntimeException(e);
-        }finally {
-            if (inputStream!= null){
+        } finally {
+            if (inputStream != null) {
                 try {
                     inputStream.close();
                 } catch (IOException e) {

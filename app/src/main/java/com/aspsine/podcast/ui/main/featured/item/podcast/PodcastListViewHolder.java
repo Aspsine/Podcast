@@ -29,7 +29,7 @@ class PodcastListViewHolder extends RecyclerView.ViewHolder implements ItemViewH
         GridLayoutManager layoutManager = new GridLayoutManager(itemView.getContext(), 1, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new ItemMarginDecoration(DisplayUtil.dip2px(itemView.getContext(), 12)));
-        mAdapter = new ItemViewAdapter<PodcastViewModel>();
+        mAdapter = new ItemViewAdapter<>();
         recyclerView.setAdapter(mAdapter);
     }
 

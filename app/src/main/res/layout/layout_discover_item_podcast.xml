@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color_primary"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 tools:text="Learning English" />
 
             <TextView
@@ -48,6 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
+                android:textSize="12.5sp"
+                android:lineSpacingMultiplier="1.2"
                 tools:text="Cherrie McIlwaine and the experts visit gardens and offer topical advice" />
         </LinearLayout>
 

@@ -1,8 +1,5 @@
 package com.aspsine.podcast.ui.podcast;
 
-import android.app.Activity;
-import android.view.View;
-
 import com.aspsine.podcast.data.entity.mapper.PodcastDataMapper;
 import com.aspsine.podcast.data.repository.PodcastDataRepository;
 import com.aspsine.podcast.data.source.PodcastDataSourceFactory;

@@ -7,6 +7,7 @@ import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
  */
 
 public class LoadMoreViewModel implements ItemViewModel {
+
     private State state = State.Empty;
 
     public State getState() {

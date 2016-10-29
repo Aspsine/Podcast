@@ -14,8 +14,33 @@ public class ItemViewAdapter<ViewModel extends ItemViewModel> extends RecyclerVi
 
     private List<ViewModel> mItemViewModels;
 
+    private MultiTypeManager mMultiTypeManager;
+
     public ItemViewAdapter() {
         this.mItemViewModels = new ArrayList<>();
+        this.mMultiTypeManager = GlobalMultiTypeManager.getMultiTypeManager();
+    }
+
+    public ItemViewAdapter(MultiTypeManager multiTypeManager) {
+        this.mItemViewModels = new ArrayList<>();
+        this.mMultiTypeManager = multiTypeManager;
+    }
+
+    public ItemViewAdapter(List<ViewModel> itemViewModels) {
+        this.mItemViewModels = itemViewModels;
+        this.mMultiTypeManager = GlobalMultiTypeManager.getMultiTypeManager();
+    }
+
+    public ItemViewAdapter(List<ViewModel> itemViewModels, MultiTypeManager multiTypeManager) {
+        this.mItemViewModels = itemViewModels;
+        this.mMultiTypeManager = multiTypeManager;
+    }
+
+    public void setMultiTypeManager(MultiTypeManager multiTypeManager) {
+        this.mMultiTypeManager = multiTypeManager;
+        if (!mItemViewModels.isEmpty()) {
+            notifyDataSetChanged();
+        }
     }
 
     public void setList(List<ViewModel> itemViewModels) {
@@ -30,14 +55,14 @@ public class ItemViewAdapter<ViewModel extends ItemViewModel> extends RecyclerVi
             int count = mItemViewModels.size();
             mItemViewModels.addAll(itemViewModels);
             if (count > 0) {
-                notifyItemRangeInserted(count, mItemViewModels.size());
+                notifyItemRangeInserted(count, itemViewModels.size());
             } else {
                 notifyDataSetChanged();
             }
         }
     }
 
-    public List<ViewModel> getList(){
+    public List<ViewModel> getList() {
         return mItemViewModels;
     }
 
@@ -55,12 +80,12 @@ public class ItemViewAdapter<ViewModel extends ItemViewModel> extends RecyclerVi
 
     @Override
     public int getItemViewType(int position) {
-        return ItemViewHolderProviderPool.getItemViewType(mItemViewModels.get(position).getClass());
+        return mMultiTypeManager.getItemViewType(mItemViewModels.get(position).getClass());
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return (RecyclerView.ViewHolder) ItemViewHolderProviderPool.get(viewType).onCreateViewHolder(parent, viewType);
+        return (RecyclerView.ViewHolder) mMultiTypeManager.get(viewType).onCreateViewHolder(parent, viewType);
     }
 
     @Override
@@ -71,6 +96,6 @@ public class ItemViewAdapter<ViewModel extends ItemViewModel> extends RecyclerVi
     }
 
     public Class<? extends ItemViewModel> getItemViewModelClass(int type) {
-        return ItemViewHolderProviderPool.getItemViewModelClass(type);
+        return mMultiTypeManager.getItemViewModelClass(type);
     }
 }

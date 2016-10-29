@@ -5,13 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aspsine.podcast.R;
-import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolderProvider;
+import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolderFactory;
 
 /**
  * Created by aspsine on 16/9/18.
  */
 
-public class StationViewHolderProvider implements ItemViewHolderProvider<StationViewHolder> {
+public class StationViewHolderFactory implements ItemViewHolderFactory<StationViewHolder> {
 
     @Override
     public StationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

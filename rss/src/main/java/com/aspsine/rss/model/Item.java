@@ -8,19 +8,19 @@ package com.aspsine.rss.model;
 public class Item {
     /**
      * must
-     *
+     * <p>
      * The title of the item.
      */
     protected String title;
     /**
      * must
-     *
+     * <p>
      * The item synopsis.
      */
     protected String description;
     /**
      * must
-     *
+     * <p>
      * The URL of the item.
      */
     protected String link;

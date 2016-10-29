@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.aspsine.podcast.ui.main.featured.item.banner.BannerViewModel;
 import com.aspsine.podcast.ui.main.featured.item.title.TitleViewModel;
-import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolderProviderPool;
+import com.aspsine.podcast.widget.recyclerView.item.ItemViewAdapter;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
 
 /**
@@ -23,8 +23,10 @@ public class FeaturedItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        int type = parent.getAdapter().getItemViewType(parent.getChildAdapterPosition(view));
-        Class<? extends ItemViewModel> clazz = ItemViewHolderProviderPool.getItemViewModelClass(type);
+        final int position = parent.getChildAdapterPosition(view);
+        final ItemViewAdapter<? extends ItemViewModel> adapter = (ItemViewAdapter<? extends ItemViewModel>) parent.getAdapter();
+        final int type = adapter.getItemViewType(position);
+        final Class<? extends ItemViewModel> clazz = adapter.getItemViewModelClass(type);
         if (clazz == TitleViewModel.class) {
             outRect.set(mMargin, mMargin, mMargin, 0);
         } else if (clazz == BannerViewModel.class) {

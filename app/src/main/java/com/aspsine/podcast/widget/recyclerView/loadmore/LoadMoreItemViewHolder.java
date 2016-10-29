@@ -9,13 +9,13 @@ import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolder;
  * Created by aspsine on 16/10/22.
  */
 
-public class LoadMoreViewHolder extends RecyclerView.ViewHolder implements ItemViewHolder<LoadMoreViewModel> {
+public class LoadMoreItemViewHolder extends RecyclerView.ViewHolder implements ItemViewHolder<LoadMoreViewModel> {
 
-    private LoadMoreView loadMoreView;
+    private LoadMoreItemView loadMoreView;
 
-    public LoadMoreViewHolder(View itemView) {
+    public LoadMoreItemViewHolder(View itemView) {
         super(itemView);
-        loadMoreView= (LoadMoreView) itemView;
+        loadMoreView= (LoadMoreItemView) itemView;
     }
 
     @Override
