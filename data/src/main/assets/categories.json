@@ -79,12 +79,12 @@
       ]
     },
     {
+      "name": "Entertainment",
       "href": "/podcasts/genre/entertainment",
-      "text": "Entertainment",
       "SubCategories": []
     },
     {
-      "text": "Factual",
+      "name": "Factual",
       "href": "/podcasts/genre/factual",
       "SubCategories": [
         {
