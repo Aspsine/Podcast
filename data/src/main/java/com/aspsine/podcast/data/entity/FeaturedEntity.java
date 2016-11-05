@@ -6,7 +6,7 @@ import java.util.List;
  * Created by aspsine on 16/10/27.
  */
 
-public class FeedEntity {
+public class FeaturedEntity {
 
     public static final int TYPE_FEATURED_TITLE = 1;
 
@@ -14,9 +14,11 @@ public class FeedEntity {
 
     public static final int TYPE_FEATURED_STATION = 12;
 
-    public static final int TYPE_FEATURED_PODCAST = 13;
+    public static final int TYPE_FEATURED_CATEGORY = 13;
 
-    public static final int TYPE_FEATURED_EPISODE = 14;
+    public static final int TYPE_FEATURED_PODCAST = 14;
+
+    public static final int TYPE_FEATURED_EPISODE = 15;
 
     public static final int TYPE_FEATURED_PROVIDER_LIST = 21;
 
@@ -28,15 +30,17 @@ public class FeedEntity {
 
     private int type;
 
-    private FeedEntity feedEntity;
+    private FeaturedEntity feedEntity;
 
-    private List<FeedEntity> feedEntities;
+    private List<FeaturedEntity> feedEntities;
 
     private TitleEntity titleEntity;
 
     private EpisodeEntity episodeEntity;
 
     private PodcastEntity podcastEntity;
+
+    private CategoryEntity categoryEntity;
 
     private StationEntity stationEntity;
 
@@ -58,19 +62,19 @@ public class FeedEntity {
         this.type = type;
     }
 
-    public FeedEntity getFeedEntity() {
+    public FeaturedEntity getFeedEntity() {
         return feedEntity;
     }
 
-    public void setFeedEntity(FeedEntity feedEntity) {
+    public void setFeedEntity(FeaturedEntity feedEntity) {
         this.feedEntity = feedEntity;
     }
 
-    public List<FeedEntity> getFeedEntities() {
+    public List<FeaturedEntity> getFeedEntities() {
         return feedEntities;
     }
 
-    public void setFeedEntities(List<FeedEntity> feedEntities) {
+    public void setFeedEntities(List<FeaturedEntity> feedEntities) {
         this.feedEntities = feedEntities;
     }
 
@@ -96,6 +100,14 @@ public class FeedEntity {
 
     public void setPodcastEntity(PodcastEntity podcastEntity) {
         this.podcastEntity = podcastEntity;
+    }
+
+    public CategoryEntity getCategoryEntity() {
+        return categoryEntity;
+    }
+
+    public void setCategoryEntity(CategoryEntity categoryEntity) {
+        this.categoryEntity = categoryEntity;
     }
 
     public StationEntity getStationEntity() {

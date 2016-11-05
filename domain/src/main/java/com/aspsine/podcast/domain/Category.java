@@ -13,4 +13,20 @@ public class Category {
     private String name;
 
     private List<Podcast> podcasts;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public List<Podcast> getPodcasts() {
+        return podcasts;
+    }
+
+    public void setPodcasts(List<Podcast> podcasts) {
+        this.podcasts = podcasts;
+    }
 }

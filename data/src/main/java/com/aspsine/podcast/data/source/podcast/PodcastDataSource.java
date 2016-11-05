@@ -1,4 +1,4 @@
-package com.aspsine.podcast.data.source;
+package com.aspsine.podcast.data.source.podcast;
 
 import com.aspsine.podcast.data.entity.PodcastEntity;
 

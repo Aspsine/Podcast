@@ -1,13 +1,18 @@
 package com.aspsine.podcast.data.network;
 
+import com.aspsine.podcast.data.entity.CategoryEntity;
 import com.aspsine.podcast.data.entity.EpisodeEntity;
 import com.aspsine.podcast.data.entity.PageEntity;
 import com.aspsine.podcast.data.entity.PodcastEntity;
+import com.aspsine.podcast.data.entity.StationEntity;
 import com.aspsine.podcast.data.rss.itunes.ItunesChannelRssReader;
 import com.aspsine.podcast.data.rss.itunes.model.ItunesChannel;
 import com.aspsine.podcast.data.rss.itunes.model.ItunesItem;
 import com.aspsine.podcast.data.utils.DocumentUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
@@ -84,7 +89,7 @@ public class RestApiImpl implements RestApi {
                 podcastEntity.setArtwork(itunesChannel.getImage().getUrl());
                 podcastEntity.setLastUpdate(itunesChannel.getLastBuildDate());
                 List<EpisodeEntity> episodes = new ArrayList<>();
-                for (ItunesItem itunesItem : itunesChannel.getItunesItems()){
+                for (ItunesItem itunesItem : itunesChannel.getItunesItems()) {
                     EpisodeEntity episode = new EpisodeEntity();
                     episode.setTitle(itunesItem.getTitle());
                     episode.setDescription(itunesItem.getDescription());
@@ -98,5 +103,113 @@ public class RestApiImpl implements RestApi {
                 return podcastEntity;
             }
         });
+    }
+
+    @Override
+    public Observable<List<PodcastEntity>> search(String text) {
+        final String url = BASE_URL + "/podcasts/search.json?q=" + text;
+        final Request request = new Request.Builder().url(url).get().build();
+        return OkHttp.execute(request).map(new Func1<Response, String>() {
+            @Override
+            public String call(Response response) {
+                try {
+                    return response.body().string();
+                } catch (IOException e) {
+                    throw new OnErrorFailedException(e);
+                }
+            }
+        }).map(new Func1<String, List<PodcastEntity>>() {
+            @Override
+            public List<PodcastEntity> call(String s) {
+                List<PodcastEntity> podcastEntities = new ArrayList<>();
+                JSONArray array = null;
+                try {
+                    array = new JSONArray(s);
+                } catch (JSONException e) {
+                    throw new OnErrorFailedException(e);
+                }
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject object = array.optJSONObject(i);
+                    PodcastEntity podcastEntity = new PodcastEntity();
+                    podcastEntity.setId(object.optString("pid"));
+                    podcastEntity.setName(object.optString("title"));
+                    podcastEntity.setHref(object.optString("link"));
+                    podcastEntity.setArtwork(object.optString("image"));
+                    podcastEntity.setDescription(object.optString("description"));
+                    podcastEntities.add(podcastEntity);
+                }
+                return podcastEntities;
+            }
+        });
+    }
+
+    @Override
+    public Observable<CategoryEntity> getCategory(final String categoryId) {
+        final String url = BASE_URL + "podcasts/genre/" + categoryId;
+        final Request request = new Request.Builder().url(url).get().build();
+        return OkHttp.execute(request)
+                .map(new Func1<Response, String>() {
+                    @Override
+                    public String call(Response response) {
+                        try {
+                            return response.body().string();
+                        } catch (IOException e) {
+                            throw new OnErrorFailedException(e);
+                        }
+                    }
+                }).map(new Func1<String, PageEntity>() {
+
+                    @Override
+                    public PageEntity call(String s) {
+                        return DocumentUtils.getPage(Jsoup.parse(s), false);
+                    }
+                }).map(new Func1<PageEntity, List<PodcastEntity>>() {
+                    @Override
+                    public List<PodcastEntity> call(PageEntity pageEntity) {
+                        return pageEntity.getPodcasts();
+                    }
+                }).map(new Func1<List<PodcastEntity>, CategoryEntity>() {
+                    @Override
+                    public CategoryEntity call(List<PodcastEntity> podcastEntities) {
+                        CategoryEntity categoryEntity = new CategoryEntity();
+                        categoryEntity.setId(categoryId);
+                        categoryEntity.setName(categoryId);
+                        categoryEntity.setPodcastEntities(podcastEntities);
+                        return categoryEntity;
+                    }
+                });
+    }
+
+    @Override
+    public Observable<List<CategoryEntity>> getCategories() {
+
+        return null;
+    }
+
+    @Override
+    public Observable<StationEntity> getStation(String id) {
+        return null;
+    }
+
+    @Override
+    public Observable<List<StationEntity>> getStations() {
+        final String url = BASE_URL + "/podcasts";
+        final Request request = new Request.Builder().url(url).get().build();
+        return OkHttp.execute(request)
+                .map(new Func1<Response, String>() {
+                    @Override
+                    public String call(Response response) {
+                        try {
+                            return response.body().string();
+                        } catch (IOException e) {
+                            throw new OnErrorFailedException(e);
+                        }
+                    }
+                }).map(new Func1<String, List<StationEntity>>() {
+                    @Override
+                    public List<StationEntity> call(String s) {
+                        return DocumentUtils.getStations(Jsoup.parse(s));
+                    }
+                });
     }
 }

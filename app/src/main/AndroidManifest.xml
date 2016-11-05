@@ -26,7 +26,8 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.podcast.PodcastActivity"></activity>
+        <activity android:name=".ui.podcast.PodcastActivity" />
+        <activity android:name=".ui.search.SearchActivity" />
     </application>
 
 </manifest>

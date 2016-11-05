@@ -2,8 +2,9 @@ package com.aspsine.podcast.ui.main.discover;
 
 import com.aspsine.podcast.data.entity.mapper.PodcastDataMapper;
 import com.aspsine.podcast.data.repository.PodcastDataRepository;
-import com.aspsine.podcast.data.source.PodcastDataSourceFactory;
+import com.aspsine.podcast.data.source.podcast.PodcastDataSourceFactory;
 import com.aspsine.podcast.domain.Podcast;
+import com.aspsine.podcast.domain.interactor.GetPodcastList;
 import com.aspsine.podcast.domain.repository.PodcastRepository;
 import com.aspsine.podcast.ui.main.discover.mapper.DiscoverPodcastViewModelMapper;
 import com.aspsine.podcast.util.L;
@@ -12,7 +13,9 @@ import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.SimpleObserver;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by zhangfan10 on 16/10/8.
@@ -24,15 +27,15 @@ public class DiscoverPresenter implements DiscoverContract.Presenter {
 
     private final DiscoverPodcastViewModelMapper mDiscoverPodcastViewModelMapper;
 
-    private final PodcastRepository mPodcastRepository;
+    private final GetPodcastList mGetPodcasts;
 
     private int mPage;
 
     public DiscoverPresenter(DiscoverContract.View view) {
         this.mView = view;
-
         this.mDiscoverPodcastViewModelMapper = new DiscoverPodcastViewModelMapper();
-        this.mPodcastRepository = new PodcastDataRepository(new PodcastDataMapper(), new PodcastDataSourceFactory());
+        PodcastRepository podcastRepository = new PodcastDataRepository(new PodcastDataMapper(), new PodcastDataSourceFactory());
+        this.mGetPodcasts = new GetPodcastList(podcastRepository, Schedulers.io(), AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -44,7 +47,8 @@ public class DiscoverPresenter implements DiscoverContract.Presenter {
     @Override
     public void refresh() {
         mPage = 1;
-        loadRxRefreshData(new SimpleObserver<List<Podcast>>() {
+
+        loadRxRefreshData(new Subscriber<List<Podcast>>() {
             @Override
             public void onNext(List<Podcast> podcasts) {
                 List<ItemViewModel> itemViewModels = new ArrayList<ItemViewModel>();
@@ -55,6 +59,10 @@ public class DiscoverPresenter implements DiscoverContract.Presenter {
                 } else {
                     mView.bindRefreshData(itemViewModels);
                 }
+            }
+
+            @Override
+            public void onCompleted() {
                 mView.stopRefresh();
             }
 
@@ -69,7 +77,7 @@ public class DiscoverPresenter implements DiscoverContract.Presenter {
     @Override
     public void loadMore() {
         L.i("More load :" + mPage);
-        loadRxRefreshData(new SimpleObserver<List<Podcast>>() {
+        loadRxRefreshData(new Subscriber<List<Podcast>>() {
             @Override
             public void onNext(List<Podcast> podcasts) {
                 if (podcasts != null && !podcasts.isEmpty()) {
@@ -78,6 +86,10 @@ public class DiscoverPresenter implements DiscoverContract.Presenter {
                     itemViewModels.addAll(mDiscoverPodcastViewModelMapper.transform(podcasts));
                     mView.bindLoadMoreData(itemViewModels);
                 }
+            }
+
+            @Override
+            public void onCompleted() {
                 mView.stopLoadMore();
             }
 
@@ -89,7 +101,7 @@ public class DiscoverPresenter implements DiscoverContract.Presenter {
         });
     }
 
-    private void loadRxRefreshData(SimpleObserver<List<Podcast>> observer) {
-        mPodcastRepository.getPodcasts(mPage).subscribe(observer);
+    private void loadRxRefreshData(Subscriber<List<Podcast>> subscriber) {
+        mGetPodcasts.setPageIndex(mPage).execute(subscriber);
     }
 }

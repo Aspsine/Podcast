@@ -6,7 +6,6 @@ package rx;
 
 public abstract class SimpleObserver<T> implements Observer<T> {
 
-
     @Override
     public void onCompleted() {
     }

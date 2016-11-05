@@ -1,8 +1,8 @@
-package com.aspsine.podcast.data.source;
+package com.aspsine.podcast.data.source.podcast;
 
 import com.aspsine.podcast.data.network.RestApi;
 import com.aspsine.podcast.data.network.RestApiImpl;
-import com.aspsine.podcast.data.source.remote.RemotePodcastDataSource;
+import com.aspsine.podcast.data.source.podcast.remote.RemotePodcastDataSource;
 
 /**
  * Created by aspsine on 16/9/12.

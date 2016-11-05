@@ -1,8 +1,8 @@
-package com.aspsine.podcast.data.source.remote;
+package com.aspsine.podcast.data.source.podcast.remote;
 
 import com.aspsine.podcast.data.entity.PodcastEntity;
 import com.aspsine.podcast.data.network.RestApi;
-import com.aspsine.podcast.data.source.PodcastDataSource;
+import com.aspsine.podcast.data.source.podcast.PodcastDataSource;
 
 import java.util.List;
 

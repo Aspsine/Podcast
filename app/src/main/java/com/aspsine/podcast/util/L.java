@@ -9,7 +9,7 @@ import com.aspsine.podcast.BuildConfig;
  * Created by aspsine on 15-3-13.
  */
 public class L {
-    public static final String TAG = "podCast";
+    public static final String TAG = "podcast";
 
     public static int i(String msg) {
         return i(TAG, msg);

@@ -2,11 +2,13 @@ package com.aspsine.podcast.ui.podcast;
 
 import com.aspsine.podcast.data.entity.mapper.PodcastDataMapper;
 import com.aspsine.podcast.data.repository.PodcastDataRepository;
-import com.aspsine.podcast.data.source.PodcastDataSourceFactory;
+import com.aspsine.podcast.data.source.podcast.PodcastDataSourceFactory;
 import com.aspsine.podcast.domain.Podcast;
-import com.aspsine.podcast.domain.repository.PodcastRepository;
+import com.aspsine.podcast.domain.interactor.GetPodcast;
 
-import rx.SimpleObserver;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by aspsine on 16/10/15.
@@ -16,14 +18,12 @@ public class PodcastPresenter implements PodcastContract.Presenter {
 
     private PodcastContract.View mView;
 
-    private final PodcastRepository mPodcastRepository;
+    private final GetPodcast mGetPodcast;
 
-    private final String mPodcastId;
 
     public PodcastPresenter(PodcastContract.View view, String podcastId) {
         this.mView = view;
-        this.mPodcastId = podcastId;
-        this.mPodcastRepository = new PodcastDataRepository(new PodcastDataMapper(), new PodcastDataSourceFactory());
+        mGetPodcast = new GetPodcast(podcastId, new PodcastDataRepository(new PodcastDataMapper(), new PodcastDataSourceFactory()), Schedulers.io(), AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -34,11 +34,16 @@ public class PodcastPresenter implements PodcastContract.Presenter {
 
     @Override
     public void refresh() {
-        mPodcastRepository.getPodcast(mPodcastId).subscribe(new SimpleObserver<Podcast>() {
+
+        mGetPodcast.execute(new Subscriber<Podcast>() {
 
             @Override
             public void onNext(Podcast podcast) {
                 mView.bindRefreshData(new PodcastViewModel(podcast));
+            }
+
+            @Override
+            public void onCompleted() {
                 mView.stopRefresh();
             }
 

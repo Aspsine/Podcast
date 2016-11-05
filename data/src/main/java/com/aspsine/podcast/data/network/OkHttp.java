@@ -33,7 +33,7 @@ public class OkHttp {
         return okHttpClient;
     }
 
-    public static OkHttpClient provideOkHttpClient(Application app) {
+    private static OkHttpClient provideOkHttpClient(Application app) {
         return createOkHttpClient(app).build();
     }
 

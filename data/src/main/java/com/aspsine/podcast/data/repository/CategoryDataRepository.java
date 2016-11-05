@@ -15,11 +15,13 @@ public class CategoryDataRepository implements CategoryRepository {
 
     @Override
     public Observable<Category> getCategory(String id) {
+
         return null;
     }
 
     @Override
     public Observable<List<Category>> getCategories() {
+
         return null;
     }
 }

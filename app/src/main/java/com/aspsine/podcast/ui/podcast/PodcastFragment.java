@@ -17,6 +17,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.aspsine.podcast.R;
+import com.aspsine.podcast.data.entity.mapper.PodcastDataMapper;
+import com.aspsine.podcast.data.repository.PodcastDataRepository;
+import com.aspsine.podcast.data.source.podcast.PodcastDataSourceFactory;
+import com.aspsine.podcast.domain.interactor.GetPodcast;
+import com.aspsine.podcast.domain.interactor.UseCase;
 import com.aspsine.podcast.ui.base.BaseFragment;
 import com.aspsine.podcast.ui.podcast.item.EpisodeViewModel;
 import com.aspsine.podcast.ui.podcast.mapper.EpisodeViewModelDataMapper;
@@ -82,7 +87,7 @@ public class PodcastFragment extends BaseFragment implements PodcastContract.Vie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         AppBarLayout appBarLayout = (AppBarLayout) view.findViewById(R.id.app_bar_layout);
-        final CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout)view.findViewById(R.id.toolbar_layout);
+        CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.toolbar_layout);
         toolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.text_color_primary));
         toolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
 
@@ -100,9 +105,9 @@ public class PodcastFragment extends BaseFragment implements PodcastContract.Vie
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (verticalOffset == 0){
+                if (verticalOffset == 0) {
                     swipeRefreshLayout.setEnabled(true);
-                }else {
+                } else {
                     swipeRefreshLayout.setEnabled(false);
                 }
             }

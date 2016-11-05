@@ -1,0 +1,279 @@
+{
+  "Categories": [
+    {
+      "name": "Children's",
+      "href": "/podcasts/genre/childrens",
+      "SubCategories": [
+        {
+          "href": "/podcasts/genre/childrens",
+          "name": "All Children's"
+        },
+        {
+          "href": "/podcasts/genre/activities",
+          "name": "Activities"
+        },
+        {
+          "href": "/podcasts/genre/drama",
+          "name": "Drama"
+        },
+        {
+          "href": "/podcasts/genre/entertainmentandcomedy",
+          "name": "Entertainment & Comedy"
+        },
+        {
+          "href": "/podcasts/genre/childrensmusic",
+          "name": "Music"
+        }
+      ]
+    },
+    {
+      "name": "Comedy",
+      "href": "/podcasts/genre/comedy",
+      "SubCategories": [
+        {
+          "href": "/podcasts/genre/comedy",
+          "name": "All Comedy"
+        },
+        {
+          "href": "/podcasts/genre/character",
+          "name": "Character"
+        },
+        {
+          "href": "/podcasts/genre/comedymusic",
+          "name": "Music"
+        },
+        {
+          "href": "/podcasts/genre/satire",
+          "name": "Satire"
+        },
+        {
+          "href": "/podcasts/genre/sketch",
+          "name": "Sketch"
+        },
+        {
+          "href": "/podcasts/genre/standup",
+          "name": "Standup"
+        }
+      ]
+    },
+    {
+      "name": "Drama",
+      "href": "/podcasts/genre/drama",
+      "SubCategories": [
+        {
+          "href": "/podcasts/genre/drama",
+          "name": "All Drama"
+        },
+        {
+          "href": "/podcasts/genre/historical",
+          "name": "Historical"
+        },
+        {
+          "href": "/podcasts/genre/soaps",
+          "name": "Soaps"
+        },
+        {
+          "href": "/podcasts/genre/thriller",
+          "name": "Thriller"
+        }
+      ]
+    },
+    {
+      "href": "/podcasts/genre/entertainment",
+      "text": "Entertainment",
+      "SubCategories": []
+    },
+    {
+      "text": "Factual",
+      "href": "/podcasts/genre/factual",
+      "SubCategories": [
+        {
+          "href": "/podcasts/genre/factual",
+          "name": "All Factual"
+        },
+        {
+          "href": "/podcasts/genre/artscultureandthemedia",
+          "name": "Arts, Culture & the Media"
+        },
+        {
+          "href": "/podcasts/genre/consumer",
+          "name": "Consumer"
+        },
+        {
+          "href": "/podcasts/genre/crimeandjustice",
+          "name": "Crime & Justice"
+        },
+        {
+          "href": "/podcasts/genre/disability",
+          "name": "Disability"
+        },
+        {
+          "href": "/podcasts/genre/familiesandrelationships",
+          "name": "Families & Relationships"
+        },
+        {
+          "href": "/podcasts/genre/foodanddrink",
+          "name": "Food & Drink"
+        },
+        {
+          "href": "/podcasts/genre/healthandwellbeing",
+          "name": "Health & Wellbeing"
+        },
+        {
+          "href": "/podcasts/genre/history",
+          "name": "History"
+        },
+        {
+          "href": "/podcasts/genre/homesandgardens",
+          "name": "Homes & Gardens"
+        },
+        {
+          "href": "/podcasts/genre/lifestories",
+          "name": "life Stories"
+        },
+        {
+          "href": "/podcasts/genre/money",
+          "name": "Money"
+        },
+        {
+          "href": "/podcasts/genre/politics",
+          "name": "Politics"
+        },
+        {
+          "href": "/podcasts/genre/scienceandnature",
+          "name": "Science & Nature"
+        },
+        {
+          "href": "/podcasts/genre/travel",
+          "name": "Travel"
+        }
+      ]
+    },
+    {
+      "name": "Learning",
+      "href": "/podcasts/genre/learning",
+      "SubCategories": [
+        {
+          "href": "/podcasts/genre/learning",
+          "name": "All Learning"
+        },
+        {
+          "href": "/podcasts/genre/adults",
+          "name": "Adults"
+        },
+        {
+          "href": "/podcasts/genre/preschool",
+          "name": "Pre-School"
+        },
+        {
+          "href": "/podcasts/genre/primary",
+          "name": "Primary"
+        },
+        {
+          "href": "/podcasts/genre/secondary",
+          "name": "Secondary"
+        }
+      ]
+    },
+    {
+      "name": "Music",
+      "href": "/podcasts/genre/music",
+      "SubCategories": [
+        {
+          "href": "/podcasts/genre/music",
+          "name": "All Music"
+        },
+        {
+          "href": "/podcasts/genre/classicpopandrock",
+          "name": "Classic Pop & Rock"
+        },
+        {
+          "href": "/podcasts/genre/classical",
+          "name": "Classical"
+        },
+        {
+          "href": "/podcasts/genre/danceandelectronica",
+          "name": "Dance & Electronica"
+        },
+        {
+          "href": "/podcasts/genre/easylisteningsoundtracksandmusicals",
+          "name": "Easy listening, Soundtracks & Musicals"
+        },
+        {
+          "href": "/podcasts/genre/folk",
+          "name": "Folk"
+        },
+        {
+          "href": "/podcasts/genre/jazzandblues",
+          "name": "Jazz & Blues"
+        },
+        {
+          "href": "/podcasts/genre/rockandindie",
+          "name": "Rock & Indie"
+        },
+        {
+          "href": "/podcasts/genre/world",
+          "name": "World"
+        }
+      ]
+    },
+    {
+      "href": "/podcasts/genre/news",
+      "name": "News"
+    },
+    {
+      "href": "/podcasts/genre/religionandethics",
+      "name": "Religion & Ethics"
+    },
+    {
+      "href": "/podcasts/genre/sport",
+      "name": "Sport",
+      "SubCategories": [
+        {
+          "href": "/podcasts/genre/sport",
+          "name": "All Sport"
+        },
+        {
+          "href": "/podcasts/genre/athletics",
+          "name": "Athletics"
+        },
+        {
+          "href": "/podcasts/genre/boxing",
+          "name": "Boxing"
+        },
+        {
+          "href": "/podcasts/genre/cricket",
+          "name": "Cricket"
+        },
+        {
+          "href": "/podcasts/genre/football",
+          "name": "Football"
+        },
+        {
+          "href": "/podcasts/genre/olympics",
+          "name": "Olympics"
+        },
+        {
+          "href": "/podcasts/genre/rugbyleague",
+          "name": "Rugby League"
+        },
+        {
+          "href": "/podcasts/genre/rugbyunion",
+          "name": "Rugby Union"
+        },
+        {
+          "href": "/podcasts/genre/sailing",
+          "name": "Sailing"
+        },
+        {
+          "href": "/podcasts/genre/shinty",
+          "name": "Shinty"
+        },
+        {
+          "href": "/podcasts/genre/swimming",
+          "name": "Swimming"
+        }
+      ]
+    }
+  ]
+}

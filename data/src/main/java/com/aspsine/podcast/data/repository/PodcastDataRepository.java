@@ -2,8 +2,8 @@ package com.aspsine.podcast.data.repository;
 
 import com.aspsine.podcast.data.entity.PodcastEntity;
 import com.aspsine.podcast.data.entity.mapper.PodcastDataMapper;
-import com.aspsine.podcast.data.source.PodcastDataSource;
-import com.aspsine.podcast.data.source.PodcastDataSourceFactory;
+import com.aspsine.podcast.data.source.podcast.PodcastDataSource;
+import com.aspsine.podcast.data.source.podcast.PodcastDataSourceFactory;
 import com.aspsine.podcast.domain.Podcast;
 import com.aspsine.podcast.domain.repository.PodcastRepository;
 
@@ -37,8 +37,7 @@ public class PodcastDataRepository implements PodcastRepository {
             public Podcast call(PodcastEntity podcastEntity) {
                 return mPodcastDataMapper.transform(podcastEntity);
             }
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+        });
     }
 
     @Override
