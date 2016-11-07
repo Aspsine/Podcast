@@ -56,8 +56,8 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
         super.onCreate(savedInstanceState);
         FeaturedContract.Presenter presenter = new FeaturedPresenter(this);
         setPresenter(presenter);
-
         mAdapter = new FeaturedAdapter();
+        ((FeaturedAdapter)mAdapter).setRecycledViewPool(new RecyclerView.RecycledViewPool());
     }
 
     @Override

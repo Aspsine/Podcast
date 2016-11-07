@@ -5,8 +5,8 @@ package com.aspsine.podcast.data.rss.itunes.model;
  */
 
 public class PPGSeriesDetails {
-    String frequency;
-    String daysLive;
+    private String frequency;
+    private String daysLive;
 
     public String getFrequency() {
         return frequency;

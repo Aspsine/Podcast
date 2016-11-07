@@ -11,6 +11,13 @@ import java.util.List;
 public class StationListViewModel implements ItemViewModel{
     private List<StationViewModel> stationViewModels;
 
+    public StationListViewModel() {
+    }
+
+    public StationListViewModel(List<StationViewModel> stationViewModels) {
+        this.stationViewModels = stationViewModels;
+    }
+
     public List<StationViewModel> getStationViewModels() {
         return stationViewModels;
     }

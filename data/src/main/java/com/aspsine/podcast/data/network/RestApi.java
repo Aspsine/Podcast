@@ -1,6 +1,7 @@
 package com.aspsine.podcast.data.network;
 
 import com.aspsine.podcast.data.entity.CategoryEntity;
+import com.aspsine.podcast.data.entity.EpisodeEntity;
 import com.aspsine.podcast.data.entity.PodcastEntity;
 import com.aspsine.podcast.data.entity.StationEntity;
 
@@ -14,6 +15,8 @@ import rx.Observer;
  */
 
 public interface RestApi {
+
+    Observable<List<EpisodeEntity>> getEpisodes(String podcastId);
 
     Observable<List<PodcastEntity>> getPodcasts(int page);
 

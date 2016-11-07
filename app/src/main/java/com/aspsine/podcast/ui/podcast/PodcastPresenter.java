@@ -1,11 +1,19 @@
 package com.aspsine.podcast.ui.podcast;
 
+import android.util.Log;
+
+import com.aspsine.podcast.data.entity.EpisodeEntity;
 import com.aspsine.podcast.data.entity.mapper.PodcastDataMapper;
+import com.aspsine.podcast.data.network.RestApi;
+import com.aspsine.podcast.data.network.RestApiImpl;
 import com.aspsine.podcast.data.repository.PodcastDataRepository;
 import com.aspsine.podcast.data.source.podcast.PodcastDataSourceFactory;
 import com.aspsine.podcast.domain.Podcast;
 import com.aspsine.podcast.domain.interactor.GetPodcast;
 
+import java.util.List;
+
+import rx.SimpleObserver;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -20,10 +28,13 @@ public class PodcastPresenter implements PodcastContract.Presenter {
 
     private final GetPodcast mGetPodcast;
 
+    private String id;
+
 
     public PodcastPresenter(PodcastContract.View view, String podcastId) {
         this.mView = view;
         mGetPodcast = new GetPodcast(podcastId, new PodcastDataRepository(new PodcastDataMapper(), new PodcastDataSourceFactory()), Schedulers.io(), AndroidSchedulers.mainThread());
+    this.id = podcastId;
     }
 
     @Override
@@ -34,7 +45,6 @@ public class PodcastPresenter implements PodcastContract.Presenter {
 
     @Override
     public void refresh() {
-
         mGetPodcast.execute(new Subscriber<Podcast>() {
 
             @Override

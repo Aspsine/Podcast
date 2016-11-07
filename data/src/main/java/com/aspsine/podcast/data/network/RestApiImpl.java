@@ -1,5 +1,7 @@
 package com.aspsine.podcast.data.network;
 
+import android.util.Log;
+
 import com.aspsine.podcast.data.entity.CategoryEntity;
 import com.aspsine.podcast.data.entity.EpisodeEntity;
 import com.aspsine.podcast.data.entity.PageEntity;
@@ -14,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +28,7 @@ import okhttp3.Response;
 import rx.Observable;
 import rx.exceptions.OnErrorFailedException;
 import rx.functions.Func1;
+import rx.functions.Func2;
 
 /**
  * Created by zhangfan10 on 16/10/9.
@@ -33,6 +37,66 @@ import rx.functions.Func1;
 public class RestApiImpl implements RestApi {
 
     private static final String BASE_URL = "http://www.bbc.co.uk";
+
+    @Override
+    public Observable<List<EpisodeEntity>> getEpisodes(String podcastId) {
+        final String url = BASE_URL + "/programmes/" + podcastId + "/episodes/downloads";
+        final Request request = new Request.Builder().url(url).get().build();
+        return OkHttp.execute(request)
+                .map(new Func1<Response, String>() {
+                    @Override
+                    public String call(Response response) {
+                        try {
+                            return response.body().string();
+                        } catch (IOException e) {
+                            throw new OnErrorFailedException(e);
+                        }
+                    }
+                }).flatMap(new Func1<String, Observable<List<EpisodeEntity>>>() {
+                    @Override
+                    public Observable<List<EpisodeEntity>> call(String s) {
+                        Document document = Jsoup.parse(s);
+
+                        int page = DocumentUtils.getPageNum(document);
+                        final List<EpisodeEntity> episodeEntities0 = DocumentUtils.getEpisodes(document);
+                        if (page <= 1) {
+                            return Observable.just(episodeEntities0);
+                        }
+                        return Observable.range(2, page - 1)
+                                .flatMap(new Func1<Integer, Observable<List<EpisodeEntity>>>() {
+                                    @Override
+                                    public Observable<List<EpisodeEntity>> call(Integer integer) {
+                                        Log.i("TAG", "pageIndex = " + integer);
+                                        final Request request1 = new Request.Builder().url(url + "?page=" + integer).get().build();
+                                        return OkHttp.execute(request1).map(new Func1<Response, String>() {
+                                            @Override
+                                            public String call(Response response) {
+                                                try {
+                                                    return response.body().string();
+                                                } catch (IOException e) {
+                                                    throw new OnErrorFailedException(e);
+                                                }
+                                            }
+                                        }).map(new Func1<String, List<EpisodeEntity>>() {
+                                            @Override
+                                            public List<EpisodeEntity> call(String s) {
+                                                return DocumentUtils.getEpisodes(Jsoup.parse(s));
+                                            }
+                                        });
+                                    }
+                                }).toList().map(new Func1<List<List<EpisodeEntity>>, List<EpisodeEntity>>() {
+                                    @Override
+                                    public List<EpisodeEntity> call(List<List<EpisodeEntity>> lists) {
+                                        Log.i("Tag", "tolist");
+                                        for (List<EpisodeEntity> episodeEntities : lists) {
+                                            episodeEntities0.addAll(episodeEntities);
+                                        }
+                                        return episodeEntities0;
+                                    }
+                                });
+                    }
+                });
+    }
 
     @Override
     public Observable<List<PodcastEntity>> getPodcasts(final int page) {
@@ -70,6 +134,7 @@ public class RestApiImpl implements RestApi {
     @Override
     public Observable<PodcastEntity> getPodcast(String id) {
         final String url = BASE_URL + "/programmes/" + id + "/episodes/downloads.rss";
+
         final Request request = new Request.Builder().url(url).get().build();
         return OkHttp.execute(request).map(new Func1<Response, InputStream>() {
             @Override
@@ -88,9 +153,12 @@ public class RestApiImpl implements RestApi {
                 podcastEntity.setName(itunesChannel.getTitle());
                 podcastEntity.setArtwork(itunesChannel.getImage().getUrl());
                 podcastEntity.setLastUpdate(itunesChannel.getLastBuildDate());
+                podcastEntity.setDaysLive(itunesChannel.getPpgSeriesDetails().getDaysLive());
+                podcastEntity.setFrequency(itunesChannel.getPpgSeriesDetails().getFrequency());
                 List<EpisodeEntity> episodes = new ArrayList<>();
                 for (ItunesItem itunesItem : itunesChannel.getItunesItems()) {
                     EpisodeEntity episode = new EpisodeEntity();
+                    episode.setId(itunesItem.getPpgCanonical().substring("/programmes/".length()));
                     episode.setTitle(itunesItem.getTitle());
                     episode.setDescription(itunesItem.getDescription());
                     episode.setDuration(itunesItem.getItunesDuration());
@@ -100,6 +168,21 @@ public class RestApiImpl implements RestApi {
                     episodes.add(episode);
                 }
                 podcastEntity.setEpisodes(episodes);
+                return podcastEntity;
+            }
+        }).zipWith(getEpisodes(id), new Func2<PodcastEntity, List<EpisodeEntity>, PodcastEntity>() {
+            @Override
+            public PodcastEntity call(PodcastEntity podcastEntity, List<EpisodeEntity> episodeEntities1) {
+                List<EpisodeEntity> episodeEntities0 = podcastEntity.getEpisodes();
+                if (episodeEntities0.size() == episodeEntities1.size()){
+                    for (int i =0; i< podcastEntity.getEpisodes().size(); i++){
+                        EpisodeEntity episodeEntity0 = episodeEntities0.get(i);
+                        EpisodeEntity episodeEntity1 = episodeEntities1.get(i);
+                        if (episodeEntity0.getId().equals(episodeEntity1.getId())){
+                            episodeEntity0.setArtwork(episodeEntity1.getArtwork());
+                        }
+                    }
+                }
                 return podcastEntity;
             }
         });
@@ -125,19 +208,20 @@ public class RestApiImpl implements RestApi {
                 JSONArray array = null;
                 try {
                     array = new JSONArray(s);
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject object = array.optJSONObject(i);
+                        PodcastEntity podcastEntity = new PodcastEntity();
+                        podcastEntity.setId(object.optString("pid"));
+                        podcastEntity.setName(object.optString("title"));
+                        podcastEntity.setHref(object.optString("link"));
+                        podcastEntity.setArtwork(object.optString("image"));
+                        podcastEntity.setDescription(object.optString("description"));
+                        podcastEntities.add(podcastEntity);
+                    }
                 } catch (JSONException e) {
                     throw new OnErrorFailedException(e);
                 }
-                for (int i = 0; i < array.length(); i++) {
-                    JSONObject object = array.optJSONObject(i);
-                    PodcastEntity podcastEntity = new PodcastEntity();
-                    podcastEntity.setId(object.optString("pid"));
-                    podcastEntity.setName(object.optString("title"));
-                    podcastEntity.setHref(object.optString("link"));
-                    podcastEntity.setArtwork(object.optString("image"));
-                    podcastEntity.setDescription(object.optString("description"));
-                    podcastEntities.add(podcastEntity);
-                }
+
                 return podcastEntities;
             }
         });
@@ -145,7 +229,7 @@ public class RestApiImpl implements RestApi {
 
     @Override
     public Observable<CategoryEntity> getCategory(final String categoryId) {
-        final String url = BASE_URL + "podcasts/genre/" + categoryId;
+        final String url = BASE_URL + "/podcasts/genre/" + categoryId;
         final Request request = new Request.Builder().url(url).get().build();
         return OkHttp.execute(request)
                 .map(new Func1<Response, String>() {
@@ -182,8 +266,41 @@ public class RestApiImpl implements RestApi {
 
     @Override
     public Observable<List<CategoryEntity>> getCategories() {
+        final String url = "https://raw.githubusercontent.com/Aspsine/Podcast/dev/data/src/main/assets/categories.json";
+        final Request request = new Request.Builder().url(url).get().build();
 
-        return null;
+        return OkHttp.execute(request)
+                .map(new Func1<Response, String>() {
+                    @Override
+                    public String call(Response response) {
+                        try {
+                            return response.body().string();
+                        } catch (IOException e) {
+                            throw new OnErrorFailedException(e);
+                        }
+                    }
+                }).map(new Func1<String, List<CategoryEntity>>() {
+                    @Override
+                    public List<CategoryEntity> call(String s) {
+                        List<CategoryEntity> categoryEntities = new ArrayList<>();
+                        try {
+                            JSONObject json = new JSONObject(s);
+                            JSONArray jsonArray = json.optJSONArray("Categories");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                CategoryEntity categoryEntity = new CategoryEntity();
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                categoryEntity.setName(jsonObject.optString("name"));
+                                String href = jsonObject.optString("href");
+                                categoryEntity.setHref(href);
+                                categoryEntity.setId(href.substring("/podcasts/genre/".length()));
+                                categoryEntities.add(categoryEntity);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        return categoryEntities;
+                    }
+                });
     }
 
     @Override
@@ -193,7 +310,7 @@ public class RestApiImpl implements RestApi {
 
     @Override
     public Observable<List<StationEntity>> getStations() {
-        final String url = BASE_URL + "/podcasts";
+        final String url = "https://raw.githubusercontent.com/Aspsine/Podcast/dev/data/src/main/assets/stations.json";
         final Request request = new Request.Builder().url(url).get().build();
         return OkHttp.execute(request)
                 .map(new Func1<Response, String>() {
@@ -206,9 +323,25 @@ public class RestApiImpl implements RestApi {
                         }
                     }
                 }).map(new Func1<String, List<StationEntity>>() {
+                    List<StationEntity> stationEntities = new ArrayList<>();
+
                     @Override
                     public List<StationEntity> call(String s) {
-                        return DocumentUtils.getStations(Jsoup.parse(s));
+                        try {
+                            JSONArray jsonArray = new JSONArray(s);
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                StationEntity stationEntity = new StationEntity();
+                                stationEntity.setName(jsonObject.optString("name"));
+                                String href = jsonObject.optString("href");
+                                stationEntity.setHref(href);
+                                stationEntity.setId(href.substring("/podcasts/".length()));
+                                stationEntities.add(stationEntity);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        return stationEntities;
                     }
                 });
     }

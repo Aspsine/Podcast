@@ -1,6 +1,7 @@
 package com.aspsine.podcast.data.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by littlexi on 2015/4/12.
@@ -9,7 +10,8 @@ public class StationEntity implements Serializable{
     private String id;
     private String name;
     private String href;
-    private int color;
+    private String image;
+    private List<PodcastEntity> podcastEntities;
 
     public String getId() {
         return id;
@@ -35,11 +37,19 @@ public class StationEntity implements Serializable{
         this.href = href;
     }
 
-    public int getColor() {
-        return color;
+    public String getImage() {
+        return image;
     }
 
-    public void setColor(int color) {
-        this.color = color;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public List<PodcastEntity> getPodcastEntities() {
+        return podcastEntities;
+    }
+
+    public void setPodcastEntities(List<PodcastEntity> podcastEntities) {
+        this.podcastEntities = podcastEntities;
     }
 }

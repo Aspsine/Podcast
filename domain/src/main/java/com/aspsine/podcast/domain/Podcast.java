@@ -13,6 +13,8 @@ public class Podcast {
     private String artwork;
     private String station;
     private String lastUpdate;
+    private String frequency;
+    private String daysLive;
     private String description;
 
     public String getId() {
@@ -69,5 +71,21 @@ public class Podcast {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
+    }
+
+    public String getDaysLive() {
+        return daysLive;
+    }
+
+    public void setDaysLive(String daysLive) {
+        this.daysLive = daysLive;
     }
 }

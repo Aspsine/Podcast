@@ -17,6 +17,10 @@ public class PodcastViewModel implements ItemViewModel{
         this.podcast = new Podcast();
     }
 
+    public PodcastViewModel(Podcast podcast) {
+        this.podcast = podcast;
+    }
+
     public String getId() {
         return podcast.getId();
     }

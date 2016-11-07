@@ -1,8 +1,6 @@
 package com.aspsine.podcast.data.entity.mapper;
 
-import com.aspsine.podcast.data.entity.EpisodeEntity;
 import com.aspsine.podcast.data.entity.PodcastEntity;
-import com.aspsine.podcast.domain.Episode;
 import com.aspsine.podcast.domain.Podcast;
 
 import java.util.ArrayList;
@@ -14,6 +12,12 @@ import java.util.List;
 
 public class PodcastDataMapper {
 
+    private EpisodeDataMapper mEpisodeDataMapper;
+
+    public PodcastDataMapper() {
+        mEpisodeDataMapper = new EpisodeDataMapper();
+    }
+
     public Podcast transform(PodcastEntity podcastEntity) {
         Podcast podcast = new Podcast();
         podcast.setId(podcastEntity.getId());
@@ -22,17 +26,7 @@ public class PodcastDataMapper {
         podcast.setDescription(podcastEntity.getDescription());
         podcast.setLastUpdate(podcastEntity.getLastUpdate());
         if (podcastEntity.getEpisodes() != null) {
-            List<Episode> episodes = new ArrayList<Episode>();
-            for (EpisodeEntity episodeEntity : podcastEntity.getEpisodes()) {
-                Episode episode = new Episode();
-                episode.setId(episodeEntity.getId());
-                episode.setTitle(episodeEntity.getTitle());
-                episode.setDescription(episodeEntity.getDescription());
-                episode.setArtwork(episodeEntity.getArtwork());
-                episode.setPubDate(episodeEntity.getPubDate());
-                episodes.add(episode);
-            }
-            podcast.setEpisodes(episodes);
+            podcast.setEpisodes(mEpisodeDataMapper.transform(podcastEntity.getEpisodes()));
         }
         return podcast;
     }

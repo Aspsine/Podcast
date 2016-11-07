@@ -1,9 +1,10 @@
 package com.aspsine.podcast.data.utils;
 
-import com.aspsine.podcast.data.entity.CategoryEntity;
+import android.util.Log;
+
+import com.aspsine.podcast.data.entity.EpisodeEntity;
 import com.aspsine.podcast.data.entity.PageEntity;
 import com.aspsine.podcast.data.entity.PodcastEntity;
-import com.aspsine.podcast.data.entity.StationEntity;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -53,17 +54,30 @@ public class DocumentUtils {
         return page;
     }
 
-    public static List<StationEntity> getStations(Document document){
-        List<StationEntity> stationEntities = new ArrayList<>();
-        Element stationTbody = document.getElementsByClass("stations-list active").get(0).getElementsByTag("tbody").get(0);
-        Elements elementAs = stationTbody.getElementsByTag("a");
-        for (Element elementA : elementAs){
-            StationEntity stationEntity = new StationEntity();
-            stationEntity.setName(elementA.text());
-            String href = elementA.attr("href");
-            stationEntity.setHref(href);
-            stationEntity.setId(href.substring("/podcasts/".length()));
+    public static List<EpisodeEntity> getEpisodes(Document document) {
+        List<EpisodeEntity> episodeEntities = new ArrayList<>();
+        Element podcastElement = document.getElementById("programmes-main-content");
+        Elements episodeDevs = podcastElement.getElementsByClass("programme--episode");
+        for (Element episodeDev : episodeDevs) {
+            EpisodeEntity episodeEntity = new EpisodeEntity();
+            episodeEntity.setId(episodeDev.attr("data-pid"));
+            episodeEntity.setArtwork(episodeDev.getElementsByTag("meta").get(0).attr("content"));
+            episodeEntities.add(episodeEntity);
         }
-        return stationEntities;
+        return episodeEntities;
+    }
+
+    public static int getPageNum(Document document) {
+        Elements pageOlElements = document.getElementsByClass("pagination--on-endpage");
+        if (pageOlElements != null && pageOlElements.size() > 0) {
+            Elements pageElements = pageOlElements.get(0).getElementsByClass("pagination__page--last");
+            if (!pageElements.isEmpty()) {
+                Element elementA = pageElements.get(0).getElementsByClass("br-page-link-onbg015").get(0);
+                String page = elementA.text();
+                Log.i("page", "page = " + page);
+                return Integer.valueOf(page.trim());
+            }
+        }
+        return 1;
     }
 }

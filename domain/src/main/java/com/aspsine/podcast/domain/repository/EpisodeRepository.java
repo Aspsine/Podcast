@@ -16,4 +16,6 @@ public interface EpisodeRepository {
 
     Observable<List<Episode>> episodes();
 
+    Observable<List<Episode>> getEpisodes(String podcastId);
+
 }

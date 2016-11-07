@@ -9,6 +9,7 @@ import android.view.ViewTreeObserver;
 import com.aspsine.podcast.ui.main.featured.item.podcast.PodcastListViewModel;
 import com.aspsine.podcast.ui.main.featured.item.station.StationListViewModel;
 import com.aspsine.podcast.ui.main.featured.item.tag.TagListViewModel;
+import com.aspsine.podcast.util.L;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewAdapter;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
 
@@ -22,7 +23,25 @@ class FeaturedAdapter extends ItemViewAdapter<ItemViewModel> {
 
     private SparseArray<Parcelable> mSavedStates = new SparseArray<>();
 
-    public void clearSavedStates(){
+    private RecyclerView.RecycledViewPool mRecycledViewPool;
+
+    public void setRecycledViewPool(RecyclerView.RecycledViewPool recycledViewPool) {
+        this.mRecycledViewPool = recycledViewPool;
+    }
+
+    @Override
+    public void setList(List<ItemViewModel> itemViewModels) {
+        clearSavedStates();
+        super.setList(itemViewModels);
+    }
+
+    @Override
+    public void clear() {
+        clearSavedStates();
+        super.clear();
+    }
+
+    public void clearSavedStates() {
         this.mSavedStates.clear();
     }
 
@@ -44,12 +63,16 @@ class FeaturedAdapter extends ItemViewAdapter<ItemViewModel> {
         }
 
         if (recyclerView != null) {
+
+            recyclerView.setRecycledViewPool(mRecycledViewPool);
+
             recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                         int position = viewHolder.getAdapterPosition();
                         mSavedStates.put(position, recyclerView.getLayoutManager().onSaveInstanceState());
+                        L.i("position = " + position);
                     }
                 }
             });
@@ -78,6 +101,7 @@ class FeaturedAdapter extends ItemViewAdapter<ItemViewModel> {
         if (recyclerView != null) {
             final Parcelable parcelable = mSavedStates.get(position);
             if (parcelable != null) {
+                L.i("parcelable = " + position);
                 final RecyclerView finalRecyclerView = recyclerView;
                 recyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                     @Override
@@ -89,10 +113,9 @@ class FeaturedAdapter extends ItemViewAdapter<ItemViewModel> {
                 });
             } else {
                 recyclerView.scrollToPosition(0);
-                super.onBindViewHolder(holder, position);
             }
-        } else {
-            super.onBindViewHolder(holder, position);
         }
+        super.onBindViewHolder(holder, position);
+
     }
 }

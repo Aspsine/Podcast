@@ -1,7 +1,5 @@
 package com.aspsine.podcast.data.entity;
 
-import com.aspsine.podcast.domain.Podcast;
-
 import java.util.List;
 
 /**
@@ -10,6 +8,8 @@ import java.util.List;
 
 public class CategoryEntity {
     private String id;
+
+    private String href;
 
     private String name;
 
@@ -21,6 +21,14 @@ public class CategoryEntity {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
     }
 
     public String getName() {

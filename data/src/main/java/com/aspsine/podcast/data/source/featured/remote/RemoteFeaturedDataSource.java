@@ -50,6 +50,17 @@ public class RemoteFeaturedDataSource implements FeaturedDataSource {
             public Observable<CategoryEntity> call(List<CategoryEntity> categoryEntities) {
                 return Observable.from(categoryEntities);
             }
+        }).flatMap(new Func1<CategoryEntity, Observable<CategoryEntity>>() {
+            @Override
+            public Observable<CategoryEntity> call(final CategoryEntity categoryEntity1) {
+                return categoryDataSource.getCategory(categoryEntity1.getId()).map(new Func1<CategoryEntity, CategoryEntity>() {
+                    @Override
+                    public CategoryEntity call(CategoryEntity categoryEntity) {
+                        categoryEntity.setName(categoryEntity1.getName());
+                        return categoryEntity;
+                    }
+                });
+            }
         }).map(new Func1<CategoryEntity, FeaturedEntity>() {
             @Override
             public FeaturedEntity call(CategoryEntity categoryEntity) {
@@ -69,6 +80,7 @@ public class RemoteFeaturedDataSource implements FeaturedDataSource {
             public FeaturedEntity call(List<StationEntity> stationEntities) {
                 FeaturedEntity featuredEntity = new FeaturedEntity();
                 featuredEntity.setType(FeaturedEntity.TYPE_FEATURED_STATION_LIST);
+                featuredEntity.setStationEntities(stationEntities);
                 return featuredEntity;
             }
         });

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aspsine.podcast.R;
+import com.aspsine.podcast.ui.podcast.PodcastActivity;
 import com.aspsine.podcast.util.DisplayUtil;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewHolder;
 import com.bumptech.glide.Glide;
@@ -39,9 +40,15 @@ public class PodcastViewHolder extends RecyclerView.ViewHolder implements ItemVi
     }
 
     @Override
-    public void onBindViewHolder(int position, PodcastViewModel podcastViewModel) {
+    public void onBindViewHolder(int position, final PodcastViewModel podcastViewModel) {
         Glide.with(ivCover.getContext()).load(podcastViewModel.getArtwork()).centerCrop().into(ivCover);
         tvPodcastName.setText(podcastViewModel.getName());
         tvStationName.setText(podcastViewModel.getStation());
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PodcastActivity.intentInto(view.getContext(), podcastViewModel.getId());
+            }
+        });
     }
 }

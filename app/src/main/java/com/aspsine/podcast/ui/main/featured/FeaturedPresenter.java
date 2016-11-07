@@ -3,18 +3,27 @@ package com.aspsine.podcast.ui.main.featured;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
+import com.aspsine.podcast.data.entity.mapper.FeaturedDataMapper;
+import com.aspsine.podcast.data.repository.FeaturedDataRepository;
+import com.aspsine.podcast.data.source.featured.FeaturedDataSourceFactory;
+import com.aspsine.podcast.domain.Featured;
+import com.aspsine.podcast.domain.interactor.GetFeaturedList;
+import com.aspsine.podcast.domain.repository.FeaturedRepository;
 import com.aspsine.podcast.ui.main.featured.item.banner.BannerViewModel;
 import com.aspsine.podcast.ui.main.featured.item.podcast.PodcastListViewModel;
 import com.aspsine.podcast.ui.main.featured.item.podcast.PodcastViewModel;
 import com.aspsine.podcast.ui.main.featured.item.station.StationListViewModel;
 import com.aspsine.podcast.ui.main.featured.item.station.StationViewModel;
-import com.aspsine.podcast.ui.main.featured.item.tag.TagListViewModel;
-import com.aspsine.podcast.ui.main.featured.item.tag.TagViewModel;
 import com.aspsine.podcast.ui.main.featured.item.title.TitleViewModel;
+import com.aspsine.podcast.ui.main.featured.mapper.FeaturedViewModelDataMapper;
 import com.aspsine.podcast.widget.recyclerView.item.ItemViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by aspsine on 16/9/11.
@@ -24,10 +33,19 @@ public class FeaturedPresenter implements FeaturedContract.Presenter {
 
     private FeaturedContract.View mView;
 
+    private GetFeaturedList mGetFeaturedList;
+
+    private FeaturedViewModelDataMapper mFeaturedViewModelDataMapper;
+
     private int mPage;
 
     public FeaturedPresenter(@NonNull FeaturedContract.View view) {
         this.mView = view;
+        mFeaturedViewModelDataMapper = new FeaturedViewModelDataMapper();
+        FeaturedDataSourceFactory factory = new FeaturedDataSourceFactory();
+        FeaturedDataMapper featuredDataMapper = new FeaturedDataMapper();
+        FeaturedRepository featuredRepository = new FeaturedDataRepository(featuredDataMapper, factory);
+        mGetFeaturedList = new GetFeaturedList(featuredRepository, Schedulers.io(), AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -38,13 +56,25 @@ public class FeaturedPresenter implements FeaturedContract.Presenter {
 
     @Override
     public void refresh() {
-        new Handler().postDelayed(new Runnable() {
+        mGetFeaturedList.execute(new Subscriber<List<Featured>>() {
             @Override
-            public void run() {
-                mView.bindRefreshData(getMockedRefreshItems());
+            public void onCompleted() {
                 mView.stopRefresh();
             }
-        }, 500);
+
+            @Override
+            public void onError(Throwable e) {
+                mView.stopRefresh();
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onNext(List<Featured> featureds) {
+                mView.bindRefreshData(mFeaturedViewModelDataMapper.transform(featureds));
+            }
+        });
+//        mView.bindRefreshData(getMockedRefreshItems());
+//        mView.stopRefresh();
     }
 
     @Override

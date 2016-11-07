@@ -22,6 +22,9 @@ public class Featured {
 
     private List<Station> stations;
 
+    public Featured() {
+    }
+
     public Featured(int type) {
     }
 

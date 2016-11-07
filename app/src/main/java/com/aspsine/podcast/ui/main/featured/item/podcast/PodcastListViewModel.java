@@ -11,6 +11,13 @@ import java.util.List;
 public class PodcastListViewModel implements ItemViewModel {
     private List<PodcastViewModel> podcastViewModels;
 
+    public PodcastListViewModel() {
+    }
+
+    public PodcastListViewModel(List<PodcastViewModel> podcastViewModels) {
+        this.podcastViewModels = podcastViewModels;
+    }
+
     public List<PodcastViewModel> getPodcastViewModels() {
         return podcastViewModels;
     }

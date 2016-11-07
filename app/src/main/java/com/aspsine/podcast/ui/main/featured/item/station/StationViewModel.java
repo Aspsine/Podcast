@@ -13,6 +13,10 @@ import java.util.List;
 public class StationViewModel implements ItemViewModel{
     private final Station station;
 
+    public StationViewModel(Station station) {
+        this.station = station;
+    }
+
     public StationViewModel() {
         station = new Station();
     }
