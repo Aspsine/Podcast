@@ -53,6 +53,7 @@ public class App extends Application{
     /**
      * issue: retrofit Memory leak in Strict Mode
      * https://github.com/square/retrofit/issues/801
+     * test change
      */
     private void setStrictMode() {
         if (BuildConfig.DEBUG) {
