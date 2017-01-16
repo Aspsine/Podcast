@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.aspsine.podcast.R;
 import com.aspsine.podcast.ui.base.BaseFragment;
@@ -124,7 +125,8 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
 
     @Override
     public void refreshError() {
-        stopLoadMore();
+        Toast.makeText(getActivity(), "Refresh error!", Toast.LENGTH_SHORT).show();
+        stopRefresh();
     }
 
     @Override

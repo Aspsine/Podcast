@@ -127,6 +127,11 @@ public class PodcastFragment extends BaseFragment implements PodcastContract.Vie
         mPresenter.start();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.destroy();
+    }
 
     @Override
     public void startRefresh() {

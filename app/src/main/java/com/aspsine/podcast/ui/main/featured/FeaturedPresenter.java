@@ -64,7 +64,7 @@ public class FeaturedPresenter implements FeaturedContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
-                mView.stopRefresh();
+                mView.refreshError();
                 e.printStackTrace();
             }
 

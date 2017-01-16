@@ -27,5 +27,6 @@ public interface PodcastContract {
 
         void refresh();
 
+        void destroy();
     }
 }

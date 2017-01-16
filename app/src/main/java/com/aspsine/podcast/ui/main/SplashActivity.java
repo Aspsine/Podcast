@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.aspsine.podcast.R;
-import com.aspsine.podcast.ui.main.MainActivity;
 
 public class SplashActivity extends Activity {
 

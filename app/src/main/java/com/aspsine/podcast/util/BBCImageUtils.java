@@ -1,7 +1,5 @@
 package com.aspsine.podcast.util;
 
-import android.util.Log;
-
 /**
  * Created by aspsine on 16/10/28.
  */
@@ -16,7 +14,7 @@ public class BBCImageUtils {
         if (properSize > 1920) {
             properSize = 1920;
         }
-        Log.i("Size", properSize + "");
+        L.i("BBCImageUtils: size:" + properSize);
         return BASE_IMAGE_URL + properSize + "x" + properSize + imageName;
     }
 
