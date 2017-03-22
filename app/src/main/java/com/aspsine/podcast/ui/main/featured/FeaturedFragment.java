@@ -37,7 +37,7 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
 
     private RecyclerView recyclerView;
 
-    private ItemViewAdapter<ItemViewModel> mAdapter;
+    private FeaturedAdapter mAdapter;
 
     public static Fragment newInstance() {
         return new FeaturedFragment();
@@ -58,7 +58,7 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
         FeaturedContract.Presenter presenter = new FeaturedPresenter(this);
         setPresenter(presenter);
         mAdapter = new FeaturedAdapter();
-        ((FeaturedAdapter)mAdapter).setRecycledViewPool(new RecyclerView.RecycledViewPool());
+        mAdapter.setRecycledViewPool(new RecyclerView.RecycledViewPool());
     }
 
     @Override
@@ -86,6 +86,12 @@ public class FeaturedFragment extends BaseFragment implements FeaturedContract.V
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mPresenter.start();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.destroy();
     }
 
     @Override

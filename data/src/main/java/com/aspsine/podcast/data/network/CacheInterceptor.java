@@ -4,6 +4,7 @@ package com.aspsine.podcast.data.network;
 import java.io.IOException;
 
 import okhttp3.Interceptor;
+import okhttp3.Request;
 import okhttp3.Response;
 
 /**
@@ -14,8 +15,12 @@ public class CacheInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
+        Request request = chain.request();
 
-
-        return null;
+        Response response = chain.proceed(request);
+        // Re-write response CC header to force use of cache
+        return response.newBuilder()
+                .header(CACHE_CONTROL, "public, max-age=" + 60 * 10) // 10min
+                .build();
     }
 }

@@ -45,6 +45,11 @@ public class DiscoverPresenter implements DiscoverContract.Presenter {
     }
 
     @Override
+    public void destroy() {
+        mGetPodcasts.unSubscribe();
+    }
+
+    @Override
     public void refresh() {
         mPage = 1;
 

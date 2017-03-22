@@ -44,7 +44,8 @@ public class OkHttp {
         File cacheDir = new File(app.getCacheDir(), "http");
         Cache cache = new Cache(cacheDir, 50 * 1024 * 1024);
         return new OkHttpClient.Builder()
-                .cache(cache);
+                .cache(cache)
+                .addInterceptor(new CacheInterceptor());
     }
 
     public static Observable<Response> execute(final Request request) {

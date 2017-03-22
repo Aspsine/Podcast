@@ -25,6 +25,7 @@ public class PodcastDataMapper {
         podcast.setArtwork(podcastEntity.getArtwork());
         podcast.setDescription(podcastEntity.getDescription());
         podcast.setLastUpdate(podcastEntity.getLastUpdate());
+        podcast.setStation(podcastEntity.getStation());
         if (podcastEntity.getEpisodes() != null) {
             podcast.setEpisodes(mEpisodeDataMapper.transform(podcastEntity.getEpisodes()));
         }

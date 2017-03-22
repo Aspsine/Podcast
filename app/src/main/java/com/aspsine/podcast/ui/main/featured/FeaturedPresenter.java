@@ -55,6 +55,11 @@ public class FeaturedPresenter implements FeaturedContract.Presenter {
     }
 
     @Override
+    public void destroy() {
+        mGetFeaturedList.unSubscribe();
+    }
+
+    @Override
     public void refresh() {
         mGetFeaturedList.execute(new Subscriber<List<Featured>>() {
             @Override

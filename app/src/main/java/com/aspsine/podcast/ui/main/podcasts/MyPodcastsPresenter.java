@@ -22,6 +22,11 @@ public class MyPodcastsPresenter implements MyPodcastsContract.Presenter {
         mView.bindData(getMockedData());
     }
 
+    @Override
+    public void destroy() {
+
+    }
+
     public List<MyPodcastViewModel> getMockedData() {
         List<MyPodcastViewModel> myPodcastViewModels = new ArrayList<>();
 

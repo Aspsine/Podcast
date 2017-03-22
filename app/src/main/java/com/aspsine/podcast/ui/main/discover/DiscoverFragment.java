@@ -77,6 +77,12 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.destroy();
+    }
+
+    @Override
     public void startRefresh() {
         swipeRefreshLayout.post(new Runnable() {
             @Override

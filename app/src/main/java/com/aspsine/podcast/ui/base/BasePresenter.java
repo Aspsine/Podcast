@@ -6,4 +6,6 @@ package com.aspsine.podcast.ui.base;
 
 public interface BasePresenter {
     void start();
+
+    void destroy();
 }
